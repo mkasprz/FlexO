@@ -2,10 +2,7 @@ package sample;
 
 import javafx.application.Application;
 import javafx.event.EventHandler;
-import javafx.scene.Group;
-import javafx.scene.PerspectiveCamera;
-import javafx.scene.PointLight;
-import javafx.scene.Scene;
+import javafx.scene.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.input.ZoomEvent;
@@ -15,6 +12,9 @@ import javafx.scene.shape.Box;
 import javafx.scene.shape.Sphere;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
+
+import java.util.LinkedList;
+import java.util.List;
 
 public class Main extends Application {
 
@@ -60,7 +60,42 @@ public class Main extends Application {
         red.setTranslateY(250);
         red.setTranslateZ(450);
 
-        final Group parent = new Group(red, blue);
+        Kulka kulka1 = new Kulka(250,50, "super kulka 1");
+        Kulka kulka2 = new Kulka(250,450, "super kulka 2");
+        Kulka kulka3 = new Kulka(250,600, "super kulka 3");
+        Sprezynka sprezynka = new Sprezynka();
+        sprezynka.setKulka1(kulka1);
+        sprezynka.setKulka2(kulka2);
+        System.out.println(sprezynka.getKulka1().x);
+        kulka1.x = 123;
+        System.out.println(sprezynka.getKulka1().x);
+        List<Kulka> list = new LinkedList<Kulka>();
+        list.add(kulka1);
+        list.add(kulka2);
+        list.add(kulka3);
+
+
+
+        final PhongMaterial blackMaterial = new PhongMaterial();
+        blackMaterial.setDiffuseColor(Color.BLACK);
+        blackMaterial.setSpecularColor(Color.LIGHTBLUE);
+
+
+        //visualistation
+        List<Node> vislist = new LinkedList<>();
+        for (Kulka kulka : list){
+            Sphere sphere = new Sphere(200);
+            sphere.setMaterial(blackMaterial);
+            sphere.setTranslateX(kulka.x);
+            sphere.setTranslateY(kulka.y);
+            sphere.setTranslateZ(250+kulka.x);
+            vislist.add(sphere);
+        }
+
+        Group parent = new Group(vislist);
+
+
+        //final Group parent = new Group(red, blue);
         parent.setTranslateZ(500);
         parent.setRotationAxis(Rotate.Y_AXIS);
 
