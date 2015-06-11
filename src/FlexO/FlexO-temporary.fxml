@@ -38,6 +38,6 @@
             </TitledPane>
          </children>
       </VBox>
-      <Group />
+      <Group fx:id="group" />
    </children>
 </HBox>
