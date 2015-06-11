@@ -8,7 +8,6 @@ import javafx.scene.PointLight;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
-import javafx.scene.input.ZoomEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
@@ -18,11 +17,12 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
-    double anchorX, anchorY, anchorAngle;
+    double anchorX, anchorY, anchorAngle, lastX, lastY;
 
     private PerspectiveCamera addCamera(Scene scene) {
         PerspectiveCamera perspectiveCamera = new PerspectiveCamera(false);
         scene.setCamera(perspectiveCamera);
+//        perspectiveCamera.;
         return perspectiveCamera;
     }
 
@@ -31,7 +31,7 @@ public class Main extends Application {
      */
     public static void main(String[] args) {
         // Remove this line once dirtyopts bug is fixed for 3D primitive
-        System.setProperty("prism.dirtyopts", "false");
+        //System.setProperty("prism.dirtyopts", "false");
         launch(args);
     }
 
@@ -69,34 +69,45 @@ public class Main extends Application {
 
         final Scene scene = new Scene(root, 500, 500, true);
 
+        blue.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                System.out.println("Im blue!");
+            }
+        });
+
         scene.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override public void handle(MouseEvent event) {
-//                anchorX = scene.getCamera().getTranslateX();
-//                anchorY = scene.getCamera().getTranslateY();
+                anchorX = event.getSceneX();
+                anchorY = event.getSceneY();
+//                lastX = scene.getCamera().getTranslateX();
+//                lastY = scene.getCamera().getTranslateY();
+                lastX = scene.getCamera().getLayoutX();
+                lastY = scene.getCamera().getLayoutY();
 //                scene.getCamera().setTranslateY( + 5);
-                //anchorAngle = parent.getRotate();
+                anchorAngle = parent.getRotate();
+//                System.out.println(lastX);
             }
         });
 
         scene.setOnMouseDragged(new EventHandler<MouseEvent>() {
             @Override public void handle(MouseEvent event) {
+
+                if (event.isPrimaryButtonDown()) {
+//                scene.getCamera().setTranslateX(lastX + (anchorX - event.getSceneX()));
+//                scene.getCamera().setTranslateY(lastY + (anchorY - event.getSceneY()));
+                    scene.getCamera().relocate(lastX + (anchorX - event.getSceneX()), lastY + (anchorY - event.getSceneY()));
+
+                }
+
+                if (event.isSecondaryButtonDown()) {
+
+                    scene.getCamera().setRotate(scene.getCamera().getRotate() + (anchorX - event.getSceneX()));
+
+                }
 //                parent.setRotate(anchorAngle + anchorX -  event.getSceneX());
 
-                System.out.println(event.getSceneX());
 
-                scene.getCamera().setTranslateX((anchorX - event.getSceneX()));
-                scene.getCamera().setTranslateY((anchorY - event.getSceneY()));
-
-//                scene.getCamera().setTranslateX(0);
-//                scene.getCamera().setTranslateY(0);
-            }
-        });
-
-        scene.setOnMouseReleased(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                anchorX = scene.getCamera().getTranslateX();
-                anchorY = scene.getCamera().getTranslateY();
             }
         });
 
