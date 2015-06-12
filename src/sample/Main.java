@@ -22,7 +22,7 @@ public class Main extends Application {
     private PerspectiveCamera addCamera(Scene scene) {
         PerspectiveCamera perspectiveCamera = new PerspectiveCamera(false);
         scene.setCamera(perspectiveCamera);
-//        perspectiveCamera.;
+
         return perspectiveCamera;
     }
 
@@ -37,7 +37,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        primaryStage.setTitle("SphereAndBox");
+        primaryStage.setTitle("");
 
         final PhongMaterial redMaterial = new PhongMaterial();
         redMaterial.setSpecularColor(Color.ORANGE);
@@ -62,7 +62,7 @@ public class Main extends Application {
 
         Kulka kulka1 = new Kulka(250,50, "super kulka 1");
         Kulka kulka2 = new Kulka(250,450, "super kulka 2");
-        Kulka kulka3 = new Kulka(250,600, "super kulka 3");
+        Kulka kulka3 = new Kulka(250,1000, "super kulka 3");
         Sprezynka sprezynka = new Sprezynka();
         sprezynka.setKulka1(kulka1);
         sprezynka.setKulka2(kulka2);
@@ -81,10 +81,11 @@ public class Main extends Application {
         blackMaterial.setSpecularColor(Color.LIGHTBLUE);
 
 
+
         //visualistation
         List<Node> vislist = new LinkedList<>();
         for (Kulka kulka : list){
-            Sphere sphere = new Sphere(200);
+            Sphere sphere = new Sphere(100);
             sphere.setMaterial(blackMaterial);
             sphere.setTranslateX(kulka.x);
             sphere.setTranslateY(kulka.y);
@@ -92,7 +93,7 @@ public class Main extends Application {
             vislist.add(sphere);
         }
 
-        Group parent = new Group(vislist);
+        final Group parent = new Group(vislist);
 
 
         //final Group parent = new Group(red, blue);
@@ -112,7 +113,8 @@ public class Main extends Application {
         });
 
         scene.setOnMousePressed(new EventHandler<MouseEvent>() {
-            @Override public void handle(MouseEvent event) {
+            @Override
+            public void handle(MouseEvent event) {
                 anchorX = event.getSceneX();
                 anchorY = event.getSceneY();
 //                lastX = scene.getCamera().getTranslateX();
@@ -126,7 +128,8 @@ public class Main extends Application {
         });
 
         scene.setOnMouseDragged(new EventHandler<MouseEvent>() {
-            @Override public void handle(MouseEvent event) {
+            @Override
+            public void handle(MouseEvent event) {
 
                 if (event.isPrimaryButtonDown()) {
 //                scene.getCamera().setTranslateX(lastX + (anchorX - event.getSceneX()));
@@ -137,7 +140,7 @@ public class Main extends Application {
 
                 if (event.isSecondaryButtonDown()) {
 
-                    scene.getCamera().setRotate(scene.getCamera().getRotate() + (anchorX - event.getSceneX()));
+                    scene.getCamera().setRotate(scene.getCamera().getRotate() - (anchorX - event.getSceneX()));
 
                 }
 //                parent.setRotate(anchorAngle + anchorX -  event.getSceneX());
@@ -164,5 +167,8 @@ public class Main extends Application {
         addCamera(scene);
         primaryStage.setScene(scene);
         primaryStage.show();
+
+//        vislist.get(0).setRotationAxis(Rotate.X_AXIS);
+//        scene.getCamera().setRotationAxis(vislist.get(0).);
     }
 }

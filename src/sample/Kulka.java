@@ -5,8 +5,8 @@ package sample;
  */
 public class Kulka {
 
-    int x;
-    int y;
+    public int x;
+    public int y;
     String nazwa;
 
     public Kulka(int x, int y, String nazwa) {

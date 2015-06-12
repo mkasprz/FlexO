@@ -10,7 +10,7 @@
    <children>
       <VBox prefHeight="200.0" prefWidth="200.0">
          <children>
-            <TitledPane prefWidth="200.0" animated="false">
+            <TitledPane text="TreeView" prefWidth="200.0" animated="false">
                <content>
                   <ScrollPane prefHeight="9999.0" prefWidth="200.0">
                      <content>
@@ -23,7 +23,7 @@
                   </ScrollPane>
                </content>
             </TitledPane>
-            <TitledPane prefWidth="200.0" animated="false">
+            <TitledPane text="Properties" prefWidth="200.0" animated="false">
                <content>
                   <ScrollPane prefHeight="9999.0" prefWidth="200.0">
                      <content>
@@ -38,6 +38,6 @@
             </TitledPane>
          </children>
       </VBox>
-      <Group fx:id="group" />
+
    </children>
 </HBox>
