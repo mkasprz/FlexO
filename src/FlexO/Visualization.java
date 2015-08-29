@@ -2,15 +2,15 @@ package FlexO;
 
 import javafx.event.EventHandler;
 import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.PointLight;
+import javafx.scene.SubScene;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
-import javafx.scene.shape.Box;
+import javafx.scene.shape.Cylinder;
 import javafx.scene.shape.Sphere;
-import sample.Kulka;
-import sample.Sprezynka;
+import sample.Node;
+import sample.Spring;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -22,43 +22,45 @@ public class Visualization {
 
     double anchorX, anchorY, anchorAngle, lastX, lastY;
 
-    public Visualization(final Group group) {
+    public Visualization(SubScene subScene) {
 
-        final PhongMaterial redMaterial = new PhongMaterial();
-        redMaterial.setSpecularColor(Color.ORANGE);
-        redMaterial.setDiffuseColor(Color.RED);
+//        subScene.setHeight(300);
+//        subScene.setWidth(800);
 
-        final PhongMaterial blueMaterial = new PhongMaterial();
-        blueMaterial.setDiffuseColor(Color.BLUE);
-        blueMaterial.setSpecularColor(Color.LIGHTBLUE);
+//        final PhongMaterial redMaterial = new PhongMaterial();
+//        redMaterial.setSpecularColor(Color.ORANGE);
+//        redMaterial.setDiffuseColor(Color.RED);
+//
+//        final PhongMaterial blueMaterial = new PhongMaterial();
+//        blueMaterial.setDiffuseColor(Color.BLUE);
+//        blueMaterial.setSpecularColor(Color.LIGHTBLUE);
+//
+//        final Box red = new Box(400, 400, 400);
+//        red.setMaterial(redMaterial);
+//
+//        final javafx.scene.shape.Node blue = new javafx.scene.shape.Node(200);
+//        blue.setMaterial(blueMaterial);
+//
+//        blue.setTranslateX(250);
+//        blue.setTranslateY(250);
+//        blue.setTranslateZ(50);
+//        red.setTranslateX(250);
+//        red.setTranslateY(250);
+//        red.setTranslateZ(450);
 
-        final Box red = new Box(400, 400, 400);
-        red.setMaterial(redMaterial);
-
-        final Sphere blue = new Sphere(200);
-        blue.setMaterial(blueMaterial);
-
-        blue.setTranslateX(250);
-        blue.setTranslateY(250);
-        blue.setTranslateZ(50);
-        red.setTranslateX(250);
-        red.setTranslateY(250);
-        red.setTranslateZ(450);
-
-        Kulka kulka1 = new Kulka(250,50, "super kulka 1");
-        Kulka kulka2 = new Kulka(250,450, "super kulka 2");
-        Kulka kulka3 = new Kulka(250,1000, "super kulka 3");
-        Sprezynka sprezynka = new Sprezynka();
-        sprezynka.setKulka1(kulka1);
-        sprezynka.setKulka2(kulka2);
-        System.out.println(sprezynka.getKulka1().x);
-        kulka1.x = 123;
-        System.out.println(sprezynka.getKulka1().x);
-        List<Kulka> list = new LinkedList<Kulka>();
-        list.add(kulka1);
-        list.add(kulka2);
-        list.add(kulka3);
-
+        Node node1 = new Node(200, 50, "super kulka 1");
+        Node node2 = new Node(300, 50, "super kulka 2");
+        Node node3 = new Node(400, 50, "super kulka 3");
+        Spring spring = new Spring();
+        spring.setNode1(node1);
+        spring.setNode2(node2);
+        System.out.println(spring.getNode1().x);
+        node1.x = 123;
+        System.out.println(spring.getNode1().x);
+        List<Node> list = new LinkedList<Node>();
+        list.add(node1);
+        list.add(node2);
+        list.add(node3);
 
 
         final PhongMaterial blackMaterial = new PhongMaterial();
@@ -68,20 +70,21 @@ public class Visualization {
 
 
         //visualistation
-        List<Node> vislist = new LinkedList<>();
-        for (Kulka kulka : list){
+        List<javafx.scene.Node> vislist = new LinkedList<>();
+        for (Node Node : list){
             Sphere sphere = new Sphere(100);
             sphere.setMaterial(blackMaterial);
-            sphere.setTranslateX(kulka.x);
-            sphere.setTranslateY(kulka.y);
-            sphere.setTranslateZ(250+kulka.x);
+            sphere.setTranslateX(Node.x);
+            sphere.setTranslateY(Node.y);
+//            sphere.setTranslateZ(250+ Node.x);
             vislist.add(sphere);
         }
 
+        vislist.add(new Cylinder(10, 100));
         final Group parent = new Group(vislist);
 
 
-        group.getChildren().addAll(vislist);
+//        group.getChildren().addAll(vislist);
 
         //final Group parent = new Group(red, blue);
 //        parent.setTranslateZ(500);
@@ -89,17 +92,21 @@ public class Visualization {
 
 
         final Group root = new Group(parent);
+        subScene.setRoot(root);
 
-//        final Scene scene = new Scene(root, 500, 500, true);
+//        pane.getChildren().setAll(root);
 
-        blue.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                System.out.println("Im blue!");
-            }
-        });
 
-//        group.setOnMousePressed(new EventHandler<MouseEvent>() {
+//        final Scene scene = new Scene(root, 500, 500, spokotrue);
+
+//        blue.setOnMouseClicked(new EventHandler<MouseEvent>() {
+//            @Override
+//            public void handle(MouseEvent event) {
+//                System.out.println("Im blue!");
+//            }
+//        });
+
+//        root.setOnMousePressed(new EventHandler<MouseEvent>() {
 //            @Override
 //            public void handle(MouseEvent event) {
 //                anchorX = event.getSceneX();
@@ -114,27 +121,28 @@ public class Visualization {
 //            }
 //        });
 //
-//        group.setOnMouseDragged(new EventHandler<MouseEvent>() {
-//            @Override
-//            public void handle(MouseEvent event) {
-//
-//                if (event.isPrimaryButtonDown()) {
+        root.setOnMouseDragged(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+
+                if (event.isPrimaryButtonDown()) {
 ////                scene.getCamera().setTranslateX(lastX + (anchorX - event.getSceneX()));
 ////                scene.getCamera().setTranslateY(lastY + (anchorY - event.getSceneY()));
 //                    red.getCamera().relocate(lastX + (anchorX - event.getSceneX()), lastY + (anchorY - event.getSceneY()));
-//
-//                }
-//
-//                if (event.isSecondaryButtonDown()) {
-//
+                    root.setTranslateX(event.getSceneX());
+                    root.setTranslateY(event.getSceneY());
+                }
+
+                if (event.isSecondaryButtonDown()) {
+
 //                    red.getCamera().setRotate(red.getCamera().getRotate() - (anchorX - event.getSceneX()));
-//
-//                }
-////                parent.setRotate(anchorAngle + anchorX -  event.getSceneX());
-//
-//
-//            }
-//        });
+
+                }
+//                parent.setRotate(anchorAngle + anchorX -  event.getSceneX());
+
+
+            }
+        });
 
 //        group.setOnScroll(new EventHandler<ScrollEvent>() {
 //            @Override
@@ -149,7 +157,7 @@ public class Visualization {
         pointLight.setTranslateY(-10);
         pointLight.setTranslateZ(-100);
 
-        group.getChildren().add(pointLight);
+//        group.getChildren().add(pointLight);
 
 //        addCamera(red);
 //        primaryStage.setScene(red);

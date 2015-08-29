@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<SplitPane dividerPositions="0.5" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <items>
+      <VBox>
+         <children>
+            <TitledPane animated="true" prefWidth="200.0" text="TreeView">
+               <content>
+                  <ScrollPane maxHeight="Infinity" prefWidth="200.0">
+                     <content>
+                        <VBox maxHeight="Infinity" prefWidth="100.0">
+                           <children>
+                              <TreeView maxHeight="Infinity" />
+                           </children>
+                        </VBox>
+                     </content>
+                  </ScrollPane>
+               </content>
+            </TitledPane>
+            <TitledPane animated="true" prefWidth="200.0" text="Properties">
+               <content>
+                  <ScrollPane maxHeight="Infinity">
+                     <content>
+                        <VBox fx:id="propertiesVBox" maxHeight="Infinity" />
+                     </content>
+                  </ScrollPane>
+               </content>
+            </TitledPane>
+         </children>
+      </VBox>
+      <Pane fx:id="pane">
+         <SubScene fx:id="subScene">
+
+         </SubScene>
+      </Pane>
+   </items>
+</SplitPane>

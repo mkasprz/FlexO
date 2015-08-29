@@ -8,7 +8,6 @@ import javafx.scene.input.ScrollEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
-import javafx.scene.shape.Sphere;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
 
@@ -50,7 +49,7 @@ public class Main extends Application {
         final Box red = new Box(400, 400, 400);
         red.setMaterial(redMaterial);
 
-        final Sphere blue = new Sphere(200);
+        final javafx.scene.shape.Sphere blue = new javafx.scene.shape.Sphere(200);
         blue.setMaterial(blueMaterial);
 
         blue.setTranslateX(250);
@@ -60,19 +59,19 @@ public class Main extends Application {
         red.setTranslateY(250);
         red.setTranslateZ(450);
 
-        Kulka kulka1 = new Kulka(250,50, "super kulka 1");
-        Kulka kulka2 = new Kulka(250,450, "super kulka 2");
-        Kulka kulka3 = new Kulka(250,1000, "super kulka 3");
-        Sprezynka sprezynka = new Sprezynka();
-        sprezynka.setKulka1(kulka1);
-        sprezynka.setKulka2(kulka2);
-        System.out.println(sprezynka.getKulka1().x);
-        kulka1.x = 123;
-        System.out.println(sprezynka.getKulka1().x);
-        List<Kulka> list = new LinkedList<Kulka>();
-        list.add(kulka1);
-        list.add(kulka2);
-        list.add(kulka3);
+        Node node1 = new Node(250,50, "super kulka 1");
+        Node node2 = new Node(250,450, "super kulka 2");
+        Node node3 = new Node(250,1000, "super kulka 3");
+        Spring spring = new Spring();
+        spring.setNode1(node1);
+        spring.setNode2(node2);
+        System.out.println(spring.getNode1().x);
+        node1.x = 123;
+        System.out.println(spring.getNode1().x);
+        List<Node> list = new LinkedList<Node>();
+        list.add(node1);
+        list.add(node2);
+        list.add(node3);
 
 
 
@@ -83,13 +82,13 @@ public class Main extends Application {
 
 
         //visualistation
-        List<Node> vislist = new LinkedList<>();
-        for (Kulka kulka : list){
-            Sphere sphere = new Sphere(100);
+        List<javafx.scene.Node> vislist = new LinkedList<>();
+        for (Node ball : list){
+            javafx.scene.shape.Sphere sphere = new javafx.scene.shape.Sphere(100);
             sphere.setMaterial(blackMaterial);
-            sphere.setTranslateX(kulka.x);
-            sphere.setTranslateY(kulka.y);
-            sphere.setTranslateZ(250+kulka.x);
+            sphere.setTranslateX(ball.x);
+            sphere.setTranslateY(ball.y);
+            sphere.setTranslateZ(250+ ball.x);
             vislist.add(sphere);
         }
 
