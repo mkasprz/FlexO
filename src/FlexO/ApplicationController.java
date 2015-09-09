@@ -23,6 +23,8 @@ public class ApplicationController {
     }
 
     public SubScene getSubScene() {
+        subScene.heightProperty().bind(pane.heightProperty());
+        subScene.widthProperty().bind(pane.widthProperty());
         return subScene;
     }
 
