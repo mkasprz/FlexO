@@ -1,4 +1,4 @@
-package FlexO.model;
+package flexo.model;
 
 import java.util.LinkedList;
 import java.util.List;

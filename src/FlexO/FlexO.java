@@ -1,4 +1,4 @@
-package FlexO;
+package flexo;
 
 import javafx.application.Application;
 import javafx.stage.Stage;

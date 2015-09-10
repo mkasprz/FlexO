@@ -1,13 +1,28 @@
-package FlexO.model_converter;
+package flexo.model_converter;
 
-import FlexO.model.Scene;
+import flexo.model.Connection;
+import flexo.model.Node;
+import flexo.model.Scene;
+
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Created by Piotr on 2015-09-10.
  */
 public class ModelConverter {
 
-    public void convert(Scene scene) {
+    public static List<Node> convert(Scene scene) {
 
+        List<Node> nodes = new LinkedList<>();
+        for (Connection connection : scene.getConnections()){
+            if (!nodes.contains(connection.getNode1())){
+                nodes.add(connection.getNode1());
+            }
+            if (!nodes.contains(connection.getNode2())) {
+                nodes.add(connection.getNode2());
+            }
+        }
+        return nodes;
     }
 }

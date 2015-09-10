@@ -1,6 +1,6 @@
-package FlexO.scene_builder;
+package flexo.scene_builder;
 
-import FlexO.model.Scene;
+import flexo.model.Scene;
 
 /**
  * Created by Piotr on 2015-09-10.

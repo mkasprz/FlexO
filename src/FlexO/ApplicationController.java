@@ -1,4 +1,4 @@
-package FlexO;
+package flexo;
 
 import javafx.fxml.FXML;
 import javafx.scene.SubScene;

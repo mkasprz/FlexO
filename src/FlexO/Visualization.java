@@ -1,5 +1,10 @@
-package FlexO;
+package flexo;
 
+import flexo.model.Node;
+import flexo.model.Scene;
+import flexo.model_converter.ModelConverter;
+import flexo.scene_builder.SceneBuilder;
+import flexo.scene_builder.TwoDimensionBuilder;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.PointLight;
@@ -9,8 +14,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Cylinder;
 import javafx.scene.shape.Sphere;
-import sample.Node;
-import sample.Spring;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -48,19 +51,25 @@ public class Visualization {
 //        red.setTranslateY(250);
 //        red.setTranslateZ(450);
 
-        Node node1 = new Node(200, 50, "super kulka 1");
-        Node node2 = new Node(300, 50, "super kulka 2");
-        Node node3 = new Node(400, 50, "super kulka 3");
-        Spring spring = new Spring();
-        spring.setNode1(node1);
-        spring.setNode2(node2);
-        System.out.println(spring.getNode1().x);
-        node1.x = 123;
-        System.out.println(spring.getNode1().x);
-        List<Node> list = new LinkedList<Node>();
-        list.add(node1);
-        list.add(node2);
-        list.add(node3);
+        SceneBuilder builder = new TwoDimensionBuilder();
+
+        Scene scene = builder.build();
+
+        List<Node> list = ModelConverter.convert(scene);
+
+//        Node node1 = new Node(200, 50, "super kulka 1");
+//        Node node2 = new Node(300, 50, "super kulka 2");
+//        Node node3 = new Node(400, 50, "super kulka 3");
+//        Spring spring = new Spring();
+//        spring.setNode1(node1);
+//        spring.setNode2(node2);
+//        System.out.println(spring.getNode1().x);
+//        node1.x = 123;
+//        System.out.println(spring.getNode1().x);
+//        List<Node> list = new LinkedList<Node>();
+//        list.add(node1);
+//        list.add(node2);
+//        list.add(node3);
 
 
         final PhongMaterial blackMaterial = new PhongMaterial();
@@ -71,11 +80,13 @@ public class Visualization {
 
         //visualistation
         List<javafx.scene.Node> vislist = new LinkedList<>();
-        for (Node Node : list){
-            Sphere sphere = new Sphere(100);
+        for (Node node : list){
+            Sphere sphere = new Sphere(20);
             sphere.setMaterial(blackMaterial);
-            sphere.setTranslateX(Node.x);
-            sphere.setTranslateY(Node.y);
+            sphere.setTranslateX(node.getX() * 10);
+            sphere.setTranslateY(node.getY());
+            sphere.setTranslateZ(node.getZ());
+
 //            sphere.setTranslateZ(250+ Node.x);
             vislist.add(sphere);
         }

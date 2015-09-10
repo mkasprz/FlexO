@@ -1,4 +1,4 @@
-package FlexO.model;
+package flexo.model;
 
 /**
  * Created by Piotr on 2015-09-10.

@@ -1,8 +1,8 @@
-package FlexO.scene_builder;
+package flexo.scene_builder;
 
-import FlexO.model.Connection;
-import FlexO.model.Node;
-import FlexO.model.Scene;
+import flexo.model.Connection;
+import flexo.model.Node;
+import flexo.model.Scene;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class TwoDimensionBuilder implements SceneBuilder {
 
-    private int iterations = 7;
+    private int iterations = 9;
     private List<Node> nodes = new LinkedList<>();
     private List<Connection> connections = new LinkedList<>();
 

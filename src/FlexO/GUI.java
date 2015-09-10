@@ -1,4 +1,4 @@
-package FlexO;
+package flexo;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
