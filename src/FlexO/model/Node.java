@@ -5,40 +5,40 @@ package FlexO.model;
  */
 public class Node {
 
-    public int x;
-    public int y;
-    public int z;
+    public double x;
+    public double y;
+    public double z;
     public int id;
 
-    public Node(int x, int y, int z, int id) {
+    public Node(double x, double y, double z, int id) {
         this.x = x;
         this.y = y;
         this.z = z;
         this.id = id;
     }
 
-    public void moveNodeTo(int x, int y, int z){
+    public void moveNodeTo(double x, double y, double z){
         this.x = x;
         this.y = y;
         this.z = z;
     }
 
-    public void translateNode(int x, int y, int z){
+    public void translateNode(double x, double y, double z){
         this.x = this.x + x;
         this.y = this.y + y;
         this.z = this.z + z;
     }
 
 
-    public int getX() {
+    public double getX() {
         return x;
     }
 
-    public int getY() {
+    public double getY() {
         return y;
     }
 
-    public int getZ() {
+    public double getZ() {
         return z;
     }
 

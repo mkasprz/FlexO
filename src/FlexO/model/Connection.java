@@ -7,10 +7,10 @@ public class Connection {
 
     private Node node1;
     private Node node2;
-    private int youngsModule;
-    private int balanceLength;
+    private double youngsModule;
+    private double balanceLength;
 
-    public Connection(Node node1, Node node2, int youngsModule, int balanceLength) {
+    public Connection(Node node1, Node node2, double youngsModule, double balanceLength) {
         this.node1 = node1;
         this.node2 = node2;
         this.youngsModule = youngsModule;
@@ -25,19 +25,19 @@ public class Connection {
         return node2;
     }
 
-    public int getBalanceLength() {
+    public double getBalanceLength() {
         return balanceLength;
     }
 
-    public void setBalanceLength(int balanceLength) {
+    public void setBalanceLength(double balanceLength) {
         this.balanceLength = balanceLength;
     }
 
-    public int getYoungsModule() {
+    public double getYoungsModule() {
         return youngsModule;
     }
 
-    public void setYoungsModule(int youngsModule) {
+    public void setYoungsModule(double youngsModule) {
         this.youngsModule = youngsModule;
     }
 
