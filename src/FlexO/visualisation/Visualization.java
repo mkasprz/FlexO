@@ -34,7 +34,7 @@ public class Visualization {
         builder.setNodesNumber(5);
         Scene scene = builder.build();
 
-        List<javafx.scene.Node> visualisedObjects = VisualisedObjectsCreator.createVisualisedObjects(scene, Color.BLACK, Color.WHITE, radius, visualisationMultiplicant);
+        List<javafx.scene.Node> visualisedObjects = VisualisedObjectsCreator.createVisualisedObjects(scene, radius, visualisationMultiplicant);
         final Group parent = new Group(visualisedObjects);
 
 

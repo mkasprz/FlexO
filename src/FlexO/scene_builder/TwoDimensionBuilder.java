@@ -1,5 +1,6 @@
 package flexo.scene_builder;
 
+import flexo.model.CentralNode;
 import flexo.model.Connection;
 import flexo.model.Node;
 import flexo.model.Scene;
@@ -12,7 +13,7 @@ import java.util.List;
  */
 public class TwoDimensionBuilder implements SceneBuilder {
 
-    private int numberOfNodes = 9;
+    private int numberOfNodes = 5;
     private List<Node> nodes = new LinkedList<>();
     private List<Connection> connections = new LinkedList<>();
 
@@ -33,11 +34,16 @@ public class TwoDimensionBuilder implements SceneBuilder {
             scene.addConnection(connection);
         }
 
+        CentralNode centralNode = new CentralNode((numberOfNodes-1)*10/2, 20, 0);
+        scene.setCentralNode(centralNode);
+
         return scene;
     }
 
     @Override
     public void setNodesNumber(int number){
-        this.numberOfNodes = number;
+        if (number >= 3){
+            this.numberOfNodes = number;
+        }
     }
 }

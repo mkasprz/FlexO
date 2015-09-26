@@ -13,12 +13,12 @@ import java.util.List;
  * Created by Piotr on 2015-09-26.
  */
 public class VisualisedObjectsCreator {
-    public static List<javafx.scene.Node> createVisualisedObjects(Scene scene, Color diffuseColor, Color specularColor, int radius, int multiplicant){
+    public static List<javafx.scene.Node> createVisualisedObjects(Scene scene, int radius, int multiplicant){
         List<flexo.model.Node> list = ModelConverter.convert(scene);
 
         final PhongMaterial blackMaterial = new PhongMaterial();
-        blackMaterial.setDiffuseColor(diffuseColor);
-        blackMaterial.setSpecularColor(specularColor);
+        blackMaterial.setDiffuseColor(Color.BLACK);
+        blackMaterial.setSpecularColor(Color.WHITE);
 
         List<javafx.scene.Node> visibleObjects = new LinkedList<>();
         for (flexo.model.Node node : list){
@@ -30,6 +30,17 @@ public class VisualisedObjectsCreator {
 
             visibleObjects.add(sphere);
         }
+        final PhongMaterial greyMaterial = new PhongMaterial();
+        greyMaterial.setDiffuseColor(Color.GREY);
+        greyMaterial.setSpecularColor(Color.WHITE);
+
+        Sphere sphere = new Sphere(radius);
+        sphere.setMaterial(greyMaterial);
+        sphere.setTranslateX(scene.getCentralNode().getX() * multiplicant);
+        sphere.setTranslateY(scene.getCentralNode().getY() * multiplicant);
+        sphere.setTranslateZ(scene.getCentralNode().getZ() * multiplicant);
+
+        visibleObjects.add(sphere);
         return visibleObjects;
     }
 }
