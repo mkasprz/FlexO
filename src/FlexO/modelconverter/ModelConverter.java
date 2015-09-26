@@ -1,4 +1,4 @@
-package flexo.model_converter;
+package flexo.modelconverter;
 
 import flexo.model.Connection;
 import flexo.model.Node;
@@ -7,9 +7,6 @@ import flexo.model.Scene;
 import java.util.LinkedList;
 import java.util.List;
 
-/**
- * Created by Piotr on 2015-09-10.
- */
 public class ModelConverter {
 
     public static List<Node> convert(Scene scene) {

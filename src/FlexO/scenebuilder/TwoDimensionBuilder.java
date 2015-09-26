@@ -1,4 +1,4 @@
-package flexo.scene_builder;
+package flexo.scenebuilder;
 
 import flexo.model.CentralNode;
 import flexo.model.Connection;
@@ -8,9 +8,6 @@ import flexo.model.Scene;
 import java.util.LinkedList;
 import java.util.List;
 
-/**
- * Created by Piotr on 2015-09-10.
- */
 public class TwoDimensionBuilder implements SceneBuilder {
 
     private int numberOfNodes = 5;

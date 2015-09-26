@@ -1,26 +1,17 @@
 package flexo.visualisation;
 
-import flexo.model.Node;
 import flexo.model.Scene;
-import flexo.model_converter.ModelConverter;
-import flexo.scene_builder.SceneBuilder;
-import flexo.scene_builder.TwoDimensionBuilder;
+import flexo.scenebuilder.SceneBuilder;
+import flexo.scenebuilder.TwoDimensionBuilder;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.PointLight;
 import javafx.scene.SubScene;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.PhongMaterial;
-import javafx.scene.shape.Cylinder;
-import javafx.scene.shape.Sphere;
 
-import java.util.LinkedList;
 import java.util.List;
 
-/**
- * Created by kcpr on 12.06.15.
- */
 public class Visualization {
 
     double anchorX, anchorY, anchorAngle, lastX, lastY;

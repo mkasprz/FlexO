@@ -1,7 +1,7 @@
 package flexo.visualisation;
 
 import flexo.model.Scene;
-import flexo.model_converter.ModelConverter;
+import flexo.modelconverter.ModelConverter;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Sphere;
@@ -9,9 +9,6 @@ import javafx.scene.shape.Sphere;
 import java.util.LinkedList;
 import java.util.List;
 
-/**
- * Created by Piotr on 2015-09-26.
- */
 public class VisualisedObjectsCreator {
     public static List<javafx.scene.Node> createVisualisedObjects(Scene scene, int radius, int multiplicant){
         List<flexo.model.Node> list = ModelConverter.convert(scene);

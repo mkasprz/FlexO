@@ -1,8 +1,5 @@
 package flexo.model;
 
-/**
- * Created by Piotr on 2015-09-10.
- */
 public class CentralNode {
 
     public double x;
