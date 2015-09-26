@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class TwoDimensionBuilder implements SceneBuilder {
 
-    private int iterations = 9;
+    private int numberOfNodes = 9;
     private List<Node> nodes = new LinkedList<>();
     private List<Connection> connections = new LinkedList<>();
 
@@ -20,12 +20,12 @@ public class TwoDimensionBuilder implements SceneBuilder {
     public Scene build() {
         Scene scene = new Scene();
         Node node;
-        for (int i = 0; i < iterations; i++){
+        for (int i = 0; i < numberOfNodes; i++){
             node = new Node(i*10, 0, 0, i);
             nodes.add(node);
         }
 
-        for (int i = 0; i < iterations - 1; i++){
+        for (int i = 0; i < numberOfNodes - 1; i++){
             connections.add(new Connection(nodes.get(i), nodes.get(i+1), 0 , 10));
         }
 
@@ -34,5 +34,10 @@ public class TwoDimensionBuilder implements SceneBuilder {
         }
 
         return scene;
+    }
+
+    @Override
+    public void setNodesNumber(int number){
+        this.numberOfNodes = number;
     }
 }

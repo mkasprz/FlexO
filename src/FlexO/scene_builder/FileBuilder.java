@@ -10,4 +10,9 @@ public class FileBuilder implements SceneBuilder {
     public Scene build() {
         return null;
     }
+
+    @Override
+    public void setNodesNumber(int number) {
+        //TODO: this seems unnecessary but think about the interface
+    }
 }

@@ -10,4 +10,9 @@ public class ThreeDimensionBuilder implements SceneBuilder {
     public Scene build() {
         return null;
     }
+
+    @Override
+    public void setNodesNumber(int number){
+
+    }
 }

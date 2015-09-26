@@ -5,31 +5,39 @@ package flexo.model;
  */
 public class CentralNode {
 
-    private int x;
-    private int y;
-    private int z;
+    public double x;
+    public double y;
+    public double z;
 
-    public int getX() {
+    public CentralNode(double x, double y, double z) {
+        this.x = x;
+        this.y = y;
+        this.z = z;
+    }
+
+    public void moveNodeTo(double x, double y, double z){
+        this.x = x;
+        this.y = y;
+        this.z = z;
+    }
+
+    public void translateNode(double x, double y, double z){
+        this.x = this.x + x;
+        this.y = this.y + y;
+        this.z = this.z + z;
+    }
+
+
+    public double getX() {
         return x;
     }
 
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public int getY() {
+    public double getY() {
         return y;
     }
 
-    public void setY(int y) {
-        this.y = y;
-    }
-
-    public int getZ() {
+    public double getZ() {
         return z;
     }
 
-    public void setZ(int z) {
-        this.z = z;
-    }
 }
