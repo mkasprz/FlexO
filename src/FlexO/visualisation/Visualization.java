@@ -1,5 +1,10 @@
-package FlexO;
+package flexo.visualisation;
 
+import flexo.model.Node;
+import flexo.model.Scene;
+import flexo.model_converter.ModelConverter;
+import flexo.scene_builder.SceneBuilder;
+import flexo.scene_builder.TwoDimensionBuilder;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.PointLight;
@@ -9,8 +14,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Cylinder;
 import javafx.scene.shape.Sphere;
-import sample.Node;
-import sample.Spring;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -22,66 +25,17 @@ public class Visualization {
 
     double anchorX, anchorY, anchorAngle, lastX, lastY;
 
+    int radius = 20;
+    int visualisationMultiplicant = 10;
+
     public Visualization(SubScene subScene) {
 
-//        subScene.setHeight(300);
-//        subScene.setWidth(800);
+        SceneBuilder builder = new TwoDimensionBuilder();
+        builder.setNodesNumber(5);
+        Scene scene = builder.build();
 
-//        final PhongMaterial redMaterial = new PhongMaterial();
-//        redMaterial.setSpecularColor(Color.ORANGE);
-//        redMaterial.setDiffuseColor(Color.RED);
-//
-//        final PhongMaterial blueMaterial = new PhongMaterial();
-//        blueMaterial.setDiffuseColor(Color.BLUE);
-//        blueMaterial.setSpecularColor(Color.LIGHTBLUE);
-//
-//        final Box red = new Box(400, 400, 400);
-//        red.setMaterial(redMaterial);
-//
-//        final javafx.scene.shape.Node blue = new javafx.scene.shape.Node(200);
-//        blue.setMaterial(blueMaterial);
-//
-//        blue.setTranslateX(250);
-//        blue.setTranslateY(250);
-//        blue.setTranslateZ(50);
-//        red.setTranslateX(250);
-//        red.setTranslateY(250);
-//        red.setTranslateZ(450);
-
-        Node node1 = new Node(200, 50, "super kulka 1");
-        Node node2 = new Node(300, 50, "super kulka 2");
-        Node node3 = new Node(400, 50, "super kulka 3");
-        Spring spring = new Spring();
-        spring.setNode1(node1);
-        spring.setNode2(node2);
-        System.out.println(spring.getNode1().x);
-        node1.x = 123;
-        System.out.println(spring.getNode1().x);
-        List<Node> list = new LinkedList<Node>();
-        list.add(node1);
-        list.add(node2);
-        list.add(node3);
-
-
-        final PhongMaterial blackMaterial = new PhongMaterial();
-        blackMaterial.setDiffuseColor(Color.BLACK);
-        blackMaterial.setSpecularColor(Color.LIGHTBLUE);
-
-
-
-        //visualistation
-        List<javafx.scene.Node> vislist = new LinkedList<>();
-        for (Node Node : list){
-            Sphere sphere = new Sphere(100);
-            sphere.setMaterial(blackMaterial);
-            sphere.setTranslateX(Node.x);
-            sphere.setTranslateY(Node.y);
-//            sphere.setTranslateZ(250+ Node.x);
-            vislist.add(sphere);
-        }
-
-        vislist.add(new Cylinder(10, 100));
-        final Group parent = new Group(vislist);
+        List<javafx.scene.Node> visualisedObjects = VisualisedObjectsCreator.createVisualisedObjects(scene, radius, visualisationMultiplicant);
+        final Group parent = new Group(visualisedObjects);
 
 
 //        group.getChildren().addAll(vislist);

@@ -1,8 +1,9 @@
-package FlexO.scene_builder;
+package flexo.scene_builder;
 
-import FlexO.model.Connection;
-import FlexO.model.Node;
-import FlexO.model.Scene;
+import flexo.model.CentralNode;
+import flexo.model.Connection;
+import flexo.model.Node;
+import flexo.model.Scene;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -12,7 +13,7 @@ import java.util.List;
  */
 public class TwoDimensionBuilder implements SceneBuilder {
 
-    private int iterations = 7;
+    private int numberOfNodes = 5;
     private List<Node> nodes = new LinkedList<>();
     private List<Connection> connections = new LinkedList<>();
 
@@ -20,12 +21,12 @@ public class TwoDimensionBuilder implements SceneBuilder {
     public Scene build() {
         Scene scene = new Scene();
         Node node;
-        for (int i = 0; i < iterations; i++){
+        for (int i = 0; i < numberOfNodes; i++){
             node = new Node(i*10, 0, 0, i);
             nodes.add(node);
         }
 
-        for (int i = 0; i < iterations - 1; i++){
+        for (int i = 0; i < numberOfNodes - 1; i++){
             connections.add(new Connection(nodes.get(i), nodes.get(i+1), 0 , 10));
         }
 
@@ -33,6 +34,16 @@ public class TwoDimensionBuilder implements SceneBuilder {
             scene.addConnection(connection);
         }
 
+        CentralNode centralNode = new CentralNode((numberOfNodes-1)*10/2, 20, 0);
+        scene.setCentralNode(centralNode);
+
         return scene;
+    }
+
+    @Override
+    public void setNodesNumber(int number){
+        if (number >= 3){
+            this.numberOfNodes = number;
+        }
     }
 }
