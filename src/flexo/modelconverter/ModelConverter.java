@@ -1,4 +1,4 @@
-package flexo.model_converter;
+package flexo.modelconverter;
 
 import flexo.model.Connection;
 import flexo.model.Node;

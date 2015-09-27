@@ -1,21 +1,16 @@
 package flexo.visualisation;
 
-import flexo.model.Node;
+import flexo.SpherePropertiesController;
 import flexo.model.Scene;
-import flexo.model_converter.ModelConverter;
-import flexo.scene_builder.SceneBuilder;
-import flexo.scene_builder.TwoDimensionBuilder;
+import flexo.scenebuilder.SceneBuilder;
+import flexo.scenebuilder.TwoDimensionBuilder;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.PointLight;
 import javafx.scene.SubScene;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.PhongMaterial;
-import javafx.scene.shape.Cylinder;
-import javafx.scene.shape.Sphere;
 
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -28,13 +23,13 @@ public class Visualization {
     int radius = 20;
     int visualisationMultiplicant = 10;
 
-    public Visualization(SubScene subScene) {
+    public Visualization(SubScene subScene, SpherePropertiesController spherePropertiesController) {
 
         SceneBuilder builder = new TwoDimensionBuilder();
         builder.setNodesNumber(5);
         Scene scene = builder.build();
 
-        List<javafx.scene.Node> visualisedObjects = VisualisedObjectsCreator.createVisualisedObjects(scene, radius, visualisationMultiplicant);
+        List<javafx.scene.Node> visualisedObjects = VisualisedObjectsCreator.createVisualisedObjects(scene, radius, visualisationMultiplicant, spherePropertiesController);
         final Group parent = new Group(visualisedObjects);
 
 
@@ -51,7 +46,7 @@ public class Visualization {
 //        pane.getChildren().setAll(root);
 
 
-//        final Scene scene = new Scene(root, 500, 500, spokotrue);
+//        final Scene scene = new Scene(root, 500, 500, true);
 
 //        blue.setOnMouseClicked(new EventHandler<MouseEvent>() {
 //            @Override
@@ -97,6 +92,7 @@ public class Visualization {
 
             }
         });
+
 
 //        group.setOnScroll(new EventHandler<ScrollEvent>() {
 //            @Override

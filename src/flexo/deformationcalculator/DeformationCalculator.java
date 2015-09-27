@@ -1,4 +1,4 @@
-package flexo.deformation_calculator;
+package flexo.deformationcalculator;
 
 import flexo.model.Scene;
 
