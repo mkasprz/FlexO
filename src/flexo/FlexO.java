@@ -1,5 +1,6 @@
 package flexo;
 
+import flexo.gui.GUI;
 import javafx.application.Application;
 import javafx.stage.Stage;
 

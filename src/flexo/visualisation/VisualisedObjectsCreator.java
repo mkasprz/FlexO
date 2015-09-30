@@ -1,6 +1,6 @@
 package flexo.visualisation;
 
-import flexo.SpherePropertiesController;
+import flexo.gui.SpherePropertiesController;
 import flexo.model.Scene;
 import flexo.modelconverter.ModelConverter;
 import flexo.model.Node;
@@ -31,6 +31,8 @@ public class VisualisedObjectsCreator {
             sphere.setTranslateZ(node.getZ() * multiplicant);
 
             sphere.setOnMouseClicked(event -> {
+                sphere.setMaterial(new PhongMaterial(Color.RED));
+                spherePropertiesController.setSelectedNode(node);
                 spherePropertiesController.setId(node.getId());
                 spherePropertiesController.setX(node.getX());
                 spherePropertiesController.setY(node.getY());

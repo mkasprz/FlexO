@@ -1,5 +1,6 @@
-package flexo;
+package flexo.gui;
 
+import flexo.gui.GUI;
 import javafx.fxml.FXML;
 import javafx.scene.SubScene;
 import javafx.scene.layout.Pane;

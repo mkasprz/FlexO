@@ -1,4 +1,4 @@
-package flexo;
+package flexo.gui;
 
 import flexo.visualisation.Visualization;
 import javafx.fxml.FXMLLoader;

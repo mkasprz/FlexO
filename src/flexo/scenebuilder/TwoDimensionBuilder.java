@@ -21,12 +21,12 @@ public class TwoDimensionBuilder implements SceneBuilder {
     public Scene build() {
         Scene scene = new Scene();
         Node node;
-        for (int i = 0; i < numberOfNodes; i++){
+        for (int i = 0; i < numberOfNodes; i++) {
             node = new Node(i*10, 0, 0, i);
             nodes.add(node);
         }
 
-        for (int i = 0; i < numberOfNodes - 1; i++){
+        for (int i = 0; i < numberOfNodes - 1; i++) {
             connections.add(new Connection(nodes.get(i), nodes.get(i+1), 0 , 10));
         }
 
@@ -41,7 +41,7 @@ public class TwoDimensionBuilder implements SceneBuilder {
     }
 
     @Override
-    public void setNodesNumber(int number){
+    public void setNodesNumber(int number) {
         if (number >= 3){
             this.numberOfNodes = number;
         }
