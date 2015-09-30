@@ -31,7 +31,6 @@ public class SpherePropertiesController {
 
     @FXML
     void initialize() {
-
         parameter.focusedProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue) { // && parameter.getText().equals(selectedNode.getParameter())) { // && parameter.getText().equals("")
                 setParameter(selectedNode.getParameter());

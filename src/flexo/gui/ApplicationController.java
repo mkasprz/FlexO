@@ -14,22 +14,30 @@ public class ApplicationController {
     private VBox propertiesVBox;
 
     @FXML
+    private Pane pane;
+
+    @FXML
     private SubScene subScene;
 
     @FXML
-    private Pane pane;
+    void initialize() {
+        subScene.heightProperty().bind(pane.heightProperty());
+        subScene.widthProperty().bind(pane.widthProperty());
+    }
+
+    public ApplicationController(GUI gui) {
+        this.gui = gui;
+    }
 
     public VBox getPropertiesVBox() {
         return propertiesVBox;
     }
 
-    public SubScene getSubScene() {
-        subScene.heightProperty().bind(pane.heightProperty());
-        subScene.widthProperty().bind(pane.widthProperty());
-        return subScene;
+    public Pane getPane() {
+        return pane;
     }
 
-    public ApplicationController(GUI gui) {
-        this.gui = gui;
+    public SubScene getSubScene() {
+        return subScene;
     }
 }

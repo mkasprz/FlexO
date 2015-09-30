@@ -9,20 +9,19 @@ public class NumberField extends TextField {
 
     @Override
     public void replaceText(final int start, final int end, final String text) {
-        System.out.println(text);
-
-        if (text.matches("[0-9]?") || (text.matches("\\.") && !super.getText().contains("."))) {
+        if (text.matches("[0-9]*") || (text.matches("[0-9]*\\.[0-9]*") && (!super.getText().contains(".") || super.getSelectedText().contains(".")))) {
             super.replaceText(start, end, text);
         }
     }
-
-    @Override
-    public void replaceSelection(String replacement) {
-        System.out.println("selection");
-        if (replacement.matches("[0-9]?") || replacement.matches("\\.") && !super.getText().contains(".")) {
-            super.replaceSelection(replacement);
-        }
-    }
-
+//
+//    @Override
+//    public void replaceSelection(String replacement) {
+//        System.out.println("sel");
+////        System.out.println(super.getText().replace(super.getSelectedText(), "").contains("."));
+////        if (replacement.matches("[0-9]*") || (replacement.matches("[0-9]*\\.[0-9]*")
+////                && super.getSelectedText().contains("."))) {
+//            super.replaceSelection(replacement);
+////        }
+//    }
 
 }
