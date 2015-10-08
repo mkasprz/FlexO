@@ -27,7 +27,7 @@ public class GUI {
         Parent settings = fxmlLoader.load();
         applicationController.getPropertiesVBox().getChildren().add(settings);
 
-        new Visualization(applicationController.getSubScene(), spherePropertiesController);
+        new Visualization(applicationController.getPane(), applicationController.getSubScene(), spherePropertiesController);
     }
 
 }
