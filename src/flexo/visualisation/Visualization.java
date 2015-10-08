@@ -5,10 +5,7 @@ import flexo.model.Scene;
 import flexo.modelconverter.ModelConverter;
 import flexo.scenebuilder.SceneBuilder;
 import flexo.scenebuilder.TwoDimensionBuilder;
-import javafx.scene.Group;
-import javafx.scene.ParallelCamera;
-import javafx.scene.PointLight;
-import javafx.scene.SubScene;
+import javafx.scene.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
@@ -27,10 +24,8 @@ public class Visualization {
 
     double anchorX, anchorY, lastX, lastY;
 
-    ParallelCamera camera = new ParallelCamera();//PerspectiveCamera(true);
     int radius = 20;
     int visualisationMultiplicant = 10;
-
     Sphere selectedSphere;
 
     public Visualization(Pane pane, SubScene subScene, SpherePropertiesController spherePropertiesController) {
@@ -39,52 +34,60 @@ public class Visualization {
         builder.setNodesNumber(10);
         Scene scene = builder.build();
 
-//        camera.setTranslateZ(-1000);
+        List<javafx.scene.Node> visualisedObjects = createVisualisedObjects(scene, radius, visualisationMultiplicant, spherePropertiesController);
+
+        final Group root = new Group(visualisedObjects);
+        root.getTransforms().add(new Translate());
+
+        // [TODO] Make depth buffer work
+        // SubScene subScene = new SubScene(root, 0, 0, true, SceneAntialiasing.BALANCED);
+        // subScene.heightProperty().bind(pane.heightProperty());
+        // subScene.widthProperty().bind(pane.widthProperty());
+        // pane.getChildren().set(0, subScene);
+        // System.out.println(subScene.isDepthBuffer());
+
+        PerspectiveCamera camera = new PerspectiveCamera(true);
+
         camera.setFarClip(Double.MAX_VALUE);
         camera.setNearClip(Double.MIN_VALUE);
 
-        camera.getTransforms().add(new Translate());
+        camera.getTransforms().add(new Translate(0, 0, -2000));
 
         subScene.setCamera(camera);
 
-
-        List<javafx.scene.Node> visualisedObjects = createVisualisedObjects(scene, radius, visualisationMultiplicant, spherePropertiesController);
-        final Group root = new Group(visualisedObjects);
-
         subScene.setRoot(root);
-
-//        pane.getChildren().setAll(root);
-
-
-//        final Scene scene = new Scene(root, 500, 500, true);
 
         pane.setOnMousePressed(event -> {
             anchorX = event.getSceneX();
             anchorY = event.getSceneY();
 
-            lastX = camera.getTranslateX();
-            lastY = camera.getTranslateY();
+            System.out.println(event.getSceneX() + " " + event.getSceneY());
+            lastX = root.getTranslateX();
+            lastY = root.getTranslateY();
 //          anchorAngle = parent.getRotate();
         });
 //
         pane.setOnMouseDragged(event -> {
-
-            Transform transform = camera.getTransforms().get(0);
-
             if (event.isPrimaryButtonDown()) {
+                Transform transform = camera.getTransforms().get(0);
                 transform = transform.createConcatenation(new Translate(anchorX - event.getSceneX(), anchorY - event.getSceneY()));
+                camera.getTransforms().set(0, transform);
             }
 
             if (event.isSecondaryButtonDown()) {
-                transform = transform.createConcatenation(new Rotate((anchorX - event.getSceneX()), 450, 0, 0, Rotate.Y_AXIS));
-                transform = transform.createConcatenation(new Rotate((anchorY - event.getSceneY()), 0, 150, 0, Rotate.X_AXIS));
+                // [TODO] Make camera rotate correctly instead of rotating objects
+                // Transform transform = camera.getTransforms().get(0);
+                // transform = transform.createConcatenation(new Rotate((anchorX - event.getSceneX()), 450, 0, 2000, Rotate.Y_AXIS));
+                // transform = transform.createConcatenation(new Rotate((anchorY - event.getSceneY()), 0, 200, 2000, Rotate.X_AXIS));
+                // camera.getTransforms().set(0, transform);
+                 Transform transform = root.getTransforms().get(0);
+                 transform = transform.createConcatenation(new Rotate((anchorX - event.getSceneX()), 450, 0, 0, Rotate.Y_AXIS));
+                 transform = transform.createConcatenation(new Rotate((anchorY - event.getSceneY()), 0, 150, 0, Rotate.X_AXIS));
+                 root.getTransforms().set(0, transform);
             }
-
-            camera.getTransforms().set(0, transform);
 
             anchorX = event.getSceneX();
             anchorY = event.getSceneY();
-
         });
 
         pane.setOnScroll(event -> {
@@ -140,6 +143,7 @@ public class Visualization {
 
             visibleObjects.add(sphere);
         }
+
         final PhongMaterial greyMaterial = new PhongMaterial();
         greyMaterial.setDiffuseColor(Color.GREY);
         greyMaterial.setSpecularColor(Color.WHITE);

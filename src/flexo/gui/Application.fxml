@@ -35,7 +35,7 @@
       </VBox>
       <Pane fx:id="pane">
          <children>
-            <SubScene fx:id="subScene">
+            <SubScene fx:id="subScene" depthBuffer="true">
               <root>
                 <Region />
               </root>

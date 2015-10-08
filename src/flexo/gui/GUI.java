@@ -17,8 +17,8 @@ public class GUI {
         fxmlLoader.setController(applicationController);
         Parent root = fxmlLoader.load();
 
-        primaryStage.setTitle("");
-        primaryStage.setScene(new Scene(root, 800, 600)); // true
+        primaryStage.setTitle("FlexO");
+        primaryStage.setScene(new Scene(root, 800, 600, true)); // true
         primaryStage.show();
 
         fxmlLoader = new FXMLLoader(getClass().getResource("SphereProperties.fxml"));

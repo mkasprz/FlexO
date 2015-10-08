@@ -15,7 +15,7 @@ public class CentralNode {
         this.z = z;
     }
 
-    public void moveNodeTo(double x, double y, double z){
+    public void moveNode(double x, double y, double z){
         this.x = x;
         this.y = y;
         this.z = z;
