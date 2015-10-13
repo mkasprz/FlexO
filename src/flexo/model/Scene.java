@@ -28,4 +28,8 @@ public class Scene {
         this.centralNode = centralNode;
     }
 
+    public int getNumberOfNodes(){
+        return connectionList.size()+1;
+    }
+
 }

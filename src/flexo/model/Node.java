@@ -10,6 +10,7 @@ public class Node {
     private double z;
     private double parameter;
     private int id;
+    private boolean imba = false;
 
     public Node(double x, double y, double z, int id) {
         this.x = x;
@@ -52,5 +53,13 @@ public class Node {
 
     public int getId() {
         return id;
+    }
+
+    public boolean isImba(){
+        return imba;
+    }
+
+    public void setImba(boolean imba){
+        this.imba = imba;
     }
 }
