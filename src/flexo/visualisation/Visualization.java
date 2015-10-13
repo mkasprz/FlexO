@@ -1,6 +1,7 @@
 package flexo.visualisation;
 
 import flexo.deformationcalculator.DeformationCalculator;
+import flexo.gui.GUI;
 import flexo.gui.SpherePropertiesController;
 import flexo.model.Scene;
 import flexo.modelconverter.ModelConverter;
@@ -28,14 +29,18 @@ public class Visualization {
     int radius = 20;
     int visualisationMultiplicant = 10;
     Sphere selectedSphere;
+    GUI gui;
 
-    public Visualization(Pane pane, SubScene subScene, SpherePropertiesController spherePropertiesController) {
+    public Visualization(Pane pane, SubScene subScene, SpherePropertiesController spherePropertiesController, GUI gui, Scene scene) {
 
         SceneBuilder builder = new TwoDimensionBuilder();
         deformationCalculator = new DeformationCalculator();
-        builder.setNodesNumber(10);
-        Scene scene = builder.build();
+        builder.setNodesNumber(40);
+        if (scene == null) {
+            scene = builder.build();
+        }
         deformationCalculator.setScene(scene);
+        this.gui = gui;
 
         List<javafx.scene.Node> visualisedObjects = createVisualisedObjects(scene, radius, visualisationMultiplicant, spherePropertiesController);
 
@@ -159,7 +164,7 @@ public class Visualization {
         sphere.setOnMouseClicked(event -> {
             deformationCalculator.recalculateDeformation();
             //TODO : at this spot the objects in scene should be moved, they should be rerendered
-
+            gui.reloadVisualisation(scene);
         });
 
         visibleObjects.add(sphere);

@@ -41,19 +41,58 @@ public class DeformationCalculator {
         double centralNodeX = scene.getCentralNode().getX();
         double centralNodeY = scene.getCentralNode().getY();
         double centralNodeZ = scene.getCentralNode().getZ();
+        double maxdist = 0;
+
+        for (Connection connection : scene.getConnections()) {
+            double nodeX = connection.getNode1().getX();
+            double nodeY = connection.getNode1().getY();
+            double nodeZ = connection.getNode1().getZ();
+            double distance = Math.abs(nodeX - centralNodeX) + Math.abs(nodeY - centralNodeY) + Math.abs(nodeZ - centralNodeZ);
+            if (distance > maxdist) {
+                maxdist = distance;
+            }
+
+            nodeX = connection.getNode2().getX();
+            nodeY = connection.getNode2().getY();
+            nodeZ = connection.getNode2().getZ();
+            distance = Math.abs(nodeX - centralNodeX) + Math.abs(nodeY - centralNodeY) + Math.abs(nodeZ - centralNodeZ);
+            if (distance > maxdist) {
+                maxdist = distance;
+            }
+        }
 
         for (Connection connection : scene.getConnections()){
-            double distance = connection.getNode1().getY() - scene.getCentralNode().getY();
-            distance = Math.abs(distance);
-            double ratio = (scene.getNumberOfNodes() * 10) / distance;  //TODO : remove magical number
-            connection.getNode1().translateNode(0,ratio * 10,0);
-            connection.getNode1().setImba(false);
+            double nodeX = connection.getNode1().getX();
+            double nodeY = connection.getNode1().getY();
+            double nodeZ = connection.getNode1().getZ();
+            double distance = Math.abs(nodeX - centralNodeX) + Math.abs(nodeY - centralNodeY) + Math.abs(nodeZ - centralNodeZ);
+            if (distance > maxdist) {
+                maxdist = distance;
+            }
+            double ratio = distance/maxdist;
+            ratio = Math.abs(1-ratio);
+//            distance = Math.abs(distance);
+//            double ratio = (scene.getNumberOfNodes() * 10) / distance;  //TODO : remove magical number
+            if (connection.getNode1().isImba()) {
+                connection.getNode1().translateNode(0, ratio * centralNodeY,0);
+                connection.getNode1().setImba(false);
+            }
 
-            distance = connection.getNode2().getY() - scene.getCentralNode().getY();
-            distance = Math.abs(distance);
-            ratio = (scene.getNumberOfNodes() * 10) / distance;  //TODO : remove magical number
-            connection.getNode2().translateNode(0,ratio * 10,0);
-            connection.getNode2().setImba(false);
+            nodeX = connection.getNode2().getX();
+            nodeY = connection.getNode2().getY();
+            nodeZ = connection.getNode2().getZ();
+            distance = Math.abs(nodeX - centralNodeX) + Math.abs(nodeY - centralNodeY) + Math.abs(nodeZ - centralNodeZ);
+            if (distance > maxdist) {
+                maxdist = distance;
+            }
+            ratio = distance/maxdist;
+            ratio = Math.abs(1-ratio);
+//            distance = Math.abs(distance);
+//            double ratio = (scene.getNumberOfNodes() * 10) / distance;  //TODO : remove magical number
+            if (connection.getNode2().isImba()) {
+                connection.getNode2().translateNode(0, ratio * centralNodeY,0);
+                connection.getNode2().setImba(false);
+            }
         }
 
 
