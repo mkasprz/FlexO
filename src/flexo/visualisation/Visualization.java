@@ -22,7 +22,12 @@ import java.util.List;
  */
 public class Visualization {
 
-    double anchorX, anchorY, lastX, lastY;
+    public static final int X = 450;
+    public static final int Y = 150;
+    public static final int Z = -2000;
+
+    double lastX, lastY, lastXTranslation, lastYTranslation;
+    double lastZTranslation = -Z;
 
     int radius = 20;
     int visualisationMultiplicant = 10;
@@ -51,48 +56,54 @@ public class Visualization {
         camera.setFarClip(Double.MAX_VALUE);
         camera.setNearClip(Double.MIN_VALUE);
 
-        camera.getTransforms().add(new Translate(0, 0, -2000));
+        camera.getTransforms().add(new Translate(X, Y, Z));
 
         subScene.setCamera(camera);
 
         subScene.setRoot(root);
 
         pane.setOnMousePressed(event -> {
-            anchorX = event.getSceneX();
-            anchorY = event.getSceneY();
-
-            System.out.println(event.getSceneX() + " " + event.getSceneY());
-            lastX = root.getTranslateX();
-            lastY = root.getTranslateY();
-//          anchorAngle = parent.getRotate();
+            if (event.isMiddleButtonDown()) {
+                lastXTranslation = 0;
+                lastYTranslation = 0;
+                lastZTranslation = -Z;
+                camera.getTransforms().set(0, new Translate(X, Y, Z));
+            } else {
+                lastX = event.getSceneX();
+                lastY = event.getSceneY();
+            }
         });
-//
+
         pane.setOnMouseDragged(event -> {
             if (event.isPrimaryButtonDown()) {
+                double deltaX = lastX - event.getSceneX();
+                double deltaY = lastY - event.getSceneY();
+
                 Transform transform = camera.getTransforms().get(0);
-                transform = transform.createConcatenation(new Translate(anchorX - event.getSceneX(), anchorY - event.getSceneY()));
+                transform = transform.createConcatenation(new Translate(deltaX, deltaY));
                 camera.getTransforms().set(0, transform);
+
+                lastXTranslation -= deltaX;
+                lastYTranslation -= deltaY;
             }
 
             if (event.isSecondaryButtonDown()) {
-                // [TODO] Make camera rotate correctly instead of rotating objects
-                // Transform transform = camera.getTransforms().get(0);
-                // transform = transform.createConcatenation(new Rotate((anchorX - event.getSceneX()), 450, 0, 2000, Rotate.Y_AXIS));
-                // transform = transform.createConcatenation(new Rotate((anchorY - event.getSceneY()), 0, 200, 2000, Rotate.X_AXIS));
-                // camera.getTransforms().set(0, transform);
-                 Transform transform = root.getTransforms().get(0);
-                 transform = transform.createConcatenation(new Rotate((anchorX - event.getSceneX()), 450, 0, 0, Rotate.Y_AXIS));
-                 transform = transform.createConcatenation(new Rotate((anchorY - event.getSceneY()), 0, 150, 0, Rotate.X_AXIS));
-                 root.getTransforms().set(0, transform);
+                Transform transform = camera.getTransforms().get(0);
+                 transform = transform.createConcatenation(new Rotate((lastX - event.getSceneX()), lastXTranslation, 0, lastZTranslation, Rotate.Y_AXIS));
+                 transform = transform.createConcatenation(new Rotate((lastY - event.getSceneY()), 0, lastYTranslation, lastZTranslation, Rotate.X_AXIS));
+                 camera.getTransforms().set(0, transform);
             }
 
-            anchorX = event.getSceneX();
-            anchorY = event.getSceneY();
+            lastX = event.getSceneX();
+            lastY = event.getSceneY();
         });
 
         pane.setOnScroll(event -> {
+            double deltaY = event.getDeltaY();
+            lastZTranslation -= deltaY;
+
             Transform transform = camera.getTransforms().get(0);
-            transform = transform.createConcatenation(new Translate(0, 0, event.getDeltaY()));
+            transform = transform.createConcatenation(new Translate(0, 0, deltaY));
             camera.getTransforms().set(0, transform);
 //                group.getCamera().setTranslateZ(red.getCamera().getTranslateZ() + event.getDeltaY());
 //                    root.setTranslateZ(root.getTranslateZ() + event.getDeltaY());
@@ -103,7 +114,7 @@ public class Visualization {
         pointLight.setTranslateY(-10);
         pointLight.setTranslateZ(-100);
 
-//        group.getChildren().add(pointLight);
+//        root.getChildren().add(pointLight);
 
     }
 
