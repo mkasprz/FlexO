@@ -5,24 +5,24 @@ package flexo.model;
  */
 public class Connection {
 
-    private Node node1;
-    private Node node2;
+    private TypicalNode typicalNode1;
+    private TypicalNode typicalNode2;
     private double youngsModule;
     private double balanceLength;
 
-    public Connection(Node node1, Node node2, double youngsModule, double balanceLength) {
-        this.node1 = node1;
-        this.node2 = node2;
+    public Connection(TypicalNode typicalNode1, TypicalNode typicalNode2, double youngsModule, double balanceLength) {
+        this.typicalNode1 = typicalNode1;
+        this.typicalNode2 = typicalNode2;
         this.youngsModule = youngsModule;
         this.balanceLength = balanceLength;
     }
 
-    public Node getNode1() {
-        return node1;
+    public TypicalNode getTypicalNode1() {
+        return typicalNode1;
     }
 
-    public Node getNode2() {
-        return node2;
+    public TypicalNode getTypicalNode2() {
+        return typicalNode2;
     }
 
     public double getBalanceLength() {

@@ -3,13 +3,13 @@ package flexo.model;
 /**
  * Created by Piotr on 2015-09-10.
  */
-public class CentralNode {
+public class SimpleNode {
 
     public double x;
     public double y;
     public double z;
 
-    public CentralNode(double x, double y, double z) {
+    public SimpleNode(double x, double y, double z) {
         this.x = x;
         this.y = y;
         this.z = z;
@@ -40,4 +40,15 @@ public class CentralNode {
         return z;
     }
 
+    public void setX(double x) {
+        this.x = x;
+    }
+
+    public void setY(double y) {
+        this.y = y;
+    }
+
+    public void setZ(double z) {
+        this.z = z;
+    }
 }

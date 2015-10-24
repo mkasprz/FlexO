@@ -22,11 +22,11 @@
         <Label fx:id="id" GridPane.columnIndex="1"/>
 
         <Label text="X" GridPane.rowIndex="1"/>
-        <Label fx:id="x" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+        <NumberField fx:id="x" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
         <Label text="Y" GridPane.rowIndex="2"/>
-        <Label fx:id="y" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+        <NumberField fx:id="y" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
         <Label text="Z" GridPane.rowIndex="3"/>
-        <Label fx:id="z" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+        <NumberField fx:id="z" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
 
         <Label text="Parameter" GridPane.rowIndex="4"/>
         <NumberField fx:id="parameter" GridPane.columnIndex="1" GridPane.rowIndex="4"/>

@@ -3,7 +3,7 @@ package flexo.visualisation;
 import flexo.gui.SpherePropertiesController;
 import flexo.model.Scene;
 import flexo.modelconverter.ModelConverter;
-import flexo.model.Node;
+import flexo.model.TypicalNode;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Sphere;
@@ -16,27 +16,27 @@ import java.util.List;
  */
 public class VisualisedObjectsCreator {
     public static List<javafx.scene.Node> createVisualisedObjects(Scene scene, int radius, int multiplicant, SpherePropertiesController spherePropertiesController){
-        List<Node> list = ModelConverter.convert(scene);
+        List<TypicalNode> list = ModelConverter.convert(scene);
 
         final PhongMaterial blackMaterial = new PhongMaterial();
         blackMaterial.setDiffuseColor(Color.BLACK);
         blackMaterial.setSpecularColor(Color.WHITE);
 
         List<javafx.scene.Node> visibleObjects = new LinkedList<>();
-        for (Node node : list){
+        for (TypicalNode typicalNode : list){
             Sphere sphere = new Sphere(radius);
             sphere.setMaterial(blackMaterial);
-            sphere.setTranslateX(node.getX() * multiplicant);
-            sphere.setTranslateY(node.getY() * multiplicant);
-            sphere.setTranslateZ(node.getZ() * multiplicant);
+            sphere.setTranslateX(typicalNode.getX() * multiplicant);
+            sphere.setTranslateY(typicalNode.getY() * multiplicant);
+            sphere.setTranslateZ(typicalNode.getZ() * multiplicant);
 
             sphere.setOnMouseClicked(event -> {
                 sphere.setMaterial(new PhongMaterial(Color.RED));
-                spherePropertiesController.setSelectedNode(node);
-                spherePropertiesController.setId(node.getId());
-                spherePropertiesController.setX(node.getX());
-                spherePropertiesController.setY(node.getY());
-                spherePropertiesController.setZ(node.getZ());
+                spherePropertiesController.setSelectedNode(typicalNode);
+                spherePropertiesController.setId(typicalNode.getId());
+                spherePropertiesController.setX(typicalNode.getX());
+                spherePropertiesController.setY(typicalNode.getY());
+                spherePropertiesController.setZ(typicalNode.getZ());
                 spherePropertiesController.setVisible(true);
             });
 
