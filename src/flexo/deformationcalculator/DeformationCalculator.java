@@ -1,7 +1,7 @@
 package flexo.deformationcalculator;
 
 import flexo.model.Connection;
-import flexo.model.Scene;
+import flexo.model.Setup;
 import flexo.model.SimpleNode;
 import flexo.model.TypicalNode;
 
@@ -10,9 +10,9 @@ import flexo.model.TypicalNode;
  */
 public class DeformationCalculator {
 
-    private Scene scene;
+    private Setup scene;
 
-    public DeformationCalculator(Scene scene) {
+    public DeformationCalculator(Setup scene) {
         this.scene = scene;
     }
 
@@ -95,7 +95,26 @@ public class DeformationCalculator {
                 typicalNode2.setImba(false);
             }
         }
+    }
 
+    private void performCalculations(){
+        for (Connection connection : scene.getConnections()) {
+            //do maths in a single iteration
+            performIteration(connection);
+        }
+        //check if all nodes are in balance
+        boolean balanced = true;
+        for (Connection connection : scene.getConnections()){
+            if (connection.getTypicalNode2().isImba() || connection.getTypicalNode1().isImba()) {
+                balanced = false;
+            }
+        }
+        if (!balanced) {
+            performCalculations(); //if nodes are not in balance call for another iteration
+        }
+    }
+
+    private void performIteration(Connection connection){
 
     }
 

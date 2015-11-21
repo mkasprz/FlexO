@@ -2,7 +2,7 @@ package flexo.modelconverter;
 
 import flexo.model.Connection;
 import flexo.model.TypicalNode;
-import flexo.model.Scene;
+import flexo.model.Setup;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class ModelConverter {
 
-    public static List<TypicalNode> convert(Scene scene) {
+    public static List<TypicalNode> convert(Setup scene) {
 
         List<TypicalNode> typicalNodes = new LinkedList<>();
         for (Connection connection : scene.getConnections()){

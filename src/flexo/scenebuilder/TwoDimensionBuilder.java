@@ -1,9 +1,6 @@
 package flexo.scenebuilder;
 
-import flexo.model.SimpleNode;
-import flexo.model.Connection;
-import flexo.model.TypicalNode;
-import flexo.model.Scene;
+import flexo.model.*;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -13,16 +10,20 @@ import java.util.List;
  */
 public class TwoDimensionBuilder implements SceneBuilder {
 
-    private int numberOfNodes = 5;
+    private int numberOfNodes = 3;
     private List<TypicalNode> typicalNodes = new LinkedList<>();
     private List<Connection> connections = new LinkedList<>();
 
     @Override
-    public Scene build() {
-        Scene scene = new Scene();
+    public Setup build() {
+        Setup scene = new Setup();
         TypicalNode typicalNode;
         for (int i = 0; i < numberOfNodes; i++) {
-            typicalNode = new TypicalNode(i*10, 0, 0, i);
+            if (i == 0 || i == numberOfNodes - 1) {
+                typicalNode = new ImmovableNode(i*10, 0, 0, i);
+            } else {
+                typicalNode = new TypicalNode(i * 10, 0, 0, i);
+            }
             typicalNodes.add(typicalNode);
         }
 

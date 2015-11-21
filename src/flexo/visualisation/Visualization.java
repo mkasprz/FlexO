@@ -2,7 +2,7 @@ package flexo.visualisation;
 
 import flexo.deformationcalculator.DeformationCalculator;
 import flexo.gui.SpherePropertiesController;
-import flexo.model.Scene;
+import flexo.model.Setup;
 import flexo.model.SimpleNode;
 import flexo.model.TypicalNode;
 import flexo.modelconverter.ModelConverter;
@@ -46,8 +46,8 @@ public class Visualization {
 
     public Visualization(Pane pane, SubScene subScene, SpherePropertiesController spherePropertiesController) {
         SceneBuilder builder = new TwoDimensionBuilder();
-        builder.setNodesNumber(10);
-        Scene scene = builder.build();
+        builder.setNodesNumber(7);
+        Setup scene = builder.build();
 
         deformationCalculator = new DeformationCalculator(scene);
         spherePropertiesController.setVisualization(this);
@@ -133,7 +133,7 @@ public class Visualization {
 
     }
 
-    private List<javafx.scene.Node> createVisualisedObjects(Scene scene, int radius, SpherePropertiesController spherePropertiesController) {
+    private List<javafx.scene.Node> createVisualisedObjects(Setup scene, int radius, SpherePropertiesController spherePropertiesController) {
         List<TypicalNode> list = ModelConverter.convert(scene);
 
         blackMaterial.setSpecularColor(Color.WHITE);
