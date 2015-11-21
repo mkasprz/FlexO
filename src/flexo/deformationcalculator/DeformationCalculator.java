@@ -91,7 +91,7 @@ public class DeformationCalculator {
 //            distance = Math.abs(distance);
 //            double ratio = (scene.getNumberOfNodes() * 10) / distance;  //TODO : remove magical number
             if (typicalNode2.isImba()) {
-                typicalNode2.translateNode(0, ratio * centralNodeY, 0);
+                typicalNode2.translateNode(0, -Math.abs(ratio * centralNodeY),0);
                 typicalNode2.setImba(false);
             }
         }

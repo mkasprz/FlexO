@@ -1,17 +1,13 @@
 package flexo.gui;
 
-import flexo.gui.GUI;
 import javafx.fxml.FXML;
 import javafx.scene.SubScene;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 
 public class ApplicationController {
 
-    private final GUI gui;
-
     @FXML
-    private VBox propertiesVBox;
+    private SpherePropertiesController propertiesController;
 
     @FXML
     private Pane pane;
@@ -23,14 +19,11 @@ public class ApplicationController {
     void initialize() {
         subScene.heightProperty().bind(pane.heightProperty());
         subScene.widthProperty().bind(pane.widthProperty());
+//        new Visualization(pane, subScene, propertiesController); // [TODO] Decide is it a good idea to call it here as it does things connected not only with GUI
     }
 
-    public ApplicationController(GUI gui) {
-        this.gui = gui;
-    }
-
-    public VBox getPropertiesVBox() {
-        return propertiesVBox;
+    public SpherePropertiesController getPropertiesController() {
+        return propertiesController;
     }
 
     public Pane getPane() {

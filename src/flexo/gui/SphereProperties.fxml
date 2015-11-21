@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 
 <?import flexo.gui.NumberField?>
-<GridPane fx:id="sphereProperties" visible="false" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane fx:id="sphereProperties" fx:controller="flexo.gui.SpherePropertiesController" visible="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
