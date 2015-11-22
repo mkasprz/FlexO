@@ -8,7 +8,10 @@ import flexo.model.TypicalNode;
 import flexo.modelconverter.ModelConverter;
 import flexo.scenebuilder.SceneBuilder;
 import flexo.scenebuilder.TwoDimensionBuilder;
-import javafx.scene.*;
+import javafx.scene.Group;
+import javafx.scene.PerspectiveCamera;
+import javafx.scene.PointLight;
+import javafx.scene.SubScene;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Material;
@@ -28,21 +31,23 @@ import java.util.Map;
  */
 public class Visualization {
 
-    public static final int X = 450;
-    public static final int Y = 150;
-    public static final int Z = -2000;
+    private static final int X = 450;
+    private static final int Y = 150;
+    private static final int Z = -2000;
 
     final PhongMaterial blackMaterial = new PhongMaterial(Color.BLACK);
     final PhongMaterial redMaterial = new PhongMaterial(Color.RED);
+    final PhongMaterial greyMaterial = new PhongMaterial(Color.GREY);
 
-    Map<SimpleNode, Sphere> nodesMap;
+    private Map<SimpleNode, Sphere> nodesMap;
+    private Sphere centralSphere;
 
-    double lastX, lastY, lastXTranslation, lastYTranslation;
-    double lastZTranslation = -Z;
-    DeformationCalculator deformationCalculator;
-    int radius = 20;
-    int visualisationMultiplicant = 10;
-    Sphere selectedSphere;
+    private double lastX, lastY, lastXTranslation, lastYTranslation;
+    private double lastZTranslation = -Z;
+    private DeformationCalculator deformationCalculator;
+    private int radius = 20;
+    private int visualisationMultiplicant = 10;
+    private Sphere selectedSphere;
 
     public Visualization(Pane pane, SubScene subScene, SpherePropertiesController spherePropertiesController) {
         SceneBuilder builder = new TwoDimensionBuilder();
@@ -57,17 +62,10 @@ public class Visualization {
         final Group root = new Group(visualisedObjects);
         root.getTransforms().add(new Translate());
 
-        // [TODO] Make depth buffer work
-        // SubScene subScene = new SubScene(root, 0, 0, true, SceneAntialiasing.BALANCED);
-        // subScene.heightProperty().bind(pane.heightProperty());
-        // subScene.widthProperty().bind(pane.widthProperty());
-        // pane.getChildren().set(0, subScene);
-         System.out.println(subScene.isDepthBuffer());
-
         PerspectiveCamera camera = new PerspectiveCamera(true);
 
         camera.setFarClip(Double.MAX_VALUE);
-        camera.setNearClip(Double.MIN_VALUE);
+        camera.setNearClip(0.01);
 
         camera.getTransforms().add(new Translate(X, Y, Z));
 
@@ -154,22 +152,20 @@ public class Visualization {
             visibleObjects.add(sphere);
         }
 
-        final PhongMaterial greyMaterial = new PhongMaterial();
-        greyMaterial.setDiffuseColor(Color.GREY);
         greyMaterial.setSpecularColor(Color.WHITE);
 
         SimpleNode centralNode = scene.getCentralNode();
 
-        Sphere sphere = createSphere(centralNode, radius, greyMaterial);
+        centralSphere = createSphere(centralNode, radius, greyMaterial);
 
-        sphere.setOnMouseClicked(event -> {
+        centralSphere.setOnMouseClicked(event -> {
             //TODO : at this spot the objects in scene should be moved, they should be rerendered
-            selectSphere(sphere);
+            selectSphere(centralSphere);
             spherePropertiesController.setSelectedNode(centralNode);
         });
 
-        nodesMap.put(centralNode, sphere);
-        visibleObjects.add(sphere);
+        nodesMap.put(centralNode, centralSphere);
+        visibleObjects.add(centralSphere);
 
         return visibleObjects;
     }
@@ -177,14 +173,14 @@ public class Visualization {
     private Sphere createSphere(SimpleNode simpleNode, int radius, Material material) {
         Sphere sphere = new Sphere(radius);
         sphere.setMaterial(material);
-        sphere.setTranslateX(simpleNode.getX() * visualisationMultiplicant);
-        sphere.setTranslateY(simpleNode.getY() * visualisationMultiplicant);
-        sphere.setTranslateZ(simpleNode.getZ() * visualisationMultiplicant);
+        setSphereTranslate(sphere, simpleNode, visualisationMultiplicant);
         return sphere;
     }
 
     private void selectSphere(Sphere sphere) {
-        if (selectedSphere != null) {
+        if (selectedSphere == centralSphere) {
+            selectedSphere.setMaterial(greyMaterial);
+        } else if (selectedSphere != null) {
             selectedSphere.setMaterial(blackMaterial);
         }
         selectedSphere = sphere;
@@ -196,12 +192,15 @@ public class Visualization {
         refreshVisualization(visualisationMultiplicant);
     }
 
-    private void refreshVisualization(int multiplicant) {
-        for (SimpleNode simpleNode : nodesMap.keySet()) {
-            Sphere sphere = nodesMap.get(simpleNode);
-            sphere.setTranslateX(simpleNode.getX() * multiplicant);
-            sphere.setTranslateY(simpleNode.getY() * multiplicant);
-            sphere.setTranslateZ(simpleNode.getZ() * multiplicant);
+    private void refreshVisualization(int multiplier) {
+        for (Map.Entry<SimpleNode, Sphere> nodeEntry : nodesMap.entrySet()) {
+            setSphereTranslate(nodeEntry.getValue(), nodeEntry.getKey(), multiplier);
         }
+    }
+
+    private void setSphereTranslate(Sphere sphere, SimpleNode simpleNode, int multiplicant) {
+        sphere.setTranslateX(simpleNode.getX() * multiplicant);
+        sphere.setTranslateY(simpleNode.getY() * multiplicant);
+        sphere.setTranslateZ(simpleNode.getZ() * multiplicant);
     }
 }
