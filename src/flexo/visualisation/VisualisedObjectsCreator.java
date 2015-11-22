@@ -1,7 +1,7 @@
 package flexo.visualisation;
 
 import flexo.gui.SpherePropertiesController;
-import flexo.model.Scene;
+import flexo.model.Setup;
 import flexo.modelconverter.ModelConverter;
 import flexo.model.TypicalNode;
 import javafx.scene.paint.Color;
@@ -15,7 +15,7 @@ import java.util.List;
  * Created by Piotr on 2015-09-26.
  */
 public class VisualisedObjectsCreator {
-    public static List<javafx.scene.Node> createVisualisedObjects(Scene scene, int radius, int multiplicant, SpherePropertiesController spherePropertiesController){
+    public static List<javafx.scene.Node> createVisualisedObjects(Setup scene, int radius, int multiplicant, SpherePropertiesController spherePropertiesController){
         List<TypicalNode> list = ModelConverter.convert(scene);
 
         final PhongMaterial blackMaterial = new PhongMaterial();

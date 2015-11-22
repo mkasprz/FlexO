@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Created by Piotr on 2015-09-10.
  */
-public class Scene {
+public class Setup {
 
     private List<Connection> connectionList = new LinkedList<Connection>();
 
@@ -30,6 +30,16 @@ public class Scene {
 
     public int getNumberOfNodes(){
         return connectionList.size()+1;
+    }
+
+    public List<Connection> getConnectionsFromNode(TypicalNode node) {
+        List<Connection> connections = new LinkedList<>();
+        for (Connection connection : connectionList){
+            if (connection.getTypicalNode1().equals(node) || connection.getTypicalNode2().equals(node)){
+                connections.add(connection);
+            }
+        }
+        return connections;
     }
 
 }

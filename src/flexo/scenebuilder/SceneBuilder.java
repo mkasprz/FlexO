@@ -1,13 +1,13 @@
 package flexo.scenebuilder;
 
-import flexo.model.Scene;
+import flexo.model.Setup;
 
 /**
  * Created by Piotr on 2015-09-10.
  */
 public interface SceneBuilder {
 
-    public Scene build();
+    public Setup build();
 
     public void setNodesNumber(int number);
 
