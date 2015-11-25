@@ -1,6 +1,6 @@
 package flexo.visualisation;
 
-import flexo.gui.SpherePropertiesController;
+import flexo.gui.PropertiesController;
 import flexo.model.Setup;
 import flexo.modelconverter.ModelConverter;
 import flexo.model.TypicalNode;
@@ -15,7 +15,7 @@ import java.util.List;
  * Created by Piotr on 2015-09-26.
  */
 public class VisualisedObjectsCreator {
-    public static List<javafx.scene.Node> createVisualisedObjects(Setup scene, int radius, int multiplicant, SpherePropertiesController spherePropertiesController){
+    public static List<javafx.scene.Node> createVisualisedObjects(Setup scene, int radius, int multiplicant, PropertiesController propertiesController){
         List<TypicalNode> list = ModelConverter.convert(scene);
 
         final PhongMaterial blackMaterial = new PhongMaterial();
@@ -32,12 +32,12 @@ public class VisualisedObjectsCreator {
 
             sphere.setOnMouseClicked(event -> {
                 sphere.setMaterial(new PhongMaterial(Color.RED));
-                spherePropertiesController.setSelectedNode(typicalNode);
-                spherePropertiesController.setId(typicalNode.getId());
-                spherePropertiesController.setX(typicalNode.getX());
-                spherePropertiesController.setY(typicalNode.getY());
-                spherePropertiesController.setZ(typicalNode.getZ());
-                spherePropertiesController.setVisible(true);
+                propertiesController.setSelectedNode(typicalNode);
+                propertiesController.setId(typicalNode.getId());
+                propertiesController.setX(typicalNode.getX());
+                propertiesController.setY(typicalNode.getY());
+                propertiesController.setZ(typicalNode.getZ());
+                propertiesController.setVisible(true);
             });
 
             visibleObjects.add(sphere);

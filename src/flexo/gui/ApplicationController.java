@@ -1,36 +1,95 @@
 package flexo.gui;
 
 import javafx.fxml.FXML;
+import javafx.scene.Group;
+import javafx.scene.PerspectiveCamera;
+import javafx.scene.SceneAntialiasing;
 import javafx.scene.SubScene;
 import javafx.scene.layout.Pane;
+import javafx.scene.transform.Rotate;
+import javafx.scene.transform.Translate;
 
 public class ApplicationController {
 
     @FXML
-    private SpherePropertiesController propertiesController;
+    private PropertiesController propertiesController;
 
     @FXML
     private Pane pane;
 
-    @FXML
-    private SubScene subScene;
+    private Group root;
+
+    int X = 450;
+    int Y = 150;
+    int Z = -2000;
+
+    double lastX, lastY;
+
+    Translate cameraTranslate = new Translate(X, Y, Z);
+    Rotate cameraRotateX = new Rotate(0, 0, Y, 0, Rotate.X_AXIS);
+    Rotate cameraRotateY = new Rotate(0, X, 0, 0, Rotate.Y_AXIS);
 
     @FXML
     void initialize() {
+        root = new Group();
+        SubScene subScene = new SubScene(root, 0, 0, true, SceneAntialiasing.BALANCED);
         subScene.heightProperty().bind(pane.heightProperty());
         subScene.widthProperty().bind(pane.widthProperty());
-//        new Visualization(pane, subScene, propertiesController); // [TODO] Decide is it a good idea to call it here as it does things connected not only with GUI
+        pane.getChildren().add(subScene);
+
+        PerspectiveCamera camera = new PerspectiveCamera(true);
+        camera.setFarClip(Double.MAX_VALUE);
+        camera.setNearClip(0.01);
+        camera.getTransforms().addAll(cameraRotateY, cameraRotateX, cameraTranslate); // [TODO] Decide which rotation method is better
+
+        subScene.setCamera(camera);
+        subScene.setRoot(root);
+
+        pane.setOnMousePressed(event -> {
+            if (event.isMiddleButtonDown()) {
+                cameraTranslate.setX(X);
+                cameraTranslate.setY(Y);
+                cameraTranslate.setZ(Z);
+                cameraRotateX.setAngle(0);
+                cameraRotateY.setAngle(0);
+//                selectedSphere = null; // [TODO] Decide how deselection should work
+//                propertiesController.setVisible(false);
+            } else {
+                lastX = event.getSceneX();
+                lastY = event.getSceneY();
+            }
+        });
+
+        pane.setOnMouseDragged(event -> {
+            double sceneX = event.getSceneX();
+            double sceneY = event.getSceneY();
+            double deltaX = lastX - sceneX;
+            double deltaY = lastY - sceneY;
+
+            if (event.isPrimaryButtonDown()) {
+                cameraTranslate.setX(cameraTranslate.getX() + deltaX);
+                cameraTranslate.setY(cameraTranslate.getY() + deltaY);
+            }
+
+            if (event.isSecondaryButtonDown()) {
+                cameraRotateX.setAngle(cameraRotateX.getAngle() + deltaY);
+                cameraRotateY.setAngle(cameraRotateY.getAngle() + deltaX);
+            }
+
+            lastX = sceneX;
+            lastY = sceneY;
+        });
+
+        pane.setOnScroll(event -> {
+            cameraTranslate.setZ(cameraTranslate.getZ() + event.getDeltaY());
+        });
     }
 
-    public SpherePropertiesController getPropertiesController() {
+    public PropertiesController getPropertiesController() {
         return propertiesController;
     }
 
-    public Pane getPane() {
-        return pane;
-    }
-
-    public SubScene getSubScene() {
-        return subScene;
+    public Group getRoot() {
+        return root;
     }
 }

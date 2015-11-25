@@ -26,21 +26,13 @@
                <content>
                   <ScrollPane maxHeight="Infinity">
                      <content>
-                        <fx:include source="SphereProperties.fxml" fx:id="properties"/>
+                        <fx:include source="properties.fxml" fx:id="properties"/>
                      </content>
                   </ScrollPane>
                </content>
             </TitledPane>
          </children>
       </VBox>
-      <Pane fx:id="pane">
-         <children>
-            <SubScene fx:id="subScene" depthBuffer="true">
-              <root>
-                <Region />
-              </root>
-            </SubScene>
-         </children>
-      </Pane>
+      <Pane fx:id="pane"/>
    </items>
 </SplitPane>

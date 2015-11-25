@@ -8,7 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 
-public class SpherePropertiesController {
+public class PropertiesController {
 
     @FXML
     private GridPane sphereProperties;

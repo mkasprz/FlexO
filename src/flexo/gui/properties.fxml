@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
-<?import javafx.scene.*?>
-<?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
 <?import flexo.gui.NumberField?>
-<GridPane fx:id="sphereProperties" fx:controller="flexo.gui.SpherePropertiesController" visible="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane fx:id="sphereProperties" fx:controller="flexo.gui.PropertiesController" visible="false" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
