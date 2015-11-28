@@ -10,7 +10,7 @@ public class Setup {
 
     private List<Connection> connectionList = new LinkedList<Connection>();
 
-    private SimpleNode centralNode;
+    private TypicalNode centralNode;
 
     public void addConnection(Connection connection){
         connectionList.add(connection);
@@ -20,11 +20,11 @@ public class Setup {
         return connectionList;
     }
 
-    public SimpleNode getCentralNode() {
+    public TypicalNode getCentralNode() {
         return centralNode;
     }
 
-    public void setCentralNode(SimpleNode centralNode) {
+    public void setCentralNode(TypicalNode centralNode) {
         this.centralNode = centralNode;
     }
 

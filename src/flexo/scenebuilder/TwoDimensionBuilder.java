@@ -35,8 +35,8 @@ public class TwoDimensionBuilder implements SceneBuilder {
             scene.addConnection(connection);
         }
 
-        SimpleNode simpleNode = new SimpleNode((numberOfNodes-1)*10/2, 20, 0);
-        scene.setCentralNode(simpleNode);
+        TypicalNode centralNode = new TypicalNode((numberOfNodes-1)*10/2, 20, 0, -1);
+        scene.setCentralNode(centralNode);
 
         return scene;
     }
