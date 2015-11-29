@@ -22,7 +22,7 @@ public class TwoDimensionBuilder implements SceneBuilder {
             if (i == 0 || i == numberOfNodes - 1) {
                 typicalNode = new ImmovableNode(i*10, 0, 0, i);
             } else {
-                typicalNode = new TypicalNode(i * 10, 0, 0, i);
+                typicalNode = new TypicalNode(i*10, 0, 0, i);
             }
             typicalNodes.add(typicalNode);
         }

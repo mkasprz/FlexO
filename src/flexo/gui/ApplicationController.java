@@ -39,7 +39,7 @@ public class ApplicationController {
 
         PerspectiveCamera camera = new PerspectiveCamera(true);
         camera.setFarClip(Double.MAX_VALUE);
-        camera.setNearClip(0.01);
+        camera.setNearClip(0.1);
         camera.getTransforms().addAll(cameraRotateY, cameraRotateX, cameraTranslate); // [TODO] Decide which rotation method is better
 
         subScene.setCamera(camera);
@@ -66,14 +66,16 @@ public class ApplicationController {
             double deltaX = lastX - sceneX;
             double deltaY = lastY - sceneY;
 
+            double multiplier = 2 * cameraTranslate.getZ() / Z;
+
             if (event.isPrimaryButtonDown()) {
-                cameraTranslate.setX(cameraTranslate.getX() + deltaX);
-                cameraTranslate.setY(cameraTranslate.getY() + deltaY);
+                cameraTranslate.setX(cameraTranslate.getX() + deltaX * multiplier);
+                cameraTranslate.setY(cameraTranslate.getY() + deltaY * multiplier);
             }
 
             if (event.isSecondaryButtonDown()) {
-                cameraRotateX.setAngle(cameraRotateX.getAngle() + deltaY);
-                cameraRotateY.setAngle(cameraRotateY.getAngle() + deltaX);
+                cameraRotateX.setAngle(cameraRotateX.getAngle() + deltaY * multiplier);
+                cameraRotateY.setAngle(cameraRotateY.getAngle() + deltaX * multiplier);
             }
 
             lastX = sceneX;
@@ -81,7 +83,8 @@ public class ApplicationController {
         });
 
         pane.setOnScroll(event -> {
-            cameraTranslate.setZ(cameraTranslate.getZ() + event.getDeltaY());
+            double multiplier = 2 * cameraTranslate.getZ() / Z;
+            cameraTranslate.setZ(cameraTranslate.getZ() + event.getDeltaY() * multiplier);
         });
     }
 
