@@ -16,6 +16,10 @@ public class Setup {
         connections.add(connection);
     }
 
+    public void addConnections(List<Connection> connections) {
+        this.connections.addAll(connections);
+    }
+
     public List<Connection> getConnections(){
         return connections;
     }

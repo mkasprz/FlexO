@@ -7,7 +7,7 @@ import flexo.model.Setup;
 import flexo.model.SimpleNode;
 import flexo.model.TypicalNode;
 import flexo.scenebuilder.SceneBuilder;
-import flexo.scenebuilder.TwoDimensionBuilder;
+import flexo.scenebuilder.ThreeDimensionBuilder;
 import javafx.geometry.Point3D;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -16,6 +16,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Material;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Cylinder;
+import javafx.scene.shape.Shape3D;
 import javafx.scene.shape.Sphere;
 import javafx.scene.transform.Rotate;
 
@@ -38,9 +39,9 @@ public class Visualization {
 
     private DeformationCalculator deformationCalculator;
     private int radius = 20;
-    private int visualisationMultiplicant = 10;
-    private Sphere selectedSphere;
-    private Material selectedSphereMaterial;
+    private int visualisationMultiplicant = 100;
+    private Shape3D selectedElement;
+    private Material selectedElementMaterial;
 
     Group root;
     Setup scene;
@@ -50,8 +51,9 @@ public class Visualization {
         this.root = root;
         this.propertiesController = propertiesController;
 
-        SceneBuilder builder = new TwoDimensionBuilder();
-        builder.setNodesNumber(10);
+//        SceneBuilder builder = new TwoDimensionBuilder();
+        SceneBuilder builder = new ThreeDimensionBuilder();
+        builder.setBaseNodesNumber(10);
         Setup scene = builder.build();
 
         this.scene = scene;
@@ -83,21 +85,21 @@ public class Visualization {
             TypicalNode node2 = connection.getTypicalNode2();
             Sphere sphere2 = addSphere(visibleObjects, node2, propertiesController, radius, blackMaterial);
 
-            addConnection(visibleObjects, sphere1, sphere2, radius/3, greyMaterial);
+            addConnection(visibleObjects, connection, sphere1, sphere2, radius/3, greyMaterial);
         }
 
         greyMaterial.setSpecularColor(Color.WHITE);
-        SimpleNode centralNode = setup.getCentralNode();
+        TypicalNode centralNode = setup.getCentralNode();
         addSphere(visibleObjects, centralNode, propertiesController, radius, greyMaterial);
 
         return visibleObjects;
     }
 
-    private Sphere addSphere(List<Node> visibleObjects, SimpleNode simpleNode, PropertiesController propertiesController, int radius, Material material) {
+    private Sphere addSphere(List<Node> visibleObjects, TypicalNode simpleNode, PropertiesController propertiesController, int radius, Material material) {
         if (!nodesMap.containsKey(simpleNode)) {
             Sphere sphere = createSphere(simpleNode, radius, material);
             sphere.setOnMouseClicked(event -> {
-                selectSphere(sphere, material);
+                selectElement(sphere, material);
                 propertiesController.setSelectedNode(simpleNode);
             });
             nodesMap.put(simpleNode, sphere);
@@ -115,7 +117,7 @@ public class Visualization {
         return sphere;
     }
 
-    private void addConnection(List<Node> visibleObjects, Sphere sphere1, Sphere sphere2, int radius, Material material) {
+    private void addConnection(List<Node> visibleObjects, Connection connection, Sphere sphere1, Sphere sphere2, int radius, Material material) {
         Point3D point1 = new Point3D(sphere1.getTranslateX(), sphere1.getTranslateY(), sphere1.getTranslateZ());
         Point3D point2 = new Point3D(sphere2.getTranslateX(), sphere2.getTranslateY(), sphere2.getTranslateZ());
 
@@ -132,16 +134,21 @@ public class Visualization {
         cylinder.setRotationAxis(axis);
         cylinder.setRotate(-subtractionResult.angle(Rotate.Y_AXIS));
 
+        cylinder.setOnMouseClicked(event -> {
+            selectElement(cylinder, greyMaterial);
+            propertiesController.setSelectedConnection(connection);
+        });
+
         visibleObjects.add(cylinder);
     }
 
-    private void selectSphere(Sphere sphere, Material sphereMaterial) {
-        if (selectedSphere != null) {
-            selectedSphere.setMaterial(selectedSphereMaterial);
+    private void selectElement(Shape3D element, Material elementMaterial) {
+        if (selectedElement != null) {
+            selectedElement.setMaterial(selectedElementMaterial);
         }
-        sphere.setMaterial(redMaterial); // [TODO] Find out why 'sphere.setEffect()' doesn't seem to work
-        selectedSphere = sphere;
-        selectedSphereMaterial = sphereMaterial;
+        element.setMaterial(redMaterial); // [TODO] Find out why 'sphere.setEffect()' doesn't seem to work
+        selectedElement = element;
+        selectedElementMaterial = elementMaterial;
     }
 
     public void recalculateDeformation() {

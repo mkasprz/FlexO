@@ -11,11 +11,11 @@ import java.util.List;
 public class TwoDimensionBuilder implements SceneBuilder {
 
     private int numberOfNodes = 3;
-    private List<TypicalNode> typicalNodes = new LinkedList<>();
-    private List<Connection> connections = new LinkedList<>();
 
     @Override
     public Setup build() {
+        List<TypicalNode> typicalNodes = new LinkedList<>();
+        List<Connection> connections = new LinkedList<>();
         Setup scene = new Setup();
         TypicalNode typicalNode;
         for (int i = 0; i < numberOfNodes; i++) {
@@ -42,7 +42,7 @@ public class TwoDimensionBuilder implements SceneBuilder {
     }
 
     @Override
-    public void setNodesNumber(int number) {
+    public void setBaseNodesNumber(int number) {
         if (number >= 3){
             this.numberOfNodes = number;
         }

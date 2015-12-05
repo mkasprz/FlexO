@@ -9,6 +9,6 @@ public interface SceneBuilder {
 
     public Setup build();
 
-    public void setNodesNumber(int number);
+    public void setBaseNodesNumber(int number);
 
 }

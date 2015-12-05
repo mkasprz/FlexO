@@ -1,5 +1,6 @@
 package flexo.gui;
 
+import flexo.model.Connection;
 import flexo.model.SimpleNode;
 import flexo.model.TypicalNode;
 import flexo.visualisation.Visualization;
@@ -52,25 +53,19 @@ public class PropertiesController {
             }
         });
 
-        x.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.equals("") && selectedNode.getX() != getX()) {
-                selectedNode.setX(getX());
-                visualization.recalculateDeformation();
-            }
+        x.setOnAction(event -> {
+            selectedNode.setX(getX());
+            visualization.recalculateDeformation();
         });
 
-        y.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.equals("") && selectedNode.getY() != getY()) {
-                selectedNode.setY(getY());
-                visualization.recalculateDeformation();
-            }
+        y.setOnAction(event -> {
+            selectedNode.setY(getY());
+            visualization.recalculateDeformation();
         });
 
-        z.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.equals("") && selectedNode.getZ() != getZ()) {
-                selectedNode.setZ(getZ());
-                visualization.recalculateDeformation();
-            }
+        z.setOnAction(event -> {
+            selectedNode.setZ(getZ());
+            visualization.recalculateDeformation();
         });
 
         parameter.focusedProperty().addListener((observable, oldValue, newValue) -> {
@@ -79,10 +74,8 @@ public class PropertiesController {
             }
         });
 
-        parameter.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.equals("") && selectedNode instanceof TypicalNode) {
-                ((TypicalNode)selectedNode).setParameter(getParameter());
-            }
+        parameter.setOnAction(event -> {
+            ((TypicalNode)selectedNode).setParameter(getParameter());
         });
     }
 
@@ -160,5 +153,9 @@ public class PropertiesController {
         setY(typicalNode.getY());
         setZ(typicalNode.getZ());
         setVisible(true);
+    }
+
+    public void setSelectedConnection(Connection connection) {
+
     }
 }

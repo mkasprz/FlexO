@@ -17,7 +17,7 @@ public class ImmovableNode extends TypicalNode {
 
     @Override
     public void translateNode(double x, double y, double z){
-        //to¿samo
+        //toï¿½samo
     }
 
     @Override
@@ -25,10 +25,12 @@ public class ImmovableNode extends TypicalNode {
         //
     }
 
+    @Override
     public void setY(double y) {
         //
     }
 
+    @Override
     public void setZ(double z) {
         //
     }

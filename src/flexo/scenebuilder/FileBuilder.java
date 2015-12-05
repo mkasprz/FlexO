@@ -12,7 +12,7 @@ public class FileBuilder implements SceneBuilder {
     }
 
     @Override
-    public void setNodesNumber(int number) {
+    public void setBaseNodesNumber(int number) {
         //TODO: this seems unnecessary but think about the interface
     }
 }
