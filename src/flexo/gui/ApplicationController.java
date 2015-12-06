@@ -19,9 +19,9 @@ public class ApplicationController {
 
     private Group root;
 
-    int X = 450;
-    int Y = 150;
-    int Z = -2000;
+    private final int X = 0;
+    private final int Y = 150;
+    private final int Z = -2000;
 
     double lastX, lastY;
 
@@ -32,6 +32,9 @@ public class ApplicationController {
     @FXML
     void initialize() {
         root = new Group();
+        root.setRotationAxis(Rotate.X_AXIS);
+        root.setRotate(180);
+
         SubScene subScene = new SubScene(root, 0, 0, true, SceneAntialiasing.BALANCED);
         subScene.heightProperty().bind(pane.heightProperty());
         subScene.widthProperty().bind(pane.widthProperty());
