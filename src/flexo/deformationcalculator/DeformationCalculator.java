@@ -5,6 +5,7 @@ import flexo.model.Setup;
 import flexo.model.SimpleNode;
 import flexo.model.TypicalNode;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Vector;
@@ -36,9 +37,11 @@ public class DeformationCalculator {
         }
     }
 
-    public void recalculateDeformation() {
-        setAllNodesImba();
-        moveNodesTowardsCentral();
+    public void recalculateDeformation(int pos, double val) {
+//        setAllNodesImba();
+//        moveNodesTowardsCentral();
+        moveOneNodeForTest(pos, val);
+        performCalculations();
     }
 
     private void setAllNodesImba() {
@@ -116,6 +119,30 @@ public class DeformationCalculator {
             }
         }
     }
+
+    //TODO: this is horrible
+    private void moveOneNodeForTest(int pos, double val){
+        if (nodesList.size() > 20) {
+            if (pos == 1){
+                nodesList.get(nodesList.size()-1).translateNode(val, 0, 0);
+            } else if (pos == 2) {
+                nodesList.get(nodesList.size()-1).translateNode(0, val, 0);
+            } else if (pos == 3) {
+                nodesList.get(nodesList.size()-1).translateNode(0,0,val);
+            }
+
+        } else {
+            if (pos == 1){
+                nodesList.get((int)Math.floor(nodesList.size()/2)).translateNode(val,0,0);
+            } else if (pos == 2) {
+                nodesList.get((int)Math.floor(nodesList.size()/2)).translateNode(0,val,0);
+            } else if (pos == 3) {
+                nodesList.get((int)Math.floor(nodesList.size()/2)).translateNode(0,0,val);
+            }
+
+        }
+    }
+
     // TODO : there is still nothing going between central and normal nodes
     private void performCalculations(){
         for (TypicalNode node1 : nodesList){
@@ -126,25 +153,26 @@ public class DeformationCalculator {
             }
         }
 
+
         //check if all nodes are in balance
-        boolean balanced = true;
-        for (TypicalNode node : nodesList){
-            if (node.isImba()) {
-                balanced = false;
-            }
-        }
-        if (!balanced) {
-            performCalculations(); //if nodes are not in balance call for another iteration
-        }
+//        boolean balanced = true;
+//        for (TypicalNode node : nodesList){
+//            if (node.isImba()) {
+//                balanced = false;
+//            }
+//        }
+//        if (!balanced) {
+//            performCalculations(); //if nodes are not in balance call for another iteration
+//        }
     }
 
     private void performIteration(TypicalNode node){
         List<Connection> connectionsFromNode = scene.getConnectionsFromNode(node);
         List<Vector> forces = new LinkedList<>();
         Vector resultVector = new Vector(3);
-        resultVector.add(0, 0);
-        resultVector.add(1, 0);
-        resultVector.add(2, 0);
+        resultVector.add(0, new Double(0));
+        resultVector.add(1, new Double(0));
+        resultVector.add(2, new Double(0));
         for (Connection connection : connectionsFromNode){
             Vector result;
             if (connection.getTypicalNode1().equals(node)){
@@ -158,21 +186,21 @@ public class DeformationCalculator {
         }
 
         double value;
-        for (Vector vector : forces){
+        for (List vector : forces){
             for (int i = 0; i < 3; i++){
-                value = (double) vector.get(i) + (double)resultVector.get(i);
-                resultVector.add(i, value);
+                value = ((Double) vector.get(i)).doubleValue() + ((Double)resultVector.get(i)).doubleValue();
+                resultVector.set(i, new Double(value));
             }
         }
-        node.translateNode((double) resultVector.get(0), (double) resultVector.get(1), (double) resultVector.get(2));
+        node.translateNode(((Double) resultVector.get(0)).doubleValue(), ((Double) resultVector.get(1)).doubleValue(), ((Double) resultVector.get(2)).doubleValue());
     }
 
     private Vector getForceBetweenNodes(SimpleNode node1, SimpleNode node2, double youngsModule, double length){
         Vector force = new Vector(3);
         //TODO : redo using all the fancy hook laws and stuff
-        force.add(0, (node2.getX() - node1.getX())*youngsModule);
-        force.add(1, (node2.getY() - node1.getY())*youngsModule);
-        force.add(2, (node2.getZ() - node1.getZ())*youngsModule);
+        force.add(0, new Double((node2.getX() - node1.getX())*0.02));
+        force.add(1, new Double((node2.getY() - node1.getY())*0.02));
+        force.add(2, new Double((node2.getZ() - node1.getZ())*0.02));
 
         return force;
     }

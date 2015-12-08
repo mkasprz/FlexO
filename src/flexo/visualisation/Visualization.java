@@ -151,8 +151,10 @@ public class Visualization {
         selectedElementMaterial = elementMaterial;
     }
 
-    public void recalculateDeformation() {
-        deformationCalculator.recalculateDeformation();
+    public void recalculateDeformation(int coord, double value) {
+        //this is very stupid, but just for presentation
+        //TODO : implement a better way of starting calculations
+        deformationCalculator.recalculateDeformation(coord, value);
         refreshVisualization(visualisationMultiplicant);
     }
 

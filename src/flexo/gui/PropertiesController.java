@@ -54,18 +54,24 @@ public class PropertiesController {
         });
 
         x.setOnAction(event -> {
+            double oldX = selectedNode.getX();
+            double change = getX() - oldX;
             selectedNode.setX(getX());
-            visualization.recalculateDeformation();
+            visualization.recalculateDeformation(1, change);
         });
 
         y.setOnAction(event -> {
+            double oldY = selectedNode.getY();
+            double change = getY() - oldY;
             selectedNode.setY(getY());
-            visualization.recalculateDeformation();
+            visualization.recalculateDeformation(2, change);
         });
 
         z.setOnAction(event -> {
+            double oldZ = selectedNode.getZ();
+            double change = getZ() - oldZ;
             selectedNode.setZ(getZ());
-            visualization.recalculateDeformation();
+            visualization.recalculateDeformation(3, change);
         });
 
         parameter.focusedProperty().addListener((observable, oldValue, newValue) -> {
