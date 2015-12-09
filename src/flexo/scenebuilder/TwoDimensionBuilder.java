@@ -21,7 +21,7 @@ public class TwoDimensionBuilder implements SceneBuilder {
         int id = 0;
         double n = (numberOfNodes - 1)/2.0;
         for (double i = -n; i < n + 1; i++, id++) {
-            if (i == -n || i == n + 1) {
+            if (i == -n || i == n) {
                 typicalNode = new ImmovableNode(i, 0, 0, id);
             } else {
                 typicalNode = new TypicalNode(i, 0, 0, id);

@@ -8,6 +8,7 @@ import flexo.model.SimpleNode;
 import flexo.model.TypicalNode;
 import flexo.scenebuilder.SceneBuilder;
 import flexo.scenebuilder.ThreeDimensionBuilder;
+import flexo.scenebuilder.TwoDimensionBuilder;
 import javafx.geometry.Point3D;
 import javafx.scene.Group;
 import javafx.scene.Node;
