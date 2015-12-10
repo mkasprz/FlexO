@@ -2,13 +2,7 @@ package flexo.visualisation;
 
 import flexo.deformationcalculator.DeformationCalculator;
 import flexo.gui.PropertiesController;
-import flexo.model.Connection;
-import flexo.model.Setup;
-import flexo.model.SimpleNode;
-import flexo.model.TypicalNode;
-import flexo.scenebuilder.SceneBuilder;
-import flexo.scenebuilder.ThreeDimensionBuilder;
-import flexo.scenebuilder.TwoDimensionBuilder;
+import flexo.model.*;
 import javafx.geometry.Point3D;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -45,24 +39,22 @@ public class Visualization {
     private Material selectedElementMaterial;
 
     Group root;
-    Setup scene;
+    Setup setup;
     PropertiesController propertiesController;
 
     public Visualization(Group root, PropertiesController propertiesController) {
         this.root = root;
         this.propertiesController = propertiesController;
 
-//        SceneBuilder builder = new TwoDimensionBuilder();
-        SceneBuilder builder = new ThreeDimensionBuilder();
-        builder.setBaseNodesNumber(10);
-        Setup scene = builder.build();
+//        Setup setup = new TwoDimensionalSetup(10);
+        Setup setup = new ThreeDimensionalSetup(10);
 
-        this.scene = scene;
+        this.setup = setup;
 
-        deformationCalculator = new DeformationCalculator(scene);
+        deformationCalculator = new DeformationCalculator(setup);
         propertiesController.setVisualization(this);
 
-        List<Node> visualisedObjects = createVisualisedObjects(scene, radius, propertiesController);
+        List<Node> visualisedObjects = createVisualisedObjects(setup, radius, propertiesController);
 
         root.getChildren().addAll(visualisedObjects);
 
@@ -78,6 +70,7 @@ public class Visualization {
         redMaterial.setSpecularColor(Color.WHITE);
 
         nodesMap = new HashMap<>();
+        connectionsMap = new HashMap<>();
         List<Node> visibleObjects = new LinkedList<>();
 
         for (Connection connection : setup.getConnections()) {
@@ -86,7 +79,9 @@ public class Visualization {
             TypicalNode node2 = connection.getTypicalNode2();
             Sphere sphere2 = addSphere(visibleObjects, node2, propertiesController, radius, blackMaterial);
 
-            addConnection(visibleObjects, connection, sphere1, sphere2, radius/3, greyMaterial);
+            Cylinder cylinder = createCylinder(connection, sphere1, sphere2, radius/3, greyMaterial);
+            connectionsMap.put(connection, cylinder);
+            visibleObjects.add(cylinder);
         }
 
         greyMaterial.setSpecularColor(Color.WHITE);
@@ -118,29 +113,31 @@ public class Visualization {
         return sphere;
     }
 
-    private void addConnection(List<Node> visibleObjects, Connection connection, Sphere sphere1, Sphere sphere2, int radius, Material material) {
+    private Cylinder createCylinder(Connection connection, Sphere sphere1, Sphere sphere2, int radius, Material material) {
         Point3D point1 = new Point3D(sphere1.getTranslateX(), sphere1.getTranslateY(), sphere1.getTranslateZ());
         Point3D point2 = new Point3D(sphere2.getTranslateX(), sphere2.getTranslateY(), sphere2.getTranslateZ());
 
-        Point3D middlePoint = point1.midpoint(point2);
-
-        Point3D subtractionResult = point1.subtract(point2);
-        Point3D axis = subtractionResult.crossProduct(Rotate.Y_AXIS);
-
         Cylinder cylinder = new Cylinder(radius, point1.distance(point2));
         cylinder.setMaterial(material);
-        cylinder.setTranslateX(middlePoint.getX());
-        cylinder.setTranslateY(middlePoint.getY());
-        cylinder.setTranslateZ(middlePoint.getZ());
-        cylinder.setRotationAxis(axis);
-        cylinder.setRotate(-subtractionResult.angle(Rotate.Y_AXIS));
+        setCylinderPosition(cylinder, point1, point2);
 
         cylinder.setOnMouseClicked(event -> {
             selectElement(cylinder, greyMaterial);
             propertiesController.setSelectedConnection(connection);
         });
 
-        visibleObjects.add(cylinder);
+        return cylinder;
+    }
+
+    private void setCylinderPosition(Cylinder cylinder, Point3D point1, Point3D point2) {
+        Point3D middlePoint = point1.midpoint(point2);
+        cylinder.setTranslateX(middlePoint.getX());
+        cylinder.setTranslateY(middlePoint.getY());
+        cylinder.setTranslateZ(middlePoint.getZ());
+
+        Point3D displacementVector = point1.subtract(point2);
+        cylinder.setRotationAxis(displacementVector.crossProduct(Rotate.Y_AXIS));
+        cylinder.setRotate(-displacementVector.angle(Rotate.Y_AXIS));
     }
 
     private void selectElement(Shape3D element, Material elementMaterial) {
@@ -160,14 +157,20 @@ public class Visualization {
     }
 
     private void refreshVisualization(int multiplier) {
-//        [TODO] Refresh every connection position nicely
-//        for (Map.Entry<SimpleNode, Sphere> nodeEntry : nodesMap.entrySet()) {
-//            setSphereTranslate(nodeEntry.getValue(), nodeEntry.getKey(), multiplier);
-//        }
-        List<Node> visualisedObjects = createVisualisedObjects(scene, radius, propertiesController);
+        for (Map.Entry<SimpleNode, Sphere> nodeEntry : nodesMap.entrySet()) {
+            setSphereTranslate(nodeEntry.getValue(), nodeEntry.getKey(), multiplier);
+        }
 
-        root.getChildren().clear();
-        root.getChildren().addAll(visualisedObjects);
+        for (Map.Entry<Connection, Cylinder> connectionEntry : connectionsMap.entrySet()) {
+            Connection connection = connectionEntry.getKey();
+            SimpleNode simpleNode1 = connection.getTypicalNode1();
+            SimpleNode simpleNode2 = connection.getTypicalNode2();
+            Point3D point1 = new Point3D(simpleNode1.getX() * visualisationMultiplicant, simpleNode1.getY() * visualisationMultiplicant, simpleNode1.getZ() * visualisationMultiplicant);
+            Point3D point2 = new Point3D(simpleNode2.getX() * visualisationMultiplicant, simpleNode2.getY() * visualisationMultiplicant, simpleNode2.getZ() * visualisationMultiplicant);
+            Cylinder cylinder = connectionEntry.getValue();
+            cylinder.setHeight(point1.distance(point2));
+            setCylinderPosition(cylinder, point1, point2);
+        }
     }
 
     private void setSphereTranslate(Sphere sphere, SimpleNode simpleNode, int multiplicant) {

@@ -1,27 +1,19 @@
-package flexo.scenebuilder;
-
-import flexo.model.Connection;
-import flexo.model.ImmovableNode;
-import flexo.model.Setup;
-import flexo.model.TypicalNode;
+package flexo.model;
 
 import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Created by Piotr on 2015-09-10.
+ * Created by kcpr on 06.12.15.
  */
-public class ThreeDimensionBuilder implements SceneBuilder {
+public class ThreeDimensionalSetup extends Setup {
 
-    private int numberOfNodesInBase = 10;
-
-    @Override
-    public Setup build() {
-        List<Connection> connections = new LinkedList<>();
+    public ThreeDimensionalSetup(int numberOfNodesInBase) {
+        if (numberOfNodesInBase < 2) {
+            numberOfNodesInBase = 2;
+        }
 
         double diameter = numberOfNodesInBase / 2;
-
-        Setup scene = new Setup();
 
         int id = 0;
         double stepSize = Math.PI / numberOfNodesInBase;
@@ -54,17 +46,6 @@ public class ThreeDimensionBuilder implements SceneBuilder {
             connections.add(new Connection(typicalNode1, typicalNode2, 0, 10));
         }
 
-        scene.addConnections(connections);
-
-        scene.setCentralNode(new TypicalNode(0, 0, 0, -1));
-
-        return scene;
-    }
-
-    @Override
-    public void setBaseNodesNumber(int number) {
-        if (number > 1) {
-            this.numberOfNodesInBase = number;
-        }
+        centralNode = new TypicalNode(0, 0, 0, -1);
     }
 }

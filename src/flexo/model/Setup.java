@@ -8,9 +8,9 @@ import java.util.List;
  */
 public class Setup {
 
-    private List<Connection> connections = new LinkedList<>();
+    List<Connection> connections = new LinkedList<>();
 
-    private TypicalNode centralNode;
+    TypicalNode centralNode;
 
     public void addConnection(Connection connection) {
         connections.add(connection);
