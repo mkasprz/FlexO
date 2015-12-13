@@ -5,11 +5,15 @@ import javafx.scene.Group;
 import javafx.scene.PerspectiveCamera;
 import javafx.scene.SceneAntialiasing;
 import javafx.scene.SubScene;
+import javafx.scene.control.ListView;
 import javafx.scene.layout.Pane;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
 
 public class ApplicationController {
+
+    @FXML
+    private ListView listView;
 
     @FXML
     private PropertiesController propertiesController;
@@ -69,7 +73,7 @@ public class ApplicationController {
             double deltaX = lastX - sceneX;
             double deltaY = lastY - sceneY;
 
-            double multiplier = 2 * cameraTranslate.getZ() / Z;
+            double multiplier = cameraTranslate.getZ() / Z;
 
             if (event.isPrimaryButtonDown()) {
                 cameraTranslate.setX(cameraTranslate.getX() + deltaX * multiplier);
@@ -89,6 +93,10 @@ public class ApplicationController {
             double multiplier = 2 * cameraTranslate.getZ() / Z;
             cameraTranslate.setZ(cameraTranslate.getZ() + event.getDeltaY() * multiplier);
         });
+    }
+
+    public ListView getListView() {
+        return listView;
     }
 
     public PropertiesController getPropertiesController() {

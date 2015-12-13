@@ -9,13 +9,13 @@
    <items>
       <VBox>
          <children>
-            <TitledPane animated="true" prefWidth="200.0" text="TreeView">
+            <TitledPane animated="true" prefWidth="200.0" text="ListView">
                <content>
-                  <ScrollPane maxHeight="Infinity" prefWidth="200.0">
+                  <ScrollPane maxHeight="Infinity">
                      <content>
-                        <VBox maxHeight="Infinity" prefWidth="100.0">
+                        <VBox maxHeight="Infinity">
                            <children>
-                              <TreeView maxHeight="Infinity" />
+                              <ListView fx:id="listView" maxHeight="Infinity" />
                            </children>
                         </VBox>
                      </content>
