@@ -74,7 +74,7 @@ public class Visualization {
             createVisualizedNode(nodes, visibleObjects, typicalNode2, radius, blackMaterial, propertiesController);
 
             createVisualizedConnection(visualizedConnections, visibleObjects, connection, radius/3, propertiesController, greyMaterial);
-            listView.getItems().add("Connection between nodes " + typicalNode1.getId() + " and " + typicalNode2);
+            listView.getItems().add("Connection between nodes " + typicalNode1.getId() + " and " + typicalNode2.getId());
         }
 
         createVisualizedNode(nodes, visibleObjects, setup.getCentralNode(), radius, greyMaterial, propertiesController);

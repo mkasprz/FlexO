@@ -176,10 +176,10 @@ public class DeformationCalculator {
         for (Connection connection : connectionsFromNode){
             Vector result;
             if (connection.getTypicalNode1().equals(node)){
-                result = getForceBetweenNodes(connection.getTypicalNode1(), connection.getTypicalNode2(),
+                result = getForceBetweenNodes(connection, connection.getTypicalNode1(), connection.getTypicalNode2(),
                         connection.getYoungsModule(), connection.getBalanceLength());
             } else {
-                result = getForceBetweenNodes(connection.getTypicalNode2(), connection.getTypicalNode1(),
+                result = getForceBetweenNodes(connection, connection.getTypicalNode2(), connection.getTypicalNode1(),
                         connection.getYoungsModule(), connection.getBalanceLength());
             }
             forces.add(result);
@@ -195,12 +195,12 @@ public class DeformationCalculator {
         node.translateNode(((Double) resultVector.get(0)).doubleValue(), ((Double) resultVector.get(1)).doubleValue(), ((Double) resultVector.get(2)).doubleValue());
     }
 
-    private Vector getForceBetweenNodes(SimpleNode node1, SimpleNode node2, double youngsModule, double length){
+    private Vector getForceBetweenNodes(Connection connection, SimpleNode node1, SimpleNode node2, double youngsModule, double length){
         Vector force = new Vector(3);
         //TODO : redo using all the fancy hook laws and stuff
-        force.add(0, new Double((node2.getX() - node1.getX())*0.006));
-        force.add(1, new Double((node2.getY() - node1.getY())*0.006));
-        force.add(2, new Double((node2.getZ() - node1.getZ())*0.006));
+        force.add(0, new Double(connection.getBalanceX()-(node2.getX() - node1.getX()))*0.001);
+        force.add(1, new Double(connection.getBalanceY()-(node2.getY() - node1.getY()))*0.001);
+        force.add(2, new Double(connection.getBalanceZ()-(node2.getZ() - node1.getZ()))*0.001);
 
         return force;
     }

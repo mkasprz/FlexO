@@ -9,12 +9,18 @@ public class Connection {
     private TypicalNode typicalNode2;
     private double youngsModule;
     private double balanceLength;
+    private double balanceX;
+    private double balanceY;
+    private double balanceZ;
 
-    public Connection(TypicalNode typicalNode1, TypicalNode typicalNode2, double youngsModule, double balanceLength) {
+    public Connection(TypicalNode typicalNode1, TypicalNode typicalNode2, double youngsModule, double balanceLength, double balanceX, double balanceY, double balanceZ) {
         this.typicalNode1 = typicalNode1;
         this.typicalNode2 = typicalNode2;
         this.youngsModule = youngsModule;
         this.balanceLength = balanceLength;
+        this.balanceX = balanceX;
+        this.balanceY = balanceY;
+        this.balanceZ = balanceZ;
     }
 
     public TypicalNode getTypicalNode1() {
@@ -41,4 +47,27 @@ public class Connection {
         this.youngsModule = youngsModule;
     }
 
+    public double getBalanceX() {
+        return balanceX;
+    }
+
+    public void setBalanceX(double balanceX) {
+        this.balanceX = balanceX;
+    }
+
+    public double getBalanceY() {
+        return balanceY;
+    }
+
+    public void setBalanceY(double balanceY) {
+        this.balanceY = balanceY;
+    }
+
+    public double getBalanceZ() {
+        return balanceZ;
+    }
+
+    public void setBalanceZ(double balanceZ) {
+        this.balanceZ = balanceZ;
+    }
 }
