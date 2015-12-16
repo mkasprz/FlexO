@@ -198,9 +198,9 @@ public class DeformationCalculator {
     private Vector getForceBetweenNodes(Connection connection, SimpleNode node1, SimpleNode node2, double youngsModule, double length){
         Vector force = new Vector(3);
         //TODO : redo using all the fancy hook laws and stuff
-        force.add(0, new Double(connection.getBalanceX()-(node2.getX() - node1.getX()))*0.001);
-        force.add(1, new Double(connection.getBalanceY()-(node2.getY() - node1.getY()))*0.001);
-        force.add(2, new Double(connection.getBalanceZ()-(node2.getZ() - node1.getZ()))*0.001);
+        force.add(0, new Double(connection.getBalanceX()-(Math.abs(node2.getX() - node1.getX())))*0.002);
+        force.add(1, new Double(connection.getBalanceY()-(Math.abs(node2.getY() - node1.getY())))*0.002);
+        force.add(2, new Double(connection.getBalanceZ()-(Math.abs(node2.getZ() - node1.getZ())))*0.002);
 
         return force;
     }
