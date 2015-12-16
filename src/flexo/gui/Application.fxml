@@ -1,38 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
-<?import javafx.scene.*?>
-<?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
 <SplitPane fx:controller="flexo.gui.ApplicationController" dividerPositions="0.2" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <items>
-      <VBox>
-         <children>
-            <TitledPane animated="true" prefWidth="200.0" text="ListView">
+      <SplitPane fx:id="splitPane" orientation="VERTICAL">
+         <items>
+            <TitledPane fx:id="listViewTitledPane" animated="true" prefWidth="200.0" text="ListView">
                <content>
-                  <ScrollPane maxHeight="Infinity">
+                  <ListView fx:id="listView" prefHeight="Infinity"/>
+               </content>
+            </TitledPane>
+            <TitledPane fx:id="propertiesTitledPane" animated="true" prefWidth="200.0" text="Properties">
+               <content>
+                  <ScrollPane prefHeight="Infinity">
                      <content>
-                        <VBox maxHeight="Infinity">
-                           <children>
-                              <ListView fx:id="listView" maxHeight="Infinity" />
-                           </children>
-                        </VBox>
+                        <fx:include source="Properties.fxml" fx:id="properties"/>
                      </content>
                   </ScrollPane>
                </content>
             </TitledPane>
-            <TitledPane animated="true" prefWidth="200.0" text="Properties">
-               <content>
-                  <ScrollPane maxHeight="Infinity">
-                     <content>
-                        <fx:include source="properties.fxml" fx:id="properties"/>
-                     </content>
-                  </ScrollPane>
-               </content>
-            </TitledPane>
-         </children>
-      </VBox>
+         </items>
+      </SplitPane>
       <Pane fx:id="pane"/>
    </items>
 </SplitPane>

@@ -49,17 +49,17 @@ public class ThreeDimensionalSetup extends Setup {
         centralNode = new TypicalNode(0, 0, 0, -1);
     }
 
-    private double getDistanceBetweenNodes(TypicalNode node1, TypicalNode node2){
-        return (Math.sqrt(Math.pow(node1.getX()-node2.getX(),2) + Math.pow(node1.getY()-node2.getY(),2) + Math.pow(node1.getZ()-node2.getZ(),2)));
+    private double getDistanceBetweenNodes(TypicalNode node1, TypicalNode node2) {
+        return (Math.sqrt(Math.pow(node1.getX() - node2.getX(), 2) + Math.pow(node1.getY() - node2.getY(), 2) + Math.pow(node1.getZ() - node2.getZ(), 2)));
     }
 
-    private double getDistanceOnCoordinate(TypicalNode node1, TypicalNode node2, int coordinate){
+    private double getDistanceOnCoordinate(TypicalNode node1, TypicalNode node2, int coordinate) {
         if (coordinate == 0) {
-            return Math.abs(node1.getX()-node2.getX());
+            return Math.abs(node1.getX() - node2.getX());
         } else if (coordinate == 1) {
-            return Math.abs(node1.getY()-node2.getY());
+            return Math.abs(node1.getY() - node2.getY());
         } else if (coordinate == 2) {
-            return Math.abs(node1.getZ()-node2.getZ());
+            return Math.abs(node1.getZ() - node2.getZ());
         } else {
             return 0;
         }

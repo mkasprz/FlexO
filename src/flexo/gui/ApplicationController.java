@@ -1,16 +1,28 @@
 package flexo.gui;
 
+import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
 import javafx.scene.PerspectiveCamera;
 import javafx.scene.SceneAntialiasing;
 import javafx.scene.SubScene;
 import javafx.scene.control.ListView;
+import javafx.scene.control.SplitPane;
+import javafx.scene.control.TitledPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
 
 public class ApplicationController {
+
+    @FXML
+    SplitPane splitPane;
+
+    @FXML
+    TitledPane listViewTitledPane;
+
+    @FXML
+    TitledPane propertiesTitledPane;
 
     @FXML
     private ListView listView;
@@ -21,20 +33,25 @@ public class ApplicationController {
     @FXML
     private Pane pane;
 
-    private Group root;
+    double lastDividerPosition;
 
+    private Group root;
     private final int X = 0;
     private final int Y = 150;
+
     private final int Z = -2000;
 
     double lastX, lastY;
-
     Translate cameraTranslate = new Translate(X, Y, Z);
     Rotate cameraRotateX = new Rotate(0, 0, Y, 0, Rotate.X_AXIS);
+
     Rotate cameraRotateY = new Rotate(0, X, 0, 0, Rotate.Y_AXIS);
 
     @FXML
     void initialize() {
+        listViewTitledPane.expandedProperty().addListener(getTitledPaneExtendedPropertyChangeListener(propertiesTitledPane));
+        propertiesTitledPane.expandedProperty().addListener(getTitledPaneExtendedPropertyChangeListener(listViewTitledPane));
+
         root = new Group();
         root.setRotationAxis(Rotate.X_AXIS);
         root.setRotate(180);
@@ -93,6 +110,16 @@ public class ApplicationController {
             double multiplier = 2 * cameraTranslate.getZ() / Z;
             cameraTranslate.setZ(cameraTranslate.getZ() + event.getDeltaY() * multiplier);
         });
+    }
+
+    private ChangeListener<Boolean> getTitledPaneExtendedPropertyChangeListener(TitledPane anotherTitledPane) {
+        return (observable, oldValue, newValue) -> {
+            if (newValue) {
+                splitPane.setDividerPositions(lastDividerPosition);
+            } else if (anotherTitledPane.isExpanded()){
+                lastDividerPosition = splitPane.getDividerPositions()[0];
+            }
+        };
     }
 
     public ListView getListView() {

@@ -6,4 +6,5 @@ package flexo.visualisation;
 public interface VisualizedElement {
 
     void refresh(int multiplier);
+
 }
