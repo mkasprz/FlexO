@@ -1,4 +1,4 @@
-package flexo.visualisation;
+package flexo.visualization;
 
 import flexo.model.Connection;
 import flexo.model.SimpleNode;

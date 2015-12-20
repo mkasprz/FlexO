@@ -1,8 +1,12 @@
-package flexo.visualisation;
+package flexo.visualization;
 
 import flexo.deformationcalculator.DeformationCalculator;
 import flexo.gui.PropertiesController;
-import flexo.model.*;
+import flexo.model.Connection;
+import flexo.model.Setup;
+import flexo.model.SimpleNode;
+import flexo.model.TypicalNode;
+import flexo.model.setupbuilder.SetupBuilder;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
@@ -41,8 +45,12 @@ public class Visualization {
         this.root = root;
         this.propertiesController = propertiesController;
 
-//        Setup setup = new TwoDimensionalSetup(10);
-        Setup setup = new ThreeDimensionalSetup(10); // [TODO] Move somewhere and pass as argument
+//        Setup setup = SetupBuilder.buildTwoDimensionalSetup(10); // [TODO] Move somewhere and pass as argument
+        Setup setup = SetupBuilder.buildThreeDimensionalSetup(10);
+
+//        Setup setup = SetupLoader.loadFromXMLFile("test.xml");
+
+//        SetupSaver.saveToXMLFile(setup, "test.xml");
 
         this.setup = setup;
 
@@ -74,7 +82,7 @@ public class Visualization {
             createVisualizedNode(nodes, visibleObjects, typicalNode2, radius, blackMaterial, propertiesController);
 
             createVisualizedConnection(visualizedConnections, visibleObjects, connection, radius/3, propertiesController, greyMaterial);
-            listView.getItems().add("Connection between nodes " + typicalNode1.getId() + " and " + typicalNode2.getId());
+            listView.getItems().add(typicalNode1.getId() + " - " + typicalNode2.getId());
         }
 
         createVisualizedNode(nodes, visibleObjects, setup.getCentralNode(), radius, greyMaterial, propertiesController);

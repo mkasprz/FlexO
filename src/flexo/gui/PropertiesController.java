@@ -3,7 +3,7 @@ package flexo.gui;
 import flexo.model.Connection;
 import flexo.model.SimpleNode;
 import flexo.model.TypicalNode;
-import flexo.visualisation.Visualization;
+import flexo.visualization.Visualization;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;

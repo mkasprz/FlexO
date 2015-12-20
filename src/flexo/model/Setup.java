@@ -1,13 +1,19 @@
 package flexo.model;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.LinkedList;
 import java.util.List;
 
 /**
  * Created by Piotr on 2015-09-10.
  */
+@XmlRootElement
 public class Setup {
 
+    @XmlElementWrapper
+    @XmlElement(name = "connection")
     List<Connection> connections = new LinkedList<>();
 
     TypicalNode centralNode;
@@ -32,6 +38,8 @@ public class Setup {
         this.centralNode = centralNode;
     }
 
+    @XmlElementWrapper
+    @XmlElement(name = "typicalNode")
     public List<TypicalNode> getTypicalNodes() { // [TODO] Decide if it's better to store nodes list in some variable
         List<TypicalNode> typicalNodes = new LinkedList<>();
         for (Connection connection : connections) {

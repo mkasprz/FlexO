@@ -38,7 +38,6 @@ public class ApplicationController {
     private Group root;
     private final int X = 0;
     private final int Y = 150;
-
     private final int Z = -2000;
 
     double lastX, lastY;

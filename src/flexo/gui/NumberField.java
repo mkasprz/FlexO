@@ -12,7 +12,7 @@ import javafx.scene.input.KeyEvent;
 public class NumberField extends TextField {
 //    private static final Logger logger = LoggerFactory.getLogger(DoubleTextField.class);
 
-    public NumberField() {
+    public NumberField() { // [TODO] This code is rather temporary - needs to be reviewed and should be changed
         super();
 
         addEventFilter(KeyEvent.KEY_TYPED, new EventHandler<KeyEvent>() {

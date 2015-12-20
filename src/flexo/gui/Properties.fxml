@@ -5,7 +5,7 @@
 
 <?import flexo.gui.NumberField?>
 <GridPane fx:id="sphereProperties" fx:controller="flexo.gui.PropertiesController" visible="false" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-    <!--hgap="6.0" vgap="10.0"-->
+    <!--hgap="6.0" vgap="10.0"--> <!--[TODO] Decide if 'GridPane' should be changed to - for example - 'ListView' or at least if this solution is better -->
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>

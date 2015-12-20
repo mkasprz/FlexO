@@ -1,4 +1,4 @@
-package flexo.visualisation;
+package flexo.visualization;
 
 /**
  * Created by kcpr on 12.12.15.

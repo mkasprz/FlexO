@@ -1,4 +1,4 @@
-package flexo.scenebuilder;
+package flexo.model.setupbuilder;
 
 import flexo.model.Setup;
 

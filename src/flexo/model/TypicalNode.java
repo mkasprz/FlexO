@@ -1,13 +1,19 @@
 package flexo.model;
 
+import javax.xml.bind.annotation.XmlID;
+
 /**
  * Created by Piotr on 2015-09-10.
  */
 public class TypicalNode extends SimpleNode {
 
     private double parameter;
-    private int id;
+
+    private int id; // [TODO] Decide if this should be changed to String to avoid unnecessary 'xmlID' field
     private boolean imba = false;
+
+    public TypicalNode() {
+    }
 
     public TypicalNode(double x, double y, double z, int id) {
         super(x, y, z);
@@ -24,6 +30,15 @@ public class TypicalNode extends SimpleNode {
 
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    @XmlID
+    public String getXmlID() {
+        return Integer.toString(id);
     }
 
     public boolean isImba(){

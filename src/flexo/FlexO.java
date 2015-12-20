@@ -2,7 +2,7 @@ package flexo;
 
 import flexo.gui.ApplicationController;
 import flexo.gui.GUI;
-import flexo.visualisation.Visualization;
+import flexo.visualization.Visualization;
 import javafx.application.Application;
 import javafx.stage.Stage;
 

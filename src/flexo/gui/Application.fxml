@@ -7,12 +7,12 @@
    <items>
       <SplitPane fx:id="splitPane" orientation="VERTICAL">
          <items>
-            <TitledPane fx:id="listViewTitledPane" animated="true" prefWidth="200.0" text="ListView">
+            <TitledPane fx:id="listViewTitledPane" animated="true" prefWidth="200.0" minWidth="0" text="Connections">
                <content>
                   <ListView fx:id="listView" prefHeight="Infinity"/>
                </content>
             </TitledPane>
-            <TitledPane fx:id="propertiesTitledPane" animated="true" prefWidth="200.0" text="Properties">
+            <TitledPane fx:id="propertiesTitledPane" animated="true" prefWidth="200.0" minWidth="0" text="Properties">
                <content>
                   <ScrollPane prefHeight="Infinity">
                      <content>

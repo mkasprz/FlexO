@@ -1,17 +1,26 @@
 package flexo.model;
 
+import javax.xml.bind.annotation.XmlIDREF;
+
 /**
  * Created by Piotr on 2015-09-10.
  */
 public class Connection {
 
+    @XmlIDREF
     private TypicalNode typicalNode1;
+
+    @XmlIDREF
     private TypicalNode typicalNode2;
+
     private double youngsModule;
-    private double balanceLength;
+    private double balanceLength; // [TODO] I believe, that this should be rather considered as multiplier
     private double balanceX;
     private double balanceY;
     private double balanceZ;
+
+    public Connection() {
+    }
 
     public Connection(TypicalNode typicalNode1, TypicalNode typicalNode2, double youngsModule, double balanceLength, double balanceX, double balanceY, double balanceZ) {
         this.typicalNode1 = typicalNode1;
