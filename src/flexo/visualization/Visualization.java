@@ -6,7 +6,6 @@ import flexo.model.Connection;
 import flexo.model.Setup;
 import flexo.model.SimpleNode;
 import flexo.model.TypicalNode;
-import flexo.model.setupbuilder.SetupBuilder;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
@@ -36,23 +35,22 @@ public class Visualization {
     private Shape3D selectedElement;
     private Material selectedElementMaterial;
 
-    Group root;
     Setup setup;
+    Group root;
     PropertiesController propertiesController;
     List<VisualizedConnection> visualizedConnections; // [TODO] Follow instructions for creating nice ListView and then delete this as useless
 
-    public Visualization(Group root, ListView listView, PropertiesController propertiesController) {
+    public Visualization(Setup setup, Group root, ListView listView, PropertiesController propertiesController) {
+        this.setup = setup;
         this.root = root;
         this.propertiesController = propertiesController;
 
 //        Setup setup = SetupBuilder.buildTwoDimensionalSetup(10); // [TODO] Move somewhere and pass as argument
-        Setup setup = SetupBuilder.buildThreeDimensionalSetup(10);
 
 //        Setup setup = SetupLoader.loadFromXMLFile("test.xml");
 
 //        SetupSaver.saveToXMLFile(setup, "test.xml");
 
-        this.setup = setup;
 
         deformationCalculator = new DeformationCalculator(setup);
         propertiesController.setVisualization(this);

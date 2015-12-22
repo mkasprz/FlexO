@@ -1,6 +1,12 @@
 package flexo.gui;
 
+import flexo.model.Setup;
+import flexo.model.persistence.SetupLoader;
+import flexo.model.persistence.SetupSaver;
+import flexo.model.setupbuilder.SetupBuilder;
+import flexo.visualization.Visualization;
 import javafx.beans.value.ChangeListener;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
 import javafx.scene.PerspectiveCamera;
@@ -8,10 +14,12 @@ import javafx.scene.SceneAntialiasing;
 import javafx.scene.SubScene;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SplitPane;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
+import javafx.stage.FileChooser;
 
 public class ApplicationController {
 
@@ -35,7 +43,10 @@ public class ApplicationController {
 
     double lastDividerPosition;
 
+    private Setup setup;
     private Group root;
+    private Visualization visualization;
+
     private final int X = 0;
     private final int Y = 150;
     private final int Z = -2000;
@@ -43,13 +54,14 @@ public class ApplicationController {
     double lastX, lastY;
     Translate cameraTranslate = new Translate(X, Y, Z);
     Rotate cameraRotateX = new Rotate(0, 0, Y, 0, Rotate.X_AXIS);
-
     Rotate cameraRotateY = new Rotate(0, X, 0, 0, Rotate.Y_AXIS);
 
     @FXML
     void initialize() {
         listViewTitledPane.expandedProperty().addListener(getTitledPaneExtendedPropertyChangeListener(propertiesTitledPane));
         propertiesTitledPane.expandedProperty().addListener(getTitledPaneExtendedPropertyChangeListener(listViewTitledPane));
+
+        propertiesController.setVisible(false);
 
         root = new Group();
         root.setRotationAxis(Rotate.X_AXIS);
@@ -131,5 +143,29 @@ public class ApplicationController {
 
     public Group getRoot() {
         return root;
+    }
+
+    public void newTwoDimensionalSetup(ActionEvent actionEvent) {
+        setup = SetupBuilder.buildTwoDimensionalSetup(new Integer(new TextInputDialog().showAndWait().get()));
+        visualizeSetup();
+    }
+
+    public void newThreeDimensionalSetup(ActionEvent actionEvent) {
+        setup = SetupBuilder.buildThreeDimensionalSetup(new Integer(new TextInputDialog().showAndWait().get()));
+        visualizeSetup();
+    }
+
+    public void loadSetup(ActionEvent actionEvent) {
+        setup = SetupLoader.loadFromXMLFile(new FileChooser().showOpenDialog(null));
+        visualizeSetup();
+    }
+
+    private void visualizeSetup() {
+        root.getChildren().clear();
+        visualization = new Visualization(setup, root, listView, propertiesController);
+    }
+
+    public void saveSetup(ActionEvent actionEvent) {
+        SetupSaver.saveToXMLFile(setup, new FileChooser().showSaveDialog(null));
     }
 }
