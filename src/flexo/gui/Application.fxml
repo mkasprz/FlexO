@@ -7,8 +7,8 @@
 <MenuBar VBox.vgrow="NEVER">
     <Menu text="Project">
        <Menu text="New">
-          <MenuItem text="Two dimensional setup" onAction="#newTwoDimensionalSetup"/>
-          <MenuItem text="Three dimensional setup" onAction="#newThreeDimensionalSetup"/>
+          <MenuItem text="Two-dimensional setup" onAction="#newTwoDimensionalSetup"/>
+          <MenuItem text="Three-dimensional setup" onAction="#newThreeDimensionalSetup"/>
        </Menu>
        <MenuItem text="Save" onAction="#saveSetup" />
        <MenuItem text="Load" onAction="#loadSetup"/>

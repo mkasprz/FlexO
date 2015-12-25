@@ -4,22 +4,22 @@ import flexo.model.Setup;
 import flexo.model.persistence.SetupLoader;
 import flexo.model.persistence.SetupSaver;
 import flexo.model.setupbuilder.SetupBuilder;
+import flexo.model.setupbuilder.ThreeDimensionalSetupBuilder;
+import flexo.model.setupbuilder.TwoDimensionalSetupBuilder;
 import flexo.visualization.Visualization;
 import javafx.beans.value.ChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Group;
-import javafx.scene.PerspectiveCamera;
-import javafx.scene.SceneAntialiasing;
-import javafx.scene.SubScene;
-import javafx.scene.control.ListView;
-import javafx.scene.control.SplitPane;
-import javafx.scene.control.TextInputDialog;
-import javafx.scene.control.TitledPane;
+import javafx.scene.*;
+import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
 import javafx.stage.FileChooser;
+
+import javax.xml.bind.JAXBException;
+import java.io.File;
+import java.util.Optional;
 
 public class ApplicationController {
 
@@ -133,31 +133,54 @@ public class ApplicationController {
         };
     }
 
-    public ListView getListView() {
-        return listView;
-    }
-
-    public PropertiesController getPropertiesController() {
-        return propertiesController;
-    }
-
-    public Group getRoot() {
-        return root;
-    }
-
     public void newTwoDimensionalSetup(ActionEvent actionEvent) {
-        setup = SetupBuilder.buildTwoDimensionalSetup(new Integer(new TextInputDialog().showAndWait().get()));
-        visualizeSetup();
+        newSetup(new TwoDimensionalSetupBuilder(), 3, 10, "two-dimensional setup", "Number of nodes:");
     }
 
     public void newThreeDimensionalSetup(ActionEvent actionEvent) {
-        setup = SetupBuilder.buildThreeDimensionalSetup(new Integer(new TextInputDialog().showAndWait().get()));
-        visualizeSetup();
+        newSetup(new ThreeDimensionalSetupBuilder(), 2, 10, "three-dimensional setup", "Number of nodes in base:");
+    }
+
+    private void newSetup(SetupBuilder setupBuilder, int minimalValue, int defaultValue, String setupTypeName, String contentText) {
+        TextInputDialog textInputDialog = new TextInputDialog(Integer.toString(defaultValue)); // [TODO] Think about moving this part to separate method such as 'showIntegerInputDialog'
+        textInputDialog.setTitle("New " + setupTypeName);
+        textInputDialog.setHeaderText("Create new " + setupTypeName);
+        textInputDialog.setContentText(contentText);
+        textInputDialog.setGraphic(null);
+
+        textInputDialog.getEditor().setTextFormatter(new TextFormatter<String>(change -> {
+            if (change.isContentChange() && !change.getText().matches("\\d+")) { // [TODO] Could confirm if it works well
+                return null;
+            }
+            return change;
+        }));
+
+        Node button = textInputDialog.getDialogPane().lookupButton(ButtonType.OK);
+        textInputDialog.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.equals("") || newValue.length() > 9 || Integer.parseInt(newValue) < minimalValue) {
+                button.setDisable(true);
+            } else {
+                button.setDisable(false);
+            }
+        });
+
+        Optional<String> integerInputDialogResult = textInputDialog.showAndWait();
+        if (integerInputDialogResult.isPresent()) {
+            setup = setupBuilder.build(Integer.parseInt(integerInputDialogResult.get()));
+            visualizeSetup();
+        }
     }
 
     public void loadSetup(ActionEvent actionEvent) {
-        setup = SetupLoader.loadFromXMLFile(new FileChooser().showOpenDialog(null));
-        visualizeSetup();
+        File file = new FileChooser().showOpenDialog(null);
+        if (file != null) {
+            try {
+                setup = SetupLoader.loadFromXMLFile(file);
+                visualizeSetup();
+            } catch (JAXBException | RuntimeException e) {
+                new Alert(Alert.AlertType.ERROR, "Error while opening file", ButtonType.OK).show();
+            }
+        }
     }
 
     private void visualizeSetup() {
@@ -166,6 +189,13 @@ public class ApplicationController {
     }
 
     public void saveSetup(ActionEvent actionEvent) {
-        SetupSaver.saveToXMLFile(setup, new FileChooser().showSaveDialog(null));
+        File file = new FileChooser().showSaveDialog(null);
+        if (file != null) {
+            try {
+                SetupSaver.saveToXMLFile(setup, file);
+            } catch (JAXBException e) {
+                new Alert(Alert.AlertType.ERROR, "Error while saving file", ButtonType.OK);
+            }
+        }
     }
 }

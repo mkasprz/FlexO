@@ -13,14 +13,9 @@ import java.io.File;
 // [TODO] Try finding up a name for class which could be used to both 'save' or 'load' Setup
 public class SetupLoader { // [TODO] Consider changing the name to 'SetupReader' or 'SetupImporter'
 
-    public static Setup loadFromXMLFile(File file) {
-        try { // [TODO] Should throw this exception
-            Unmarshaller unmarshaller = JAXBContext.newInstance(Setup.class).createUnmarshaller();
-            return (Setup) unmarshaller.unmarshal(file);
-        } catch (JAXBException e) {
-            e.printStackTrace();
-        }
-        return null;
+    public static Setup loadFromXMLFile(File file) throws JAXBException {
+        Unmarshaller unmarshaller = JAXBContext.newInstance(Setup.class).createUnmarshaller();
+        return (Setup) unmarshaller.unmarshal(file);
     }
 
 }
