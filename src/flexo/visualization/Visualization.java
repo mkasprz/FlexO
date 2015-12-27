@@ -1,8 +1,11 @@
-package flexo.visualisation;
+package flexo.visualization;
 
 import flexo.deformationcalculator.DeformationCalculator;
 import flexo.gui.PropertiesController;
-import flexo.model.*;
+import flexo.model.Connection;
+import flexo.model.Setup;
+import flexo.model.SimpleNode;
+import flexo.model.TypicalNode;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
@@ -32,19 +35,22 @@ public class Visualization {
     private Shape3D selectedElement;
     private Material selectedElementMaterial;
 
-    Group root;
     Setup setup;
+    Group root;
     PropertiesController propertiesController;
     List<VisualizedConnection> visualizedConnections; // [TODO] Follow instructions for creating nice ListView and then delete this as useless
 
-    public Visualization(Group root, ListView listView, PropertiesController propertiesController) {
+    public Visualization(Setup setup, Group root, ListView listView, PropertiesController propertiesController) {
+        this.setup = setup;
         this.root = root;
         this.propertiesController = propertiesController;
 
-//        Setup setup = new TwoDimensionalSetup(10);
-        Setup setup = new ThreeDimensionalSetup(10); // [TODO] Move somewhere and pass as argument
+//        Setup setup = SetupBuilder.buildTwoDimensionalSetup(10); // [TODO] Move somewhere and pass as argument
 
-        this.setup = setup;
+//        Setup setup = SetupLoader.loadFromXMLFile("test.xml");
+
+//        SetupSaver.saveToXMLFile(setup, "test.xml");
+
 
         deformationCalculator = new DeformationCalculator(setup);
         propertiesController.setVisualization(this);
@@ -74,7 +80,7 @@ public class Visualization {
             createVisualizedNode(nodes, visibleObjects, typicalNode2, radius, blackMaterial, propertiesController);
 
             createVisualizedConnection(visualizedConnections, visibleObjects, connection, radius/3, propertiesController, greyMaterial);
-            listView.getItems().add("Connection between nodes " + typicalNode1.getId() + " and " + typicalNode2.getId());
+            listView.getItems().add(typicalNode1.getId() + " - " + typicalNode2.getId());
         }
 
         createVisualizedNode(nodes, visibleObjects, setup.getCentralNode(), radius, greyMaterial, propertiesController);

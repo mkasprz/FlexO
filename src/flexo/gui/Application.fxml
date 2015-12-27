@@ -3,26 +3,34 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<SplitPane fx:controller="flexo.gui.ApplicationController" dividerPositions="0.2" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<VBox fx:controller="flexo.gui.ApplicationController" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" >
+<MenuBar VBox.vgrow="NEVER">
+    <Menu text="Project">
+       <Menu text="New">
+          <MenuItem text="Two-dimensional setup" onAction="#newTwoDimensionalSetup"/>
+          <MenuItem text="Three-dimensional setup" onAction="#newThreeDimensionalSetup"/>
+       </Menu>
+       <MenuItem text="Save" onAction="#saveSetup" />
+       <MenuItem text="Load" onAction="#loadSetup"/>
+    </Menu>
+</MenuBar>
+    <SplitPane dividerPositions="0.2" prefHeight="0" VBox.vgrow="ALWAYS">
    <items>
-      <SplitPane fx:id="splitPane" orientation="VERTICAL">
+      <SplitPane fx:id="splitPane"  orientation="VERTICAL">
          <items>
-            <TitledPane fx:id="listViewTitledPane" animated="true" prefWidth="200.0" text="ListView">
+            <TitledPane fx:id="listViewTitledPane" animated="true" prefWidth="200.0" minWidth="0" text="Connections">
                <content>
                   <ListView fx:id="listView" prefHeight="Infinity"/>
                </content>
             </TitledPane>
-            <TitledPane fx:id="propertiesTitledPane" animated="true" prefWidth="200.0" text="Properties">
+            <TitledPane fx:id="propertiesTitledPane" animated="true" prefWidth="200.0" minWidth="0" text="Properties">
                <content>
-                  <ScrollPane prefHeight="Infinity">
-                     <content>
-                        <fx:include source="Properties.fxml" fx:id="properties"/>
-                     </content>
-                  </ScrollPane>
+                    <fx:include source="Properties.fxml" fx:id="properties" prefHeight="Infinity"/>
                </content>
             </TitledPane>
          </items>
       </SplitPane>
-      <Pane fx:id="pane"/>
+      <Pane fx:id="pane" VBox.vgrow="ALWAYS"/>
    </items>
 </SplitPane>
+</VBox>

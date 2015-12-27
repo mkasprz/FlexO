@@ -1,90 +1,36 @@
 package flexo.gui;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.event.EventHandler;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyEvent;
+import javafx.scene.control.TextFormatter;
+
+import java.text.NumberFormat;
+import java.text.ParsePosition;
+import java.util.Locale;
 
 /**
  * Created by kcpr on 30.09.15.
  */
-public class NumberField extends TextField {
-//    private static final Logger logger = LoggerFactory.getLogger(DoubleTextField.class);
+public class NumberField extends TextField { // [TODO] Check if there are more characters entered than 'double' can handle
 
     public NumberField() {
-        super();
-
-        addEventFilter(KeyEvent.KEY_TYPED, new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent event) {
-                if (!isValid(getText())) {
-                    event.consume();
-                }
+        setTextFormatter(new TextFormatter<>(change -> {
+            NumberFormat numberFormat = NumberFormat.getNumberInstance(Locale.ROOT);
+            String controlNewText = change.getControlNewText();
+            ParsePosition parsePosition = new ParsePosition(0);
+            numberFormat.parse(controlNewText, parsePosition);
+            if (change.isAdded() && parsePosition.getIndex() != controlNewText.length()) {
+                return null;
             }
-        });
-
-        textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observableValue,
-                                String oldValue, String newValue) {
-                if(!isValid(newValue)) {
-                    setText(oldValue);
-                }
-            }
-        });
-    }
-
-    private boolean isValid(final String value) {
-        if (value.length() == 0 || value.equals("-")) {
-            return true;
-        }
-
-        if (value.indexOf(".") != value.lastIndexOf(".")) { //StringUtils.countMatches(value, ".") > 1) {
-            return false;
-        } if (value.endsWith(".")) {
-            return true;
-        }
-
-        try {
-            Double.parseDouble(value);
-            return true;
-        } catch (NumberFormatException ex) {
-            return false;
-        }
+            return change;
+        }));
     }
 
     public double getNumber() {
-        try {
-            return Double.parseDouble(getText());
-        } catch (NumberFormatException e) {
-//            logger.error("Error parsing double (" + getText() +") from field.", e);
+        String text = getText();
+        if (text.length() == 0) {
             return 0;
         }
+        return Double.parseDouble(text);
     }
-
-//    @Override
-//    public void replaceText(final int start, final int end, final String text) {
-//        if (text.matches("[0-9]*") || (text.matches("\\-?[0-9]*\\.[0-9]*")
-//                && (!super.getText().contains(".") || super.getSelectedText().contains("."))
-//                && (!super.getText().contains("-") || super.getSelectedText().contains("-")))) {
-//            super.replaceText(start, end, text);
-//        }
-//    }
-//
-//
-//    public double getNumber(){
-//        return Double.parseDouble(getText());
-//    }
-////
-////    @Override
-////    public void replaceSelection(String replacement) {
-////        System.out.println("sel");
-//////        System.out.println(super.getText().replace(super.getSelectedText(), "").contains("."));
-//////        if (replacement.matches("[0-9]*") || (replacement.matches("[0-9]*\\.[0-9]*")
-//////                && super.getSelectedText().contains("."))) {
-////            super.replaceSelection(replacement);
-//////        }
-////    }
 
 }
