@@ -7,9 +7,6 @@ import java.text.NumberFormat;
 import java.text.ParsePosition;
 import java.util.Locale;
 
-/**
- * Created by kcpr on 30.09.15.
- */
 public class NumberField extends TextField { // [TODO] Check if there are more characters entered than 'double' can handle
 
     public NumberField() {

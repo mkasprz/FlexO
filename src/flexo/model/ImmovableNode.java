@@ -1,8 +1,5 @@
 package flexo.model;
 
-/**
- * Created by Piotr on 2015-11-21.
- */
 public class ImmovableNode extends TypicalNode {
 
     public ImmovableNode(double x, double y, double z, int id) {
@@ -12,12 +9,12 @@ public class ImmovableNode extends TypicalNode {
 
     @Override
     public void moveNode(double x, double y, double z){
-        //do something interesting
+        // do something interesting
     }
 
     @Override
     public void translateNode(double x, double y, double z){
-        //to�samo
+        //
     }
 
     @Override

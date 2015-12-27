@@ -4,9 +4,6 @@ import flexo.model.SimpleNode;
 import javafx.scene.paint.Material;
 import javafx.scene.shape.Sphere;
 
-/**
- * Created by kcpr on 10.12.15.
- */
 public class VisualizedNode extends Sphere implements VisualizedElement {
 
     SimpleNode simpleNode;
@@ -24,6 +21,5 @@ public class VisualizedNode extends Sphere implements VisualizedElement {
         setTranslateY(simpleNode.getY() * multiplier);
         setTranslateZ(simpleNode.getZ() * multiplier);
     }
-
 
 }

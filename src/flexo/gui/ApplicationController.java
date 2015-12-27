@@ -155,17 +155,6 @@ public class ApplicationController {
             return change;
         }));
 
-//        textInputDialog.getEditor().setTextFormatter(new TextFormatter<>(change -> {
-//            NumberFormat numberFormat = NumberFormat.getIntegerInstance();
-//            String text = change.getText();
-//            ParsePosition parsePosition = new ParsePosition(0);
-//            numberFormat.parse(text, parsePosition);
-//            if (change.isAdded() && parsePosition.getIndex() != text.length()) {
-//                return null;
-//            }
-//            return change;
-//        }));
-
         Node button = textInputDialog.getDialogPane().lookupButton(ButtonType.OK);
         textInputDialog.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue.length() == 0 || newValue.length() > 9 || Integer.parseInt(newValue) < minimalValue) {

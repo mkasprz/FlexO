@@ -2,9 +2,6 @@ package flexo.model;
 
 import javax.xml.bind.annotation.XmlIDREF;
 
-/**
- * Created by Piotr on 2015-09-10.
- */
 public class Connection {
 
     @XmlIDREF

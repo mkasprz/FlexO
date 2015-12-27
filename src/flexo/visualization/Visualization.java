@@ -17,17 +17,11 @@ import javafx.scene.shape.Shape3D;
 import java.util.LinkedList;
 import java.util.List;
 
-/**
- * Created by kcpr on 12.06.15.
- */
 public class Visualization {
 
     final PhongMaterial blackMaterial = new PhongMaterial(Color.BLACK);
     final PhongMaterial redMaterial = new PhongMaterial(Color.RED);
     final PhongMaterial greyMaterial = new PhongMaterial(Color.GREY);
-
-//    private Map<SimpleNode, Sphere> nodesMap;
-//    private Map<Connection, Cylinder> connectionsMap;
 
     private DeformationCalculator deformationCalculator;
     private int radius = 20;
@@ -44,13 +38,6 @@ public class Visualization {
         this.setup = setup;
         this.root = root;
         this.propertiesController = propertiesController;
-
-//        Setup setup = SetupBuilder.buildTwoDimensionalSetup(10); // [TODO] Move somewhere and pass as argument
-
-//        Setup setup = SetupLoader.loadFromXMLFile("test.xml");
-
-//        SetupSaver.saveToXMLFile(setup, "test.xml");
-
 
         deformationCalculator = new DeformationCalculator(setup);
         propertiesController.setVisualization(this);

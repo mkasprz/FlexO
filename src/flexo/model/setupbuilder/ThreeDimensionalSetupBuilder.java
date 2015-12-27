@@ -8,9 +8,6 @@ import flexo.model.TypicalNode;
 import java.util.LinkedList;
 import java.util.List;
 
-/**
- * Created by kcpr on 25.12.15.
- */
 public class ThreeDimensionalSetupBuilder implements SetupBuilder {
 
     @Override

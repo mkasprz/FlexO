@@ -3,9 +3,6 @@ package flexo.model.setupbuilder;
 import flexo.model.Setup;
 import flexo.model.TypicalNode;
 
-/**
- * Created by Piotr on 2015-09-10.
- */
 public interface SetupBuilder {
 
     Setup build(int number);

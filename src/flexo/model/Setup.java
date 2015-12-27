@@ -6,9 +6,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 import java.util.LinkedList;
 import java.util.List;
 
-/**
- * Created by Piotr on 2015-09-10.
- */
 @XmlRootElement
 public class Setup {
 

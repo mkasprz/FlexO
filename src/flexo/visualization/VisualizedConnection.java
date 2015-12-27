@@ -7,9 +7,6 @@ import javafx.scene.paint.Material;
 import javafx.scene.shape.Cylinder;
 import javafx.scene.transform.Rotate;
 
-/**
- * Created by kcpr on 10.12.15.
- */
 public class VisualizedConnection extends Cylinder implements VisualizedElement {
 
     private Connection connection;
