@@ -149,15 +149,26 @@ public class ApplicationController {
         textInputDialog.setGraphic(null);
 
         textInputDialog.getEditor().setTextFormatter(new TextFormatter<String>(change -> {
-            if (change.isContentChange() && !change.getText().matches("\\d+")) { // [TODO] Could confirm if it works well
+            if (change.isAdded() && !change.getText().matches("\\d+")) { // [TODO] Could confirm if it works well
                 return null;
             }
             return change;
         }));
 
+//        textInputDialog.getEditor().setTextFormatter(new TextFormatter<>(change -> {
+//            NumberFormat numberFormat = NumberFormat.getIntegerInstance();
+//            String text = change.getText();
+//            ParsePosition parsePosition = new ParsePosition(0);
+//            numberFormat.parse(text, parsePosition);
+//            if (change.isAdded() && parsePosition.getIndex() != text.length()) {
+//                return null;
+//            }
+//            return change;
+//        }));
+
         Node button = textInputDialog.getDialogPane().lookupButton(ButtonType.OK);
         textInputDialog.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue.equals("") || newValue.length() > 9 || Integer.parseInt(newValue) < minimalValue) {
+            if (newValue.length() == 0 || newValue.length() > 9 || Integer.parseInt(newValue) < minimalValue) {
                 button.setDisable(true);
             } else {
                 button.setDisable(false);
