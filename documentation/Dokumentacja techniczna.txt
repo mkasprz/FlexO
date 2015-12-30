@@ -1,0 +1,117 @@
+
+
+
+
+WYDZIAŁ INFORMATYKI, ELEKTRONIKI I TELEKOMUNIKACJI
+KATEDRA INFORMATYKI
+
+
+DOKUMENTACJA TECHNICZNA
+
+Implementacja narzędzia modelowania brył elastycznych
+ 
+Tool for modelling flexible objects
+
+
+
+
+
+
+
+
+Autor:				Piotr Baran, Michał Kasprzyk
+Kierunek studiów:		informatyka 
+Opiekun pracy:		doktor inżynier Paweł Topa
+
+
+
+
+
+Kraków, 2015
+
+
+
+
+Uprzedzony o odpowiedzialności karnej na podstawie art. 115 ust. 1 i 2 ustawy z dnia 
+4 lutego 1994 r. o prawie autorskim i prawach pokrewnych (t.j. Dz.U. z 2006 r. Nr 90, poz. 631 z późn. zm.): „ Kto przywłaszcza sobie autorstwo albo wprowadza w błąd co do autorstwa całości lub części cudzego utworu albo artystycznego wykonania, podlega grzywnie, karze ograniczenia wolności albo pozbawienia wolności do lat 3. Tej samej karze podlega, kto rozpowszechnia bez podania nazwiska lub pseudonimu twórcy cudzy utwór 
+w wersji oryginalnej albo w postaci opracowania, artystyczne wykonanie albo publicznie zniekształca taki utwór, artystyczne wykonanie, fonogram, wideogram lub nadanie.”, a także uprzedzony o odpowiedzialności dyscyplinarnej na podstawie art. 211 ust. 1 ustawy z dnia 
+27 lipca 2005 r. Prawo o szkolnictwie wyższym (t.j. Dz. U. z 2012 r. poz. 572, z późn. zm.) „Za naruszenie przepisów obowiązujących w uczelni oraz za czyny uchybiające godności studenta student ponosi odpowiedzialność dyscyplinarną przed komisją dyscyplinarną albo przed sądem koleżeńskim samorządu studenckiego, zwanym dalej „sądem koleżeńskim”, oświadczam, że niniejszą pracę dyplomową wykonałem(-am) osobiście, samodzielnie i że nie korzystałem(-am) ze źródeł innych niż wymienione w pracy.
+　							...................................
+
+Spis treści
+1.Wykorzystane technologie
+2.Wizja architektury projektu
+3.Diagram klas
+4.Opis modułów
+1. Wykorzystane technologie
+W projekcie wykorzystano następujące technologie:
+- Java;
+- JavaFX - wykorzystany do stworzenia ‘user interface’ i połączenia go z logiką aplikacji;
+- JavaFX 3D - wykorzystany do zwizualizowania układu;
+- JAXB - wykorzystywany do zapisu oraz wczytywania układu z pliku ‘.xml’.
+Do kontroli wersji wykorzystany został system Git.
+Projekt powstawał w zintegrowanym środowisku programistycznym IntelliJ IDEA.4. Opis modułów
+
+4.1. Moduł głównego okna aplikacji
+
+Rozkład elementów w głównym oknie aplikacji definiowany jest w pliku ‘Aplication.fxml’. Klasą zarządzającą oknem jest ‘ApplicationController’. Ponadto wykorzystany jest dodatkowy plik ‘Properties.fxml’ odpowiadający za wygląd właściwości elementów. Jest on zarządzany przez klasę ‘PropertiesController’.
+Wykorzystanie plików ‘.fxml’, będący w praktyce plikiem typu ‘.xml’, pozwala na wygodną i szybką edycję układu elementów okna. Ponadto pozwala w łatwy sposób oddzielić logikę aplikacji z warstwą definicji wyglądu okna. Rozwiązanie to wynika z wyboru technologii ‘JavaFX’.
+Ponadto w celu zwizualizowania elementów tworzony jest nowy ‘SubScene’. Pozwala to między innymi na wykorzystanie dodatkowej kamery, która może być innego typu - odpowiednia do wyświetlania elementów trójwymiarowych.
+
+<Diagram klas>
+
+4.2. Model danych aplikacji
+
+Model danych przechowuje informacje o stanie bryły w aktualnym momencie. Skonstrouwany jest hierarchicznie, to jest klasy o logicznie wyższym poziomie zawierają w sobie klasy niższego poziomu. Podstawową jednostką w modelu jest węzeł. Reprezentowany jest w kilku różnych klasach odpowiadających parę rodzajów węzłów (zwykłe węzły, węzeł centralny, nieruchome węzły na krawędzi siatki) rozszerzających podstawową klasę SimpleNode. Klasa ta zawiera informacje o położeniu węzła w trzech wymiarach, oraz metody pozwalające w łatwy sposób zmieniać położenie węzła. Zwykłe węzły, których zasadniczo najwięcej jest w układzie są reprezentowane przez klasę TypicalNode. Klasa ta, oprócz informacji z superclassy zawiera również numer identyfikacyjny węzła oraz flagę informującą o tym, czy dany węzeł znajduje się w stanie równowagi. Węzły nieruchome znajdują się na krańcach układu i stanowią ograniczenie dla pozostałych węzłów co do możliwości przemieszczenia układu. Węzły te reprezentowane są przez obiekty klasy ImmovableNode. Pary węzłów przechowywane są w postaci połączeń w obiektach klasy Connection. Połączenia zawierają informację o węzłach, które łączą, jak również inne dane niezbędne do obliczeń. Można wśród nich wyróżnić moduł Younga wpływajacy na sztywność danego połączenia oraz długość równowagi danego połączenia. Połączenie to będzie dążyć do odzyskania takiej długości, niezależnie od tego, czy zostanie rozciągnięte, czy ściśnięte. Wszystkie połączenia zebrane są w układzie, czyli klasie Setup. Klasa ta zawiera listę wszystkich połączeń w bryle. Zawiera również metody, pozwalające łatwo otrzymać obiekty niższego poziomu, jak na przykład połączenia wychodzące z danego węzła, czy listę wszystkich zwykłych węzłów układu. Model ten jest odwzorowaniem jednego ze sposobów przechowywania grafów - za pomocą listy połączeń. W nomenklaturze aplikacji bryła jest zaś właśnie grafem ważonym z punktami o pewnych współrzędnych oraz krawędziami o pewnych wagach.
+
+
+
+<diagram klas>
+
+
+4.3. Moduł menu nowego projektu
+
+Umożliwienie użytkownikowi utworzenie nowego projektu w praktyce sprowadza się do stworzenia nowego okna w którym użytkownik ma możliwość wyboru typu układu, który zostanie wygenerowany.
+
+<Diagram klas>
+
+
+4.4. Moduł tworzenia lub wczytania układu
+
+Po wybraniu przez użytkownika odpowiedniego typu układu jest on generowany. W praktyce sprowadza się to do stworzenia odpowiedniej listy połączeń oraz elementu centralnego z którym połączone są pozostałe. Każde połączenie składa się z węzła początkowego i końcowego. Węzły mogą oczywiście być wspólne dla kilku połączeń.
+W wypadku układu dwuwymiarowego połączenia tworzą początkowo zwykłą linię. Mimo, że układ jest dwuwymiarowy węzły są tego samego typu jak w wypadku trójwymiarowym - po prostu trzecia współrzędna jest stała.
+Układ trójwymiarowy początkowo generowany jest jako półsfera. Jej wielkość zależna jest od wartości węzłów w podstawie, która możliwa jest do zdefiniowania przez użytkownika.
+Wczytanie układu z pliku sprowadza się do odczytania listy połączeń oraz informacji o każdym z węzłów.
+
+<Fragment kodu>
+<Diagram klas>
+
+
+4.5. Moduł wizualizacji
+
+Moduł wizualizacji odpowiada przede wszystkim za interpretację listy połączeń tworzących układ. Na ich podstawie tworzone są odpowiednie sfery, reprezentujące węzły, oraz cylindry, reprezentujące połączenia. Wizualizacja węzłów jako sfer nie stanowi wielkiego problemu, jest to jednak bardziej skomplikowane w wypadku połączeń. Wynika to z faktu, że zazwyczaj cylindry nie są definiowane przez podanie im punktu początkowego i końcowego, a raczej punktu środkowego i ewentualnego kąta nachylenia względem danej osi. W praktyce zatem, aby zwizualizować połączenie należy: znaleźć punkt środkowy między węzłami, przemieścić tam cylinder, znaleźć wektor przemieszczenia między węzłami, poznać kąt nachylenia między wektorem przesunięcia, a osią ‘y’, obliczyć oś obrotu względem której cylinder powinien zostać obrócony, obrócić cylinder, wyliczyć odległość między węzłami i ostatecznie ustalić wysokość cylindra na obliczoną wartość.
+Ponadto moduł odpowiada za zapewnienie poprawnej obsługi zaznaczania elementów. Wiąże się to z zaktualizowaniem panelu ustawień węzłów i połączeń.
+Po zmianie odpowiednich parametrów układ powinien zostać uaktualniony. Analogicznie, zmiany powinny zostać przedstawione w wizualizacji. Realizowane jest to poprzez odświeżenie każdego zwizualizowanego elementu.
+
+<Fragment kodu odpowiadający za obliczenie pozycji cylindra>
+<Diagram klas>
+
+
+4.6. Moduł zapisu układu do pliku
+
+Zapis układu do pliku sprowadza się do przedstawienia układu, czyli obiektu klasy ‘Setup’, wraz z listą połączeń i każdym z węzłów w postaci odpowiednich tagów pliku ‘.xml’. W tym celu wykorzystana jest technologia JAXB - Java Architecture for XML Binding. Za pomocą odpowiednich adnotacji pozwala ona w prosty sposób zdefiniować które pola powinny zostać zapisane.
+
+4.7. Moduł obliczający odkształcenie bryły
+
+Obliczaniem odkształcenia bryły zajmuje się zachłanny algorytm iteracyjny. Działanie algorytmu jest następujące :
+
+1.Oblicz wektor wypadkowy sił działających na dowolny węzeł.
+2.Przesuń węzeł zgodnie z działającą na niego wypadkową siłą
+3.Wykonaj kroki 1 i 2 dla wszystkich pozostałych węzłów
+4.Sprawdź, czy układ jest w równowadze, to jest, czy działające na każdy węzeł siły równoważą się
+5.Jeżeli nie, powtarzaj poprzednie kroki
+6.Jeżeli tak, obliczenia są zakończone
+
+Warunkiem stopu algorytmu jest otrzymanie bryły w stanie równowagi. Może się jednak okazać, że dla danego układu rozwiązanie nie istnieje. W takiej sytuacji, po pewnej liczbie iteracji bez znalezienia rozwiązania uruchamiana jest metoda sprawdzająca zbieżność procesu obliczeń. Zapisuje siły obliczane podczas działania algorytmu i sprawdza, czy suma sił w układzie zmniejsza się w kolejnych iteracjach. Jeżeli przez pewną liczbę iteracji, sytuacja nie ulega poprawie, uznaje się, że dany układ jest niemożliwy do zrównoważenia. Sytuacje takie mogą występować, kiedy użytkownik poda aplikacji zupełnie nierzeczywiste parametry, dające zbyt małe możliwości przesuwania węzłów, lub umieszczając centralny punkt w miejscu, w którym oddziałuje na pozostałe w sposób, który powoduje, że nie jest możliwe znalezienie ustawienia równowagi. Dla ustawień, dla których da się jednak obliczyć wynik, algorytm ten zwraca poprawny wynik. 
+Fakt, że obliczenia wykonywane są iteracyjnie pozwala między innymi na śledzenie kolejnych etapów działania algorytmu oraz obserwowanie zmieniających się naprężęń występujących w siatce. 
+
