@@ -44,16 +44,25 @@ Spis treści
 3.Diagram klas
 4.Opis modułów
 1. Wykorzystane technologie
+
 W projekcie wykorzystano następujące technologie:
 - Java;
 - JavaFX - wykorzystany do stworzenia ‘user interface’ i połączenia go z logiką aplikacji;
-- JavaFX 3D - wykorzystany do zwizualizowania układu;
+- JavaFX 3D [OpenJFX?]- wykorzystany do zwizualizowania układu;
 - JAXB - wykorzystywany do zapisu oraz wczytywania układu z pliku ‘.xml’.
 Do kontroli wersji wykorzystany został system Git.
-Projekt powstawał w zintegrowanym środowisku programistycznym IntelliJ IDEA.4. Opis modułów
+Projekt powstawał w zintegrowanym środowisku programistycznym IntelliJ IDEA.
+
+
+2. Wizja architektury projektu
+Do stworzenia podstawowej architektury został wybrany wzorzec Model-Widok-Kontroler. Powodów takiej decyzji było kilka. Przede wszystkim, MVC jest pierwszym wyborem, ku któremu skłaniamy się, mając do stworzenia aplikację z graficznym interfejsem użytkownika, która ma na celu pewną interakcję z użytkownikiem. Jest to klasyczny schemat umożliwiający logiczne rozdzielenie części aplikacji zgodnie z ich funkcjonalnością, zapewniając uporządkowany przepływ danych w aplikacji. Kolejnym istotnym powodem wykorzystania wzorca był fakt, że zdecydowaliśmy się wykorzystać technologię JavaFX do stworzenia GUI. Technologia ta, poza wprowadzeniem wygodnego formatu definiowania elementów interfejsu w postaci plików xml, w naturalny sposób wprowadza do aplikacji kontrolery umożliwiające komunikację między modelem a widokiem. 
+Model aplikacji stanowi reprezentację dziedziny problemu, odzwierciedla stan konkretnego przypadku, który będzie rozwiązywany przez program. Zawiera informacje na temat położenia każdego z węzłów, a także o ich połączeniach z innymi węzłami, a także parametry tych połączeń. 
+Widok stanowi trójwymiarowa wizualizacja 
+
+3.Diagram klas
+<diagram klas>4. Opis modułów
 
 4.1. Moduł głównego okna aplikacji
-
 Rozkład elementów w głównym oknie aplikacji definiowany jest w pliku ‘Aplication.fxml’. Klasą zarządzającą oknem jest ‘ApplicationController’. Ponadto wykorzystany jest dodatkowy plik ‘Properties.fxml’ odpowiadający za wygląd właściwości elementów. Jest on zarządzany przez klasę ‘PropertiesController’.
 Wykorzystanie plików ‘.fxml’, będący w praktyce plikiem typu ‘.xml’, pozwala na wygodną i szybką edycję układu elementów okna. Ponadto pozwala w łatwy sposób oddzielić logikę aplikacji z warstwą definicji wyglądu okna. Rozwiązanie to wynika z wyboru technologii ‘JavaFX’.
 Ponadto w celu zwizualizowania elementów tworzony jest nowy ‘SubScene’. Pozwala to między innymi na wykorzystanie dodatkowej kamery, która może być innego typu - odpowiednia do wyświetlania elementów trójwymiarowych.
@@ -61,7 +70,6 @@ Ponadto w celu zwizualizowania elementów tworzony jest nowy ‘SubScene’. Poz
 <Diagram klas>
 
 4.2. Model danych aplikacji
-
 Model danych przechowuje informacje o stanie bryły w aktualnym momencie. Skonstrouwany jest hierarchicznie, to jest klasy o logicznie wyższym poziomie zawierają w sobie klasy niższego poziomu. Podstawową jednostką w modelu jest węzeł. Reprezentowany jest w kilku różnych klasach odpowiadających parę rodzajów węzłów (zwykłe węzły, węzeł centralny, nieruchome węzły na krawędzi siatki) rozszerzających podstawową klasę SimpleNode. Klasa ta zawiera informacje o położeniu węzła w trzech wymiarach, oraz metody pozwalające w łatwy sposób zmieniać położenie węzła. Zwykłe węzły, których zasadniczo najwięcej jest w układzie są reprezentowane przez klasę TypicalNode. Klasa ta, oprócz informacji z superclassy zawiera również numer identyfikacyjny węzła oraz flagę informującą o tym, czy dany węzeł znajduje się w stanie równowagi. Węzły nieruchome znajdują się na krańcach układu i stanowią ograniczenie dla pozostałych węzłów co do możliwości przemieszczenia układu. Węzły te reprezentowane są przez obiekty klasy ImmovableNode. Pary węzłów przechowywane są w postaci połączeń w obiektach klasy Connection. Połączenia zawierają informację o węzłach, które łączą, jak również inne dane niezbędne do obliczeń. Można wśród nich wyróżnić moduł Younga wpływajacy na sztywność danego połączenia oraz długość równowagi danego połączenia. Połączenie to będzie dążyć do odzyskania takiej długości, niezależnie od tego, czy zostanie rozciągnięte, czy ściśnięte. Wszystkie połączenia zebrane są w układzie, czyli klasie Setup. Klasa ta zawiera listę wszystkich połączeń w bryle. Zawiera również metody, pozwalające łatwo otrzymać obiekty niższego poziomu, jak na przykład połączenia wychodzące z danego węzła, czy listę wszystkich zwykłych węzłów układu. Model ten jest odwzorowaniem jednego ze sposobów przechowywania grafów - za pomocą listy połączeń. W nomenklaturze aplikacji bryła jest zaś właśnie grafem ważonym z punktami o pewnych współrzędnych oraz krawędziami o pewnych wagach.
 
 
@@ -70,14 +78,12 @@ Model danych przechowuje informacje o stanie bryły w aktualnym momencie. Skonst
 
 
 4.3. Moduł menu nowego projektu
-
 Umożliwienie użytkownikowi utworzenie nowego projektu w praktyce sprowadza się do stworzenia nowego okna w którym użytkownik ma możliwość wyboru typu układu, który zostanie wygenerowany.
 
 <Diagram klas>
 
 
 4.4. Moduł tworzenia lub wczytania układu
-
 Po wybraniu przez użytkownika odpowiedniego typu układu jest on generowany. W praktyce sprowadza się to do stworzenia odpowiedniej listy połączeń oraz elementu centralnego z którym połączone są pozostałe. Każde połączenie składa się z węzła początkowego i końcowego. Węzły mogą oczywiście być wspólne dla kilku połączeń.
 W wypadku układu dwuwymiarowego połączenia tworzą początkowo zwykłą linię. Mimo, że układ jest dwuwymiarowy węzły są tego samego typu jak w wypadku trójwymiarowym - po prostu trzecia współrzędna jest stała.
 Układ trójwymiarowy początkowo generowany jest jako półsfera. Jej wielkość zależna jest od wartości węzłów w podstawie, która możliwa jest do zdefiniowania przez użytkownika.
@@ -88,7 +94,6 @@ Wczytanie układu z pliku sprowadza się do odczytania listy połączeń oraz i
 
 
 4.5. Moduł wizualizacji
-
 Moduł wizualizacji odpowiada przede wszystkim za interpretację listy połączeń tworzących układ. Na ich podstawie tworzone są odpowiednie sfery, reprezentujące węzły, oraz cylindry, reprezentujące połączenia. Wizualizacja węzłów jako sfer nie stanowi wielkiego problemu, jest to jednak bardziej skomplikowane w wypadku połączeń. Wynika to z faktu, że zazwyczaj cylindry nie są definiowane przez podanie im punktu początkowego i końcowego, a raczej punktu środkowego i ewentualnego kąta nachylenia względem danej osi. W praktyce zatem, aby zwizualizować połączenie należy: znaleźć punkt środkowy między węzłami, przemieścić tam cylinder, znaleźć wektor przemieszczenia między węzłami, poznać kąt nachylenia między wektorem przesunięcia, a osią ‘y’, obliczyć oś obrotu względem której cylinder powinien zostać obrócony, obrócić cylinder, wyliczyć odległość między węzłami i ostatecznie ustalić wysokość cylindra na obliczoną wartość.
 Ponadto moduł odpowiada za zapewnienie poprawnej obsługi zaznaczania elementów. Wiąże się to z zaktualizowaniem panelu ustawień węzłów i połączeń.
 Po zmianie odpowiednich parametrów układ powinien zostać uaktualniony. Analogicznie, zmiany powinny zostać przedstawione w wizualizacji. Realizowane jest to poprzez odświeżenie każdego zwizualizowanego elementu.
@@ -98,11 +103,9 @@ Po zmianie odpowiednich parametrów układ powinien zostać uaktualniony. Analo
 
 
 4.6. Moduł zapisu układu do pliku
-
 Zapis układu do pliku sprowadza się do przedstawienia układu, czyli obiektu klasy ‘Setup’, wraz z listą połączeń i każdym z węzłów w postaci odpowiednich tagów pliku ‘.xml’. W tym celu wykorzystana jest technologia JAXB - Java Architecture for XML Binding. Za pomocą odpowiednich adnotacji pozwala ona w prosty sposób zdefiniować które pola powinny zostać zapisane.
 
 4.7. Moduł obliczający odkształcenie bryły
-
 Obliczaniem odkształcenia bryły zajmuje się zachłanny algorytm iteracyjny. Działanie algorytmu jest następujące :
 
 1.Oblicz wektor wypadkowy sił działających na dowolny węzeł.
