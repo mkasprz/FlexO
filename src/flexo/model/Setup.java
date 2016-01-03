@@ -17,6 +17,10 @@ public class Setup {
     @XmlElement(name = "immovableNode")
     List<ImmovableNode> immovableNodes = new LinkedList<>();
 
+    @XmlElementWrapper
+    @XmlElement(name = "typicalNode")
+    List<TypicalNode> typicalNodes = new LinkedList<>();
+
     TypicalNode centralNode;
 
     public void addConnection(Connection connection) {
@@ -35,28 +39,16 @@ public class Setup {
         return immovableNodes;
     }
 
+    public List<TypicalNode> getTypicalNodes() { // [TODO] Decide if it's better to store nodes list in some variable
+        return typicalNodes;
+    }
+
     public TypicalNode getCentralNode() {
         return centralNode;
     }
 
     public void setCentralNode(TypicalNode centralNode) {
         this.centralNode = centralNode;
-    }
-
-    @XmlElementWrapper
-    @XmlElement(name = "typicalNode")
-    public List<TypicalNode> getTypicalNodes() { // [TODO] Decide if it's better to store nodes list in some variable
-        List<TypicalNode> typicalNodes = new LinkedList<>();
-        for (Connection connection : connections) {
-            if (!typicalNodes.contains(connection.getTypicalNode1())) {
-                typicalNodes.add(connection.getTypicalNode1());
-            }
-            if (!typicalNodes.contains(connection.getTypicalNode2())) {
-                typicalNodes.add(connection.getTypicalNode2());
-            }
-        }
-        typicalNodes.removeAll(immovableNodes);
-        return typicalNodes;
     }
 
     public List<Connection> getConnectionsFromNode(TypicalNode node) {

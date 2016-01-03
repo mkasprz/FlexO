@@ -3,19 +3,11 @@ package flexo.gui;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 
-import java.text.NumberFormat;
-import java.text.ParsePosition;
-import java.util.Locale;
-
-public class NumberField extends TextField { // [TODO] Check if there are more characters entered than 'double' can handle
+public class NumberField extends TextField { // [TODO] Check if regex works correctly
 
     public NumberField() {
         setTextFormatter(new TextFormatter<>(change -> {
-            NumberFormat numberFormat = NumberFormat.getNumberInstance(Locale.ROOT);
-            String controlNewText = change.getControlNewText();
-            ParsePosition parsePosition = new ParsePosition(0);
-            numberFormat.parse(controlNewText, parsePosition);
-            if (change.isAdded() && parsePosition.getIndex() != controlNewText.length()) {
+            if (change.isAdded() && !change.getControlNewText().matches("\\-?\\d*(\\.\\d*)?")) {
                 return null;
             }
             return change;
@@ -24,7 +16,7 @@ public class NumberField extends TextField { // [TODO] Check if there are more c
 
     public double getNumber() {
         String text = getText();
-        if (text.length() == 0) {
+        if (text.length() == 0 || text.equals("-")) {
             return 0;
         }
         return Double.parseDouble(text);

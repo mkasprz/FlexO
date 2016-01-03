@@ -22,4 +22,8 @@ public class VisualizedNode extends Sphere implements VisualizedElement {
         setTranslateZ(simpleNode.getZ() * multiplier);
     }
 
+    public SimpleNode getSimpleNode() {
+        return simpleNode;
+    }
+
 }

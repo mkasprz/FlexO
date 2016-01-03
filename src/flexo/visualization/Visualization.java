@@ -4,7 +4,6 @@ import flexo.deformationcalculator.DeformationCalculator;
 import flexo.gui.PropertiesController;
 import flexo.model.Connection;
 import flexo.model.Setup;
-import flexo.model.SimpleNode;
 import flexo.model.TypicalNode;
 import javafx.collections.ObservableList;
 import javafx.scene.Group;
@@ -20,9 +19,10 @@ import java.util.List;
 
 public class Visualization {
 
-    final PhongMaterial blackMaterial = new PhongMaterial(Color.BLACK);
-    final PhongMaterial redMaterial = new PhongMaterial(Color.RED);
-    final PhongMaterial greyMaterial = new PhongMaterial(Color.GREY);
+    private final PhongMaterial blackMaterial = new PhongMaterial(Color.BLACK);
+    private final PhongMaterial redMaterial = new PhongMaterial(Color.RED);
+    private final PhongMaterial greyMaterial = new PhongMaterial(Color.GREY);
+    private final PhongMaterial darkerGreyMaterial = new PhongMaterial(Color.gray(0.15));
 
     private DeformationCalculator deformationCalculator;
     private int radius = 20;
@@ -30,13 +30,11 @@ public class Visualization {
     private Shape3D selectedElement;
     private Material selectedElementMaterial;
 
-    Group root;
-    PropertiesController propertiesController;
-    List<VisualizedConnection> visualizedConnections;
+    private Group root;
+    private List<VisualizedConnection> visualizedConnections;
 
     public Visualization(Setup setup, Group root, ListView listView, PropertiesController propertiesController) {
         this.root = root;
-        this.propertiesController = propertiesController;
 
         deformationCalculator = new DeformationCalculator(setup);
 
@@ -47,50 +45,51 @@ public class Visualization {
     private List<Node> createVisualisedObjects(Setup setup, int radius, ListView listView, PropertiesController propertiesController) {
         blackMaterial.setSpecularColor(Color.WHITE);
         greyMaterial.setSpecularColor(Color.WHITE);
+        darkerGreyMaterial.setSpecularColor(Color.WHITE);
         redMaterial.setSpecularColor(Color.WHITE);
 
         visualizedConnections = new LinkedList<>();
-        List<SimpleNode> nodes = new LinkedList<>();
         List<Node> visibleObjects = new LinkedList<>();
-        ObservableList listViewItems = listView.getItems();
-        for (Connection connection : setup.getConnections()) {
-            TypicalNode typicalNode1 = connection.getTypicalNode1();
-            createVisualizedNode(nodes, visibleObjects, typicalNode1, radius, blackMaterial, listView, propertiesController);
-            TypicalNode typicalNode2 = connection.getTypicalNode2();
-            createVisualizedNode(nodes, visibleObjects, typicalNode2, radius, blackMaterial, listView, propertiesController);
 
-            createVisualizedConnection(visibleObjects, connection, radius/3, greyMaterial, listView, propertiesController);
-            listViewItems.add(typicalNode1.getId() + " - " + typicalNode2.getId());
+        for (TypicalNode typicalNode : setup.getImmovableNodes()) {
+            visibleObjects.add(createVisualizedNode(typicalNode, radius, blackMaterial, listView, propertiesController));
         }
 
-        createVisualizedNode(nodes, visibleObjects, setup.getCentralNode(), radius, greyMaterial, listView, propertiesController);
+        for (TypicalNode typicalNode :  setup.getTypicalNodes()) {
+            visibleObjects.add(createVisualizedNode(typicalNode, radius, darkerGreyMaterial, listView, propertiesController));
+        }
+
+        ObservableList listViewItems = listView.getItems();
+        for (Connection connection : setup.getConnections()) {
+            visibleObjects.add(createVisualizedConnection(connection, radius / 3, greyMaterial, listView, propertiesController));
+            listViewItems.add(connection.getTypicalNode1().getId() + " - " + connection.getTypicalNode2().getId());
+        }
+
+        visibleObjects.add(createVisualizedNode(setup.getCentralNode(), radius, greyMaterial, listView, propertiesController));
 
         return visibleObjects;
     }
 
-    private void createVisualizedNode(List<SimpleNode> nodes, List<Node> visibleObjects, TypicalNode node1, int radius, Material material, ListView listView, PropertiesController propertiesController) {
-        if (!nodes.contains(node1)) {
-            VisualizedNode visualizedNode = new VisualizedNode(node1, radius, material, visualisationMultiplier);
-            visibleObjects.add(visualizedNode);
-            visualizedNode.setOnMouseClicked(event -> {
-                selectElement(visualizedNode, material);
-                propertiesController.setSelectedNode(node1);
-                listView.getSelectionModel().clearSelection();
-            });
-            nodes.add(node1);
-        }
+private VisualizedNode createVisualizedNode(TypicalNode typicalNode, int radius, Material material, ListView listView, PropertiesController propertiesController) {
+        VisualizedNode visualizedNode = new VisualizedNode(typicalNode, radius, material, visualisationMultiplier);
+        visualizedNode.setOnMouseClicked(event -> {
+            selectElement(visualizedNode, material);
+            propertiesController.setSelectedNode(typicalNode);
+            listView.getSelectionModel().clearSelection();
+        });
+        return visualizedNode;
     }
 
-    private void createVisualizedConnection(List<Node> visibleObjects, Connection connection, int radius, Material material, ListView listView, PropertiesController propertiesController) {
+    private VisualizedConnection createVisualizedConnection(Connection connection, int radius, Material material, ListView listView, PropertiesController propertiesController) {
         VisualizedConnection visualizedConnection = new VisualizedConnection(connection, radius, material, visualisationMultiplier);
-        visualizedConnections.add(visualizedConnection);
-        int index = visualizedConnections.size() - 1;
-        visibleObjects.add(visualizedConnection);
+        int index = visualizedConnections.size();
         visualizedConnection.setOnMouseClicked(event -> {
             selectElement(visualizedConnection, material);
             propertiesController.setSelectedConnection(connection);
             listView.getSelectionModel().select(index);
         });
+        visualizedConnections.add(visualizedConnection);
+        return visualizedConnection;
     }
 
     public void selectElement(Shape3D element, Material elementMaterial) {
