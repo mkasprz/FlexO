@@ -14,14 +14,16 @@ public class TwoDimensionalSetupBuilder implements SetupBuilder {
     public Setup build(int numberOfNodes) {
         Setup setup = new Setup();
         List connections = setup.getConnections();
+        List immovableNodes = setup.getImmovableNodes();
 
         List<TypicalNode> typicalNodes = new LinkedList<>();
         TypicalNode typicalNode;
         int id = 0;
         double n = (numberOfNodes - 1)/2.0;
         for (double i = -n; i < n + 1; i++, id++) {
-            if (i == -n || i == n + 1) {
+            if (i == -n || i == n) {
                 typicalNode = new ImmovableNode(i, 0, 0, id);
+                immovableNodes.add(typicalNode);
             } else {
                 typicalNode = new TypicalNode(i, 0, 0, id);
             }

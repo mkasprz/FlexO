@@ -7,6 +7,8 @@ import flexo.model.setupbuilder.SetupBuilder;
 import flexo.model.setupbuilder.ThreeDimensionalSetupBuilder;
 import flexo.model.setupbuilder.TwoDimensionalSetupBuilder;
 import flexo.visualization.Visualization;
+import flexo.visualization.VisualizedConnection;
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -62,6 +64,17 @@ public class ApplicationController {
         propertiesTitledPane.expandedProperty().addListener(getTitledPaneExtendedPropertyChangeListener(listViewTitledPane));
 
         propertiesController.setVisible(false);
+
+        listView.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> { // [TODO] Find better place to do this
+            int index = newValue.intValue();
+            if (index != -1) {
+                VisualizedConnection visualizedConnection = visualization.getVisualizedConnections().get(index);
+                if (visualizedConnection != visualization.getSelectedElement()) {
+                    visualization.selectElement(visualizedConnection, visualizedConnection.getMaterial());
+                    propertiesController.setSelectedConnection(visualizedConnection.getConnection());
+                }
+            }
+        });
 
         root = new Group();
         root.setRotationAxis(Rotate.X_AXIS);
@@ -149,7 +162,7 @@ public class ApplicationController {
         textInputDialog.setGraphic(null);
 
         textInputDialog.getEditor().setTextFormatter(new TextFormatter<String>(change -> {
-            if (change.isAdded() && !change.getText().matches("\\d+")) { // [TODO] Could confirm if it works well
+            if (change.isAdded() && !change.getText().matches("\\d+")) {
                 return null;
             }
             return change;
@@ -185,7 +198,9 @@ public class ApplicationController {
 
     private void visualizeSetup() {
         root.getChildren().clear();
+        listView.getItems().clear();
         visualization = new Visualization(setup, root, listView, propertiesController);
+        propertiesController.setVisualization(visualization);
     }
 
     public void saveSetup(ActionEvent actionEvent) {
@@ -197,5 +212,9 @@ public class ApplicationController {
                 new Alert(Alert.AlertType.ERROR, "Error while saving file", ButtonType.OK);
             }
         }
+    }
+
+    public void quit(ActionEvent actionEvent) {
+        Platform.exit();
     }
 }

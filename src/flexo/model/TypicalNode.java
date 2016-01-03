@@ -45,4 +45,5 @@ public class TypicalNode extends SimpleNode {
     public void setImba(boolean imba){
         this.imba = imba;
     }
+
 }

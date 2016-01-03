@@ -14,9 +14,9 @@ public class ThreeDimensionalSetupBuilder implements SetupBuilder {
     public Setup build(int numberOfNodesInBase) {
         Setup setup = new Setup();
         List connections = setup.getConnections();
+        List immovableNodes = setup.getImmovableNodes();
 
         double diameter = numberOfNodesInBase / 2;
-
 
         List<TypicalNode> typicalNodes = new LinkedList<>();
         int id = 0;
@@ -30,6 +30,7 @@ public class ThreeDimensionalSetupBuilder implements SetupBuilder {
                 TypicalNode typicalNode2;
                 if (k == 0) {
                     typicalNode2 = new ImmovableNode(r * Math.cos(angle), 0, r * Math.sin(angle), id);
+                    immovableNodes.add(typicalNode2);
                     typicalNodes.add(typicalNode2);
                 } else {
                     typicalNode2 = new TypicalNode(r * Math.cos(angle), y, r * Math.sin(angle), id);

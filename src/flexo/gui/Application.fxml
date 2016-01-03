@@ -7,11 +7,12 @@
 <MenuBar VBox.vgrow="NEVER">
     <Menu text="Project">
        <Menu text="New">
-          <MenuItem text="Two-dimensional setup" onAction="#newTwoDimensionalSetup"/>
-          <MenuItem text="Three-dimensional setup" onAction="#newThreeDimensionalSetup"/>
+          <MenuItem text="Two-dimensional setup" onAction="#newTwoDimensionalSetup" accelerator="Shortcut+2"/>
+          <MenuItem text="Three-dimensional setup" onAction="#newThreeDimensionalSetup" accelerator="Shortcut+3"/>
        </Menu>
-       <MenuItem text="Save" onAction="#saveSetup" />
-       <MenuItem text="Load" onAction="#loadSetup"/>
+       <MenuItem text="Save" onAction="#saveSetup" accelerator="Shortcut+S" />
+       <MenuItem text="Load" onAction="#loadSetup" accelerator="Shortcut+L"/>
+       <MenuItem text="Quit" onAction="#quit" accelerator="Shortcut+Q"/>
     </Menu>
 </MenuBar>
     <SplitPane dividerPositions="0.2" prefHeight="0" VBox.vgrow="ALWAYS">

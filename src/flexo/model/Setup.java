@@ -13,6 +13,10 @@ public class Setup {
     @XmlElement(name = "connection")
     List<Connection> connections = new LinkedList<>();
 
+    @XmlElementWrapper
+    @XmlElement(name = "immovableNode")
+    List<ImmovableNode> immovableNodes = new LinkedList<>();
+
     TypicalNode centralNode;
 
     public void addConnection(Connection connection) {
@@ -25,6 +29,10 @@ public class Setup {
 
     public List<Connection> getConnections(){
         return connections;
+    }
+
+    public List<ImmovableNode> getImmovableNodes() {
+        return immovableNodes;
     }
 
     public TypicalNode getCentralNode() {
@@ -47,6 +55,7 @@ public class Setup {
                 typicalNodes.add(connection.getTypicalNode2());
             }
         }
+        typicalNodes.removeAll(immovableNodes);
         return typicalNodes;
     }
 
