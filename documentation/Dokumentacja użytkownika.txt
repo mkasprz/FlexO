@@ -105,7 +105,7 @@ Rozmiar każdej części może być dowolnie zmieniany. Ponadto mogą one zost
 2.3. Wizualizacja
 
 <obrazek>
-Po wczytaniu lub stworzeniu układu zostanie on zwizualizowany. Kliknięcie na dowolny element - węzeł lub połączenie - zostanie on zaznaczony, a panel preferencji zostanie zaktualizowany wyświetlając właściwości zaznaczonego obiektu.
+Po wczytaniu lub stworzeniu układu zostanie on zwizualizowany. Kliknięcie na dowolny element - węzeł lub połączenie - spowoduje jego zaznaczenie, a panel preferencji zostanie zaktualizowany wyświetlając właściwości zaznaczonego obiektu.
 Korzystając z lewego przycisku myszy, przeciągając, można przesuwać widok. Wykorzystując prawy przycisk myszy widok można obracać. Kółko muszy pozwala na powiększanie. Środkowy przycisk myszy resetuje widok.
 Obszar na jakim wyświetlana jest wizualizacja można dodatkowo zwiększać, zmniejszając jednocześnie panel boczny.3. Rodzaje układów
 
@@ -141,4 +141,7 @@ Poprawny układ wymaga przynajmniej dwóch węzłów w podstawie. Pozostałe zos
 5. Zapisywanie i wczytywanie układu z pliku
 
 W celu zapisania układu do pliku należy skorzystać z pozycji ‘Save’ w menu ‘Project’. Podobnie w celu wczytania układu należy wybrać opcję ‘Load’. W obu przypadkach pokaże się odpowiednie okno wyboru pliku. Jego dokładny wygląd zależał będzie od systemu operacyjnego.
-Plik zapisany jest w formacie XML. Jest on zatem możliwy do otwarcia przez dowolny edytor tekstowy. Ponadto może być edytowany co sprawia, że użytkownik możliwe jest edycja układu w stosunkowo prosty sposób. Pozwala to między innymi na tworzenie nowych układów początkowych.
+<obrazek?>
+Plik zapisany jest w formacie XML. Jest on zatem możliwy do otwarcia przez dowolny edytor tekstowy, co umożliwia edycję układów w stosunkowo prosty sposób. Pozwala to między innymi na tworzenie nowych układów początkowych.
+6. Przykład wykorzystania aplikacji
+
