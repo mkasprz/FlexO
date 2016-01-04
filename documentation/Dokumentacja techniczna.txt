@@ -57,7 +57,8 @@ Projekt powstawał w zintegrowanym środowisku programistycznym IntelliJ IDEA.
 2. Wizja architektury projektu
 Do stworzenia podstawowej architektury został wybrany wzorzec Model-Widok-Kontroler. Powodów takiej decyzji było kilka. Przede wszystkim, MVC jest pierwszym wyborem, ku któremu skłaniamy się, mając do stworzenia aplikację z graficznym interfejsem użytkownika, która ma na celu pewną interakcję z użytkownikiem. Jest to klasyczny schemat umożliwiający logiczne rozdzielenie części aplikacji zgodnie z ich funkcjonalnością, zapewniając uporządkowany przepływ danych w aplikacji. Kolejnym istotnym powodem wykorzystania wzorca był fakt, że zdecydowaliśmy się wykorzystać technologię JavaFX do stworzenia GUI. Technologia ta, poza wprowadzeniem wygodnego formatu definiowania elementów interfejsu w postaci plików xml, w naturalny sposób wprowadza do aplikacji kontrolery umożliwiające komunikację między modelem a widokiem. 
 Model aplikacji stanowi reprezentację dziedziny problemu, odzwierciedla stan konkretnego przypadku, który będzie rozwiązywany przez program. Zawiera informacje na temat położenia każdego z węzłów, a także o ich połączeniach z innymi węzłami, a także parametry tych połączeń. 
-Widok stanowi trójwymiarowa wizualizacja 
+Widok stanowi trójwymiarowa wizualizacja siatki oparta na danych zawartych w modelu, a także elementy graficznego interfejsu użytkownika pozwalające na interakcję użytkownika aplikacji z warstwą odpowiadającą za wykonywanie obliczeń. 
+Kontroler to część, której zadaniem jest przyjmowanie danych od użytkownika, odpowiednia modyfikacja modelu i odświeżenie widoku, w zależności od tej modyfikacji.
 
 3.Diagram klas
 <diagram klas>4. Opis modułów

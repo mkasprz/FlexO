@@ -8,7 +8,7 @@ KATEDRA INFORMATYKI
 
 PROJEKT INŻYNIERSKI
 Implementacja narzędzia modelowania brył elastycznych
- 
+
 Tool for modelling flexible objects
 
 
@@ -68,7 +68,6 @@ Po zaznaczeniu odpowiedniego elementu powinna istnieć możliwość zmiany dan
 Użytkownik powinien mieć możliwość zapisu powstałego układu do pliku w celu późniejszej kontynuacji pracy.
 
 Wymagania dodatkowe:
-
 1.Eksport do pliku ‘.obj’
 Użytkownik powinien mieć możliwość weksportowania zwizualizowanego układu do pliku w popularnym formacie ‘.obj’.
 
@@ -93,7 +92,6 @@ Podczas pracy nad projektem wykorzystywany był przyrostowy model tworzenia opro
 5.Opis budowy aplikacji
 
 5.1. Wykorzystane technologie
-
 W projekcie wykorzystano następujące technologie:
 -Java;
 -JavaFX - wykorzystany do stworzenia ‘user interface’ i połączenia go z logiką aplikacji;
@@ -105,7 +103,46 @@ Projekt powstawał w zintegrowanym środowisku programistycznym IntelliJ IDEA.
 5.2. Wizja architektury projektu
 Do stworzenia podstawowej architektury został wybrany wzorzec Model-Widok-Kontroler. Powodów takiej decyzji było kilka. Przede wszystkim, MVC jest pierwszym wyborem, ku któremu skłaniamy się, mając do stworzenia aplikację z graficznym interfejsem użytkownika, która ma na celu pewną interakcję z użytkownikiem. Jest to klasyczny schemat umożliwiający logiczne rozdzielenie części aplikacji zgodnie z ich funkcjonalnością, zapewniając uporządkowany przepływ danych w aplikacji. Kolejnym istotnym powodem wykorzystania wzorca był fakt, że zdecydowaliśmy się wykorzystać technologię JavaFX do stworzenia GUI. Technologia ta, poza wprowadzeniem wygodnego formatu definiowania elementów interfejsu w postaci plików xml, w naturalny sposób wprowadza do aplikacji kontrolery umożliwiające komunikację między modelem a widokiem. 
 Model aplikacji stanowi reprezentację dziedziny problemu, odzwierciedla stan konkretnego przypadku, który będzie rozwiązywany przez program. Zawiera informacje na temat położenia każdego z węzłów, a także o ich połączeniach z innymi węzłami, a także parametry tych połączeń. 
-Widok stanowi trójwymiarowa wizualizacja 
-
+Widok stanowi trójwymiarowa wizualizacja siatki oparta na danych zawartych w modelu, a także elementy graficznego interfejsu użytkownika pozwalające na interakcję użytkownika aplikacji z warstwą odpowiadającą za wykonywanie obliczeń. 
+Kontroler to część, której zadaniem jest przyjmowanie danych od użytkownika, odpowiednia modyfikacja modelu i odświeżenie widoku, w zależności od tej modyfikacji.
 5.3. Diagram klas
 <diagram klas>
+
+5.4 Opis najważniejszych modułów implementacji
+
+Pod względem implementacji, aplikacja podzielona jest na moduły spełniające pojedyncze, odseparowane od siebie zadania. Poniżej zamieszczono spis wszystkich modułów aplikacji. Opatrzone zostały również krótkim opisem, opowiadającym o sposobie ich działania.
+
+Moduł głównego okna aplikacji - definiuje wygląd głównego okna aplikacji, zawiera rozmieszczenie oraz wygląd wszystkich widocznych elementów znajdujących w oknie
+Model danych aplikacji - przechowuje informacje o stanie bryły za pomocą obiektów reprezentujących byty występujące w rzeczywistej dziedzinie rozwiązywanego problemu
+Moduł tworzenia nowego projektu - umożliwia stworzenie nowego projektu, czyli sesji aplikacji, daje użytkownikowi możliwość wyboru rodzaju układu, nad którym będzie pracował, jak i rozmiar tego układu
+Moduł wczytywania lub zapisywania układu do pliku - pozwala na zapis aktualnego stanu układu w pliku .XML, a także wczytanie uprzednio zapisanego pliku, z którego tworzony jest układ gotowy do kontynuowania pracy
+Moduł wizualizacji - moduł ten pozwala na przedstawianie użytkownikowi aktualnego stanu układu w postaci reprezentacji punktów i połączeń między nimi za pomocą sfer oraz walców
+Moduł obliczający odkształcenie bryły - moduł ten oblicza zmianę układu i znajduje położenie równowagi siatki
+6. Harmonogram prac
+Punkt Przyjęta metodyka pracy opowiadał o sposobie implementowania kolejnych funkcjonalności. W zgodzie z opisywanym tam sposobem organizacji prac, przeprowadzane były poszczególne etapy projektu. Każdy z etapów zakładał ukończenie części aplikacji, którą w tym etapie zajmowaliśmy się. Poniżej podano wszystkie iteracje wraz z szacunkowymi czasami trwania (jak już wspomniano, sztywne ramy czasowe kolejnych iteracji nie były utrzymywane), oraz krótkie opisy tego, czego one dotyczyły i jak przebiegały.
+
+6.1. Etapy wstępne - stworzenie wizji projektu, założenie repozytorium, wstępny podział zadań (3 tygodnie ?)
+Początek prac nad projektem zakładał typowe dla tego rodzaju przedsięwzięć działania, między innymi stworzenie wizji projektu, przeprowadzenie analizy ryzyka oraz przyrządzenie studium wykonywalności. Po zdefiniowaniu funkcjonalności aplikacji i zidentyfikowaniu zagrożeń mogących wystąpić podczas jej implementacji, nastąpił wstępny podział obszarów aplikacji pomiędzy członków zespołu i założenie repozytorium. Wtedy możliwe stało się przystąpienie do kolejnych etapów prac.
+
+6.2. Wybór odpowiedniej technologii do wizualizacji (1 miesiąc)
+Już na samym początku właściwej pracy pojawiły się nieoczekiwane problemy związane z wykorzystywaną technologią. Wybrany do wizualizacji WebGL okazał się być trudny do połączenia wewnątrz okna aplikacji z odpowiadającym za graficzny interfejs użytkownika JavaFX. Podczas tego etapu tworzone było kilka prototypów łączących różne technologie wizualizacji i bibliotek graficznych interfejsów. Najlepsze rezultaty dało użycie JavaFX z dostarczaną przez tę bibliotekę technologią JavaFX 3D, będącą stosunkowo młodym, lecz rozwijającym się projektem. Z tego względu niewielka jest liczba dostępnych w sieci materiałów na ten temat, dalece mniejsza niż do, dla przykładu, WebGL, czy OpenGL, jednak z powodu małego skomplikowania wizualizowanych układów, jest ona wystarczająca dla potrzeb projektu.
+6.3. Stworzenie podstawowej architektury aplikacji (1 tydzień)
+Przygotowane poprzednio dokumenty, takie jak wizja, czy wymagania stawiane aplikacji nakreśliły pewien ogólny kształt, który miała przybrać aplikacja. W tym etapie jednak zaczęła ona wyraźnie krystalizować się. Głównym wzorcem użytym podczas implementacji projektu został Model-View-Controller, jako jeden z najlepiej poznanych i sprawdzonych wzorców używanych do projektowania aplikacji tego typu. Wprowadza on podział kodu na trzy części, różniące się swoimi odpowiedzialnościami, wspólnie tworzące kompletną aplikację umożliwiającą prezentowanie danych użytkownikowi, otrzymywanie z jego strony danych zwrotnych, na podstawie których możliwa jest modyfikacja istniejącego stanu programu. MVC jest również logicznym wyborem, z uwagi na fakt, że jest ono naturalnie wprowadzane przez technologię JavaFX, co znacząco ułatwia początkowe stadia implementacji aplikacji o ten wzorzec opartych.
+
+6.4. Implementacja modelu danych (3 dni)
+Model danych jest jedną z głównych części wzorca Model-Widok-Kontroler i odpowiedzialny jest za przechowywanie informacji dotyczących problemu, którym zajmuje się aplikacja. Stanowi pewną reprezentację dziedziny owego problemu, za pomocą zależnych od siebie obiektów stara się odwzorować relacje zachodzące pomiędzy pewnymi bytami będącymi częścią zagadnienia. Zawiera również dane informujące o pewnych właściwościach tych bytów. W poniższej aplikacji model składa się zasadniczo z dwóch rodzajów obiektów. Pierwszy z nich reprezentuje punkty mogące przemieszczać się w przestrzeni, drugi zaś - połączenia między owymi punktami, mogące rozszerzać się i kurczyć zgodnie z podanymi parametrami, co wpływa na możliwe ustawienia punktów.
+
+6.5. Wprowadzenie modułu wizualizacji (3 tygodnie)
+Pomimo posiadania prototypu modułu wizualizacji z początkowych faz projektu, ukończenie implementacji modułu było okupione dużym nakładem pracy. Obecny prototyp był tylko statyczną sceną z kilkoma obiektami, stworzoną, aby sprawdzić, czy używana technologia wizualizacji zadziała w aplikacji. Finalna wersja modułu wymagała wielu wprowadzenia wielu zmian, potrzebny był też czas na zaznajomienie się z dokumentacją biblioteki JavaFX 3D. Dodane do modułu funkcjonalności to między innymi:
+Możliwość swobodnego przesuwania, obracania, a także przybliżania i oddalania widoku
+Wizualizowanie obiektów występujących w modelu zależne między innymi od ich położenia
+Zaznaczanie obiektów, co umożliwia ustawienie ich parametrów w osobnym widoku
+
+6.6. Opracowanie i implementacja algorytmu (1 miesiąc)
+Moduł obliczający odkształcenia bryły jest jedną z bardziej istotnych części aplikacji. Jest on uruchamiany aby znaleźć najbliższe położenie, w którym układ jest w stanie równowagi. Działa w sposób zachłanny, wybierając najlepsze lokalnie położenie dla każdego z węzłów i powtarzając swoje operacje do momentu znalezienia akceptowalnego rozwiązania. Działanie algorytmu było przedmiotem kilku zespołowych spotkań, podczas których było ono szczegółowo omawiane. Po dość znaczącym czasie opracowywania algorytmu, jego implementacja również zajęła stosunkowo dużo czasu z uwagi na wiele szczegółów, na które trzeba było zwrócić uwagę, jak również pewne problemy, które wyniknęły w trakcie właściwej pracy, a które wymagały pewnego doprecyzowania sposobu działania.
+6.7 Implementacja modułu persystencji układu
+Moduł persystencji umożliwia zapisanie swojego postępu pracy w aplikacji do postaci pliku .xml, a następnie wczytanie takiego, uprzednio zapisanego pliku, aby kontynuować zachowując swój poprzedni postęp. Jest to możliwe dzięki użyciu biblioteki Java Architecture for XML Binding, która udostępnia wysokopoziomowe API do eksportu i importu obiektów do postaci .xml. Umożliwia ona łatwe wybieranie obiektów, które chcemy wyeksportować. Podczas importu, plik jest odczytywany i wszystkie obiekty, które zostały w nim zapisane są tworzone, wraz z odpowiednią zawartością pól oraz zależnościami do innych obiektów.
+
+
+6.8 Wprowadzenie modułu eksportu wizualizacji
+Eksport wizualizacji również został zrealizowany przy użyciu zewnętrznej biblioteki JCSG, implementującej constructive solid geometry. W module wizualizowane obiekty tłumaczone są na obiekty klas wykorzystywanych przez bibliotekę. Następnie tak stworzony graf obiektów jest, za pomocą odpowiednich metod przetwarzany i zapisywany do pliku w formacie .obj. Jest to popularny format definicji geometrii, dzięki czemu pliki takie można następnie w łatwy sposób zaimportować do zewnętrznych aplikacji pozwalających na obróbkę 3D, jak na przykład wykorzystywany w celach testowych Blender.
