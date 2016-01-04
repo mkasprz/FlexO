@@ -21,6 +21,7 @@ import javafx.stage.FileChooser;
 
 import javax.xml.bind.JAXBException;
 import java.io.File;
+import java.io.IOException;
 import java.util.Optional;
 
 public class ApplicationController {
@@ -210,6 +211,17 @@ public class ApplicationController {
                 SetupSaver.saveToXMLFile(setup, file);
             } catch (JAXBException e) {
                 new Alert(Alert.AlertType.ERROR, "Error while saving file", ButtonType.OK);
+            }
+        }
+    }
+
+    public void exportSetup(ActionEvent actionEvent) {
+        File file = new FileChooser().showSaveDialog(null);
+        if (file != null) {
+            try {
+                SetupSaver.exportToOBJFile(setup, file);
+            } catch (IOException e) {
+                new Alert(Alert.AlertType.ERROR, "Error while exporting file", ButtonType.OK);
             }
         }
     }

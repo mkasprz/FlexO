@@ -11,7 +11,8 @@
           <MenuItem text="Three-dimensional setup" onAction="#newThreeDimensionalSetup" accelerator="Shortcut+3"/>
        </Menu>
        <MenuItem text="Save" onAction="#saveSetup" accelerator="Shortcut+S" />
-       <MenuItem text="Load" onAction="#loadSetup" accelerator="Shortcut+L"/>
+       <MenuItem text="Open" onAction="#loadSetup" accelerator="Shortcut+O"/>
+       <MenuItem text="Export" onAction="#exportSetup" accelerator="Shortcut+E"/>
        <MenuItem text="Quit" onAction="#quit" accelerator="Shortcut+Q"/>
     </Menu>
 </MenuBar>
