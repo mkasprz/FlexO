@@ -39,9 +39,12 @@ Spis treści
 2.Zakres funkcjonalności
 3.Analiza ryzyka
 4.Przyjęta metodyka pracy
-5.Opis budowy aplikacji
-6.Harmonogram prac
-7.Przykładowy scenariusz
+5.Narzędzia wykorzystywane do pracy nad aplikacją
+6.Opis budowy aplikacji
+7.Harmonogram prac
+8.Przykładowy scenariusz
+9.Wyniki projektu 
+10.Bibliografia
 
 
 
@@ -146,9 +149,37 @@ Pomimo posiadania prototypu modułu wizualizacji z początkowych faz projektu, u
 
 7.6. Opracowanie i implementacja algorytmu (1 miesiąc)
 Moduł obliczający odkształcenia bryły jest jedną z bardziej istotnych części aplikacji. Jest on uruchamiany aby znaleźć najbliższe położenie, w którym układ jest w stanie równowagi. Działa w sposób zachłanny, wybierając najlepsze lokalnie położenie dla każdego z węzłów i powtarzając swoje operacje do momentu znalezienia akceptowalnego rozwiązania. Działanie algorytmu było przedmiotem kilku zespołowych spotkań, podczas których było ono szczegółowo omawiane. Po dość znaczącym czasie opracowywania algorytmu, jego implementacja również zajęła stosunkowo dużo czasu z uwagi na wiele szczegółów, na które trzeba było zwrócić uwagę, jak również pewne problemy, które wyniknęły w trakcie właściwej pracy, a które wymagały pewnego doprecyzowania sposobu działania.
-7.7 Implementacja modułu persystencji układu
+7.7 Implementacja modułu persystencji układu (1 tydzień)
 Moduł persystencji umożliwia zapisanie swojego postępu pracy w aplikacji do postaci pliku .xml, a następnie wczytanie takiego, uprzednio zapisanego pliku, aby kontynuować zachowując swój poprzedni postęp. Jest to możliwe dzięki użyciu biblioteki Java Architecture for XML Binding, która udostępnia wysokopoziomowe API do eksportu i importu obiektów do postaci .xml. Umożliwia ona łatwe wybieranie obiektów, które chcemy wyeksportować. Podczas importu, plik jest odczytywany i wszystkie obiekty, które zostały w nim zapisane są tworzone, wraz z odpowiednią zawartością pól oraz zależnościami do innych obiektów.
 
 
-7.8 Wprowadzenie modułu eksportu wizualizacji
+7.8 Wprowadzenie modułu eksportu wizualizacji (1 tydzień)
 Eksport wizualizacji również został zrealizowany przy użyciu zewnętrznej biblioteki JCSG, implementującej constructive solid geometry. W module wizualizowane obiekty tłumaczone są na obiekty klas wykorzystywanych przez bibliotekę. Następnie tak stworzony graf obiektów jest, za pomocą odpowiednich metod przetwarzany i zapisywany do pliku w formacie .obj. Jest to popularny format definicji geometrii, dzięki czemu pliki takie można następnie w łatwy sposób zaimportować do zewnętrznych aplikacji pozwalających na obróbkę 3D, jak na przykład wykorzystywany w celach testowych Blender.
+
+
+
+
+
+
+
+
+
+
+8. Przykładowy scenariusz
+9. Wyniki projektu
+9.1. Efekty prac 
+Wskutek wykonania projektu powstały następujące elementy:
+
+Działająca aplikacja
+Dokumentacja techniczna
+Dokumentacja procesowa
+Dokumentacja użytkownika
+
+Poza tymi materialnymi skutkami projektu, pozyskaliśmy również cenną wiedzę i doświadczenie w pracy nad długotrwałym projektem, które z pewnością okażą się przydatne w przyszłości.
+
+9.2. Możliwości dalszego rozwoju
+Powstała aplikacja posiada szerokie pole do rozwoju. Udostępnia bowiem pewien niezbędny podzbiór funkcjonalności, które były sformułowane w wymaganiach. Po ich zrealizowaniu nasuwa się jednak wiele pomysłów, które można zrealizować, aby usprawnić korzystanie z aplikacji oraz poszerzyć jej możliwości. 
+Jedną z możliwych dróg rozwoju jest skupienie się na ulepszaniu user experience, zaimplementowanie dodatkowych sposobów interakcji z aplikacją, dodanie bardziej intuicyjnych sposobów modyfikacji pewnych elementów, jak choćby przesuwanie centralnego węzła za pomocą przeciągania go przy użyciu myszy jako alternatywa dla wpisywania położenia w odpowiednie pole, czy zaznaczanie wielu elementów w celu wspólnego zmodyfikowania ich cech.
+Dodatkowo fragmenty aplikacji mogą zostać wykorzystane w ramach innych projektów, na przykład dość często wspominany przez nas pomysł przekształcenia obecnej postaci aplikacji w grę logiczną.
+
+10. Bibliografia
