@@ -54,27 +54,26 @@ d)Zapis projektu
 
 1. Podstawowe informacje
 
-
 1. Opis produktu
-
-FlexO jest narzędziem pozwalającym na wizualizację brył elastycznych powstałych w zależności od podanych przez użytkownika parametrów. W praktyce projekt bryły sprowadza się do modelu punktów - zwizualizowanych jako sfery - i połączeń między nimi oraz dodatkowego elementu z którym połączone są pozostałe. Właściwości podlegające parametryzacji to głównie stopień w którym mogą rozciągnąć się poszczególne połączenia oraz położenie elementu centralnego, wpływającego na położenie pozostałych elementów.
+FlexO jest narzędziem pozwalającym na wizualizację brył elastycznych powstałych w zależności od podanych przez użytkownika parametrów. W praktyce projekt bryły sprowadza się do modelu punktów - zwizualizowanych jako sfery - i połączeń między nimi oraz dodatkowego elementu, z którym połączone są pozostałe. 
+Właściwości podlegające parametryzacji to głównie stopień w którym mogą rozciągnąć się poszczególne połączenia oraz położenie elementu centralnego, wpływającego na położenie pozostałych elementów.
 Aplikacja pozwala na pracę zarówno w trybie dwu, jak i trójwymiarowym.
-
 Aplikacja może być wykorzystana między innymi w celu wizualizacji skorupki tworzonej przez organizmy gromady Foraminifera.
 
-2. Funkcje aplikacji?
+2. Funkcje aplikacji
 
 
 2. Wymagania aplikacji
 
-Aplikacja wymaga zainstalowanego środowiska Java Runtime Environment w wersji co najmniej 1.8. Aplikacja działać będzie na każdym systemie operacyjnym na który dostępne jest wskazane środowisko - między innymi Linux, Windows oraz Mac.
+Aplikacja wymaga zainstalowanego środowiska Java Runtime Environment w wersji co najmniej 1.8. Aplikacja działać będzie na każdym systemie operacyjnym na który dostępne jest wspomniane środowisko - między innymi Linux, Windows oraz Mac.
 
 
 3. Uruchomienie aplikacji
 
-Uruchomienie aplikacji sprowadza się do uruchomiania pliku ‘FlexO.jar’ za pomocą ’Java Runtime Environment’. W różnych systemach operacyjnych może to wyglądać nieco inaczej. Warto jednak dodać, że zwykle domyślnie po zainstalowaniu ‘Java Runtime Environment’ pliki ‘.jar’ są uruchamiane w tymże programie.
+Uruchomienie aplikacji sprowadza się do uruchomiania pliku FlexO.jar za pomocą Java Runtime Environment. W różnych systemach operacyjnych może to wyglądać nieco inaczej. Warto jednak dodać, że zwykle domyślnie po zainstalowaniu Java Runtime Environment pliki .jar są uruchamiane w tymże programie.
 Alternatywnie program można uruchomić z konsoli posługując się poniższym poleceniem.
 java -jar FlexO.jar
+
 2. Podstawowe elementy głównego okna aplikacji
 
 Po uruchomieniu aplikacji powinno pojawić się poniższe okno.
@@ -84,24 +83,24 @@ Po uruchomieniu aplikacji powinno pojawić się poniższe okno.
 
 2.1. Pasek menu
 
-Pasek menu znajduje się w górnej części okna aplikacji. Po kliknięciu na pozycję ‘Project’ pojawi się poniższe menu.
+Pasek menu znajduje się w górnej części okna aplikacji. Po kliknięciu na pozycję Project pojawi się poniższe menu.
 
  
 
-Podmenu ‘New’ pozwala na stworzenie nowego układu wybranego typu.
-Dostępne są dwa rodzaje układów początkowych: ‘Two-dimensional setup’ - układ dwuwymiarowy oraz ‘Three-dimensional setup’ - układ trójwymiarowy. Są one szczegółowo opisane w punkcie ‘Rodzaje układów’. 
+Podmenu New pozwala na stworzenie nowego układu wybranego typu.
+Dostępne są dwa rodzaje układów początkowych: Two-dimensional setup - układ dwuwymiarowy oraz Three-dimensional setup - układ trójwymiarowy. Są one szczegółowo opisane w punkcie ‘Rodzaje układów’. 
 
 
 
-Pozycje ‘Save’ oraz ‘Save as’ służą do zapisywania układu do pliku. Za pomocą ‘Open’ można wczytać układ. ‘Export’ pozwala na wyeksportowanie układu do pliku ‘.obj’. ‘Quit’ zamyka aplikację.
+Pozycje Save oraz Save as służą do zapisywania układu do pliku. Za pomocą Open można wczytać układ. Export pozwala na wyeksportowanie układu do pliku .obj. Quit zamyka aplikację.
 
 2.2. Panel boczny
 
  
 
 Panel boczny składa się z dwóch części: 
-- ‘Connections’ - listy połączeń;
-- ‘Preferences’ - panelu preferencji.
+- Connections - listy połączeń;
+- Preferences - panelu preferencji.
 Lista połączeń zostanie zapełniona po wczytaniu układu. Wybranie z niej elementu zaznaczy go, a co za tym idzie zaktualizuje panel preferencji.
 W panelu preferencji znajdują się informacje o zaznaczonym elemencie - węźle lub połączeniu. Część z parametrów jest możliwa do zmiany, a ich edycja wpływa na układ. Dokładny opis tego jak wpływać na układ znajduje sie w punkcie ‘Modyfikacja układu’.
 Rozmiar każdej części może być dowolnie zmieniany. Ponadto mogą one zostać zminimalizowane.
@@ -112,16 +111,16 @@ Po wczytaniu lub stworzeniu układu zostanie on zwizualizowany. Kliknięcie na d
 
 
 
-Korzystając z lewego przycisku myszy, przeciągając, można przesuwać widok. Wykorzystując prawy przycisk myszy widok można obracać. Kółko muszy pozwala na powiększanie. Środkowy przycisk myszy resetuje widok.
+Korzystając z lewego przycisku myszy, przeciągając, można przesuwać widok. Wykorzystując prawy przycisk myszy widok można obracać. Kółko myszy pozwala na przybliżanie i oddalanie widoku. Środkowy przycisk myszy resetuje widok.
 Obszar na jakim wyświetlana jest wizualizacja można dodatkowo zwiększać, zmniejszając jednocześnie panel boczny.3. Rodzaje układów
 
-Rodzaje układów definiują początkowy kształt bryły elastycznej. W podmenu ‘New’ znajdują się dwa rodzaje układów początkowych.
+Rodzaje układów definiują początkowy kształt bryły elastycznej. W podmenu New znajdują się dwa rodzaje układów początkowych.
 Każdy układ składa się z pewnej ilości węzłów nieruchomych. Będą to węzły brzegowe lub stanowiące podstawę figury.
 
 
 3.1. Two-dimensional setup - układ dwuwymiarowy
 
-Po wybraniu ‘Two-dimensional setup’ z podmenu ‘New’ pojawi się dodatkowe okno w którym użytkownik będzie miał możliwość zdefiniowania z jak dużej ilość węzłów składać ma się układ. 
+Po wybraniu Two-dimensional setup z podmenu New pojawi się dodatkowe okno, w którym użytkownik będzie miał możliwość zdefiniowania z jak dużej ilość węzłów składać ma się układ. 
 
 
 
@@ -132,11 +131,10 @@ Poprawny układ wymaga co najmniej trzech węzłów. Wynika to z faktu, że ka�
 
 3.2. Three-dimensional setup - układ trójwymiarowy
 
-Podobnie jak w wypadku ‘Two-dimensional setup’, po wybraniu ‘Three-dimensional setup’ z podmenu ‘New’ pojawi się dodatkowe okno. W tym jednak przypadku użytkownik będzie miał możliwość zdefiniowania jak dużo węzłów będzie miało znajdować się w podstawie półsfery. Sumaryczna ilość zwykłych węzłów będzie połową podniesionej do kwadratu podanej liczby, z dodatkiem jednego węzła. 
+Podobnie jak w wypadku Two-dimensional setup, po wybraniu Three-dimensional setup z podmenu New pojawi się dodatkowe okno. W tym jednak przypadku użytkownik będzie miał możliwość zdefiniowania jak dużo węzłów będzie miało znajdować się w podstawie półsfery. Sumaryczna ilość zwykłych węzłów będzie połową podniesionej do kwadratu podanej liczby, z dodatkiem jednego węzła. 
 
 
-Poprawny układ wymaga przynajmniej dwóch węzłów w podstawie. Pozostałe zostaną rozmieszczone w taki sposób, aby stworzyć półsferę. Dodatkowa sfera zostanie umieszczona w środku podstawy.
-
+Poprawny układ wymaga przynajmniej dwóch węzłów w podstawie. Pozostałe zostaną rozmieszczone w taki sposób, aby stworzyć półsferę. Dodatkowy węzeł zostanie umieszczony w środku podstawy.
 4. Modyfikacja układu
 
  
@@ -149,10 +147,10 @@ Poprawny układ wymaga przynajmniej dwóch węzłów w podstawie. Pozostałe zos
 
 5. Zapisywanie i wczytywanie układu z pliku
 
-W celu zapisania układu do pliku należy skorzystać z pozycji ‘Save’ w menu ‘Project’. Podobnie w celu wczytania układu należy wybrać opcję ‘Load’. W obu przypadkach pokaże się odpowiednie okno wyboru pliku. Jego dokładny wygląd zależał będzie od systemu operacyjnego. Poniższy przykład dotyczy systemu Ubuntu.
+W celu zapisania układu do pliku należy skorzystać z pozycji Save w menu Project. Podobnie w celu wczytania układu należy wybrać opcję Load. W obu przypadkach pojawi się odpowiednie okno wyboru pliku. Jego dokładny wygląd zależał będzie od systemu operacyjnego. Poniższy przykład dotyczy systemu Ubuntu.
 
 
 
-Plik zapisany jest w formacie XML. Jest on zatem możliwy do otwarcia przez dowolny edytor tekstowy, co umożliwia edycję układów w stosunkowo prosty sposób. Pozwala to między innymi na tworzenie nowych układów początkowych.
+Plik zapisany jest w formacie .xml. Jest on zatem możliwy do otwarcia przez dowolny edytor tekstowy, co umożliwia edycję układów w stosunkowo prosty sposób. Pozwala to między innymi na tworzenie nowych układów początkowych.
 6. Przykład wykorzystania aplikacji
 
