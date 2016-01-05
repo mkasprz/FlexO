@@ -39,7 +39,7 @@ public class SetupExporter {
         union.toObj().toFiles(file.toPath());
     }
 
-    public static Vector3d getVector3d(SimpleNode node) {
+    private static Vector3d getVector3d(SimpleNode node) {
         return new Vector3d(node.getX(), node.getY(), node.getZ());
     }
 
