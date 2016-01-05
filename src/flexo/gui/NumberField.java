@@ -16,7 +16,7 @@ public class NumberField extends TextField { // [TODO] Check if regex works corr
 
     public double getNumber() {
         String text = getText();
-        if (text.length() == 0 || text.equals("-")) {
+        if (text.length() == 0 || text.equals("-") || text.equals(".") || text.equals("-.")) {
             return 0;
         }
         return Double.parseDouble(text);

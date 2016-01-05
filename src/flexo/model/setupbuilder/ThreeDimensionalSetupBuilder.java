@@ -53,7 +53,7 @@ public class ThreeDimensionalSetupBuilder implements SetupBuilder {
             connections.add(new Connection(typicalNode1, typicalNode2, 0, SetupBuilder.getDistanceBetweenNodes(typicalNode1, typicalNode2), SetupBuilder.getDistanceOnCoordinate(typicalNode1, typicalNode2, 0), SetupBuilder.getDistanceOnCoordinate(typicalNode1, typicalNode2, 1), SetupBuilder.getDistanceOnCoordinate(typicalNode1, typicalNode2, 2)));
         }
 
-        setup.setCentralNode(new TypicalNode(0, 0, 0, 0));
+        setup.setCentralNode(new TypicalNode());
 
         return setup;
     }

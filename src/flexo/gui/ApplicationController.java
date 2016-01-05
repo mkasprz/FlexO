@@ -63,7 +63,7 @@ public class ApplicationController implements SelectionObserver {
     private Visualization visualization;
 
     private final int X = 0;
-    private final int Y = 150;
+    private final int Y = 200;
     private final int Z = -2000;
 
     double lastX, lastY;
