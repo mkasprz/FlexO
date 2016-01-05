@@ -1,12 +1,15 @@
 package flexo.gui;
 
+import flexo.model.Connection;
 import flexo.model.Setup;
+import flexo.model.TypicalNode;
 import flexo.model.persistence.SetupLoader;
 import flexo.model.persistence.SetupSaver;
 import flexo.model.setupbuilder.SetupBuilder;
 import flexo.model.setupbuilder.ThreeDimensionalSetupBuilder;
 import flexo.model.setupbuilder.TwoDimensionalSetupBuilder;
 import flexo.visualization.Visualization;
+import flexo.visualization.SelectionObserver;
 import flexo.visualization.VisualizedConnection;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
@@ -23,7 +26,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Optional;
 
-public class ApplicationController {
+public class ApplicationController implements SelectionObserver {
 
     @FXML
     private MenuItem saveMenuItem;
@@ -83,6 +86,16 @@ public class ApplicationController {
                     propertiesController.setSelectedConnection(visualizedConnection.getConnection());
                 } else {
                     listView.scrollTo(index);
+                }
+            }
+        });
+
+        listView.setCellFactory(param -> new ListCell<Connection>() {
+            @Override
+            protected void updateItem(Connection item, boolean empty) {
+                super.updateItem(item, empty);
+                if (item != null) {
+                    setText(item.getTypicalNode1().getId() + " - " + item.getTypicalNode2().getId());
                 }
             }
         });
@@ -151,7 +164,7 @@ public class ApplicationController {
         return (observable, oldValue, newValue) -> {
             if (newValue) {
                 splitPane.setDividerPositions(lastDividerPosition);
-            } else if (anotherTitledPane.isExpanded()){
+            } else if (anotherTitledPane.isExpanded()) {
                 lastDividerPosition = splitPane.getDividerPositions()[0];
             }
         };
@@ -161,7 +174,7 @@ public class ApplicationController {
     private void newTwoDimensionalSetup() {
         newSetup(new TwoDimensionalSetupBuilder(), 3, 10, "two-dimensional setup", "Number of nodes:");
     }
-    
+
     @FXML
     private void newThreeDimensionalSetup() {
         newSetup(new ThreeDimensionalSetupBuilder(), 2, 10, "three-dimensional setup", "Number of nodes in base:");
@@ -223,22 +236,22 @@ public class ApplicationController {
 
     private void visualizeSetup() {
         root.getChildren().clear();
-        listView.getItems().clear();
-        visualization = new Visualization(setup, root, listView, propertiesController);
+        listView.getItems().setAll(setup.getConnections());
+        visualization = new Visualization(setup, root, this);
         propertiesController.setVisualization(visualization);
     }
 
     @FXML
     private void saveSetup() {
-       if (filePath != null) {
-           try {
-               SetupSaver.saveToXMLFile(setup, new File(filePath));
-           } catch (JAXBException e) {
-               new Alert(Alert.AlertType.ERROR, "Error while saving file", ButtonType.OK);
-           }
-       } else {
-           saveSetupAs();
-       }
+        if (filePath != null) {
+            try {
+                SetupSaver.saveToXMLFile(setup, new File(filePath));
+            } catch (JAXBException e) {
+                new Alert(Alert.AlertType.ERROR, "Error while saving file", ButtonType.OK);
+            }
+        } else {
+            saveSetupAs();
+        }
     }
 
     @FXML
@@ -272,5 +285,17 @@ public class ApplicationController {
     @FXML
     private void quit() {
         Platform.exit();
+    }
+
+    @Override
+    public void selectedTypicalNode(TypicalNode typicalNode) {
+        propertiesController.setSelectedNode(typicalNode);
+        listView.getSelectionModel().clearSelection();
+    }
+
+    @Override
+    public void selectedConnection(Connection connection) {
+        propertiesController.setSelectedConnection(connection);
+        listView.getSelectionModel().select(connection);
     }
 }

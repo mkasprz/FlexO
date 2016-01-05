@@ -1,14 +1,11 @@
 package flexo.visualization;
 
 import flexo.deformationcalculator.DeformationCalculator;
-import flexo.gui.PropertiesController;
 import flexo.model.Connection;
 import flexo.model.Setup;
 import flexo.model.TypicalNode;
-import javafx.collections.ObservableList;
 import javafx.scene.Group;
 import javafx.scene.Node;
-import javafx.scene.control.ListView;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Material;
 import javafx.scene.paint.PhongMaterial;
@@ -33,16 +30,16 @@ public class Visualization {
     private Group root;
     private List<VisualizedConnection> visualizedConnections;
 
-    public Visualization(Setup setup, Group root, ListView listView, PropertiesController propertiesController) {
+    public Visualization(Setup setup, Group root, SelectionObserver selectionObserver) {
         this.root = root;
 
         deformationCalculator = new DeformationCalculator(setup);
 
-        List<Node> visualisedObjects = createVisualisedObjects(setup, radius, listView, propertiesController);
+        List<Node> visualisedObjects = createVisualisedObjects(setup, radius, selectionObserver);
         root.getChildren().addAll(visualisedObjects);
     }
 
-    private List<Node> createVisualisedObjects(Setup setup, int radius, ListView listView, PropertiesController propertiesController) {
+    private List<Node> createVisualisedObjects(Setup setup, int radius, SelectionObserver selectionObserver) {
         blackMaterial.setSpecularColor(Color.WHITE);
         greyMaterial.setSpecularColor(Color.WHITE);
         darkerGreyMaterial.setSpecularColor(Color.WHITE);
@@ -52,41 +49,37 @@ public class Visualization {
         List<Node> visibleObjects = new LinkedList<>();
 
         for (TypicalNode typicalNode : setup.getImmovableNodes()) {
-            visibleObjects.add(createVisualizedNode(typicalNode, radius, blackMaterial, listView, propertiesController));
+            visibleObjects.add(createVisualizedNode(typicalNode, radius, blackMaterial, selectionObserver));
         }
 
         for (TypicalNode typicalNode :  setup.getTypicalNodes()) {
-            visibleObjects.add(createVisualizedNode(typicalNode, radius, darkerGreyMaterial, listView, propertiesController));
+            visibleObjects.add(createVisualizedNode(typicalNode, radius, darkerGreyMaterial, selectionObserver));
         }
 
-        ObservableList listViewItems = listView.getItems();
         for (Connection connection : setup.getConnections()) {
-            visibleObjects.add(createVisualizedConnection(connection, radius / 3, greyMaterial, listView, propertiesController));
-            listViewItems.add(connection.getTypicalNode1().getId() + " - " + connection.getTypicalNode2().getId());
+            visibleObjects.add(createVisualizedConnection(connection, radius / 3, greyMaterial, selectionObserver));
         }
 
-        visibleObjects.add(createVisualizedNode(setup.getCentralNode(), radius, greyMaterial, listView, propertiesController));
+        visibleObjects.add(createVisualizedNode(setup.getCentralNode(), radius, greyMaterial, selectionObserver));
 
         return visibleObjects;
     }
 
-private VisualizedNode createVisualizedNode(TypicalNode typicalNode, int radius, Material material, ListView listView, PropertiesController propertiesController) {
+private VisualizedNode createVisualizedNode(TypicalNode typicalNode, int radius, Material material, SelectionObserver selectionObserver) {
         VisualizedNode visualizedNode = new VisualizedNode(typicalNode, radius, material, visualisationMultiplier);
         visualizedNode.setOnMouseClicked(event -> {
             selectElement(visualizedNode, material);
-            propertiesController.setSelectedNode(typicalNode);
-            listView.getSelectionModel().clearSelection();
+            selectionObserver.selectedTypicalNode(typicalNode);
         });
         return visualizedNode;
     }
 
-    private VisualizedConnection createVisualizedConnection(Connection connection, int radius, Material material, ListView listView, PropertiesController propertiesController) {
+    private VisualizedConnection createVisualizedConnection(Connection connection, int radius, Material material, SelectionObserver selectionObserver) {
         VisualizedConnection visualizedConnection = new VisualizedConnection(connection, radius, material, visualisationMultiplier);
         int index = visualizedConnections.size();
         visualizedConnection.setOnMouseClicked(event -> {
             selectElement(visualizedConnection, material);
-            propertiesController.setSelectedConnection(connection);
-            listView.getSelectionModel().select(index);
+            selectionObserver.selectedConnection(connection);
         });
         visualizedConnections.add(visualizedConnection);
         return visualizedConnection;
