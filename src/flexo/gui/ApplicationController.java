@@ -10,7 +10,6 @@ import flexo.visualization.Visualization;
 import flexo.visualization.VisualizedConnection;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.*;
 import javafx.scene.control.*;
@@ -27,13 +26,22 @@ import java.util.Optional;
 public class ApplicationController {
 
     @FXML
-    SplitPane splitPane;
+    private MenuItem saveMenuItem;
 
     @FXML
-    TitledPane listViewTitledPane;
+    private MenuItem saveAsMenuItem;
 
     @FXML
-    TitledPane propertiesTitledPane;
+    private MenuItem exportMenuItem;
+
+    @FXML
+    private SplitPane splitPane;
+
+    @FXML
+    private TitledPane listViewTitledPane;
+
+    @FXML
+    private TitledPane propertiesTitledPane;
 
     @FXML
     private ListView listView;
@@ -59,20 +67,22 @@ public class ApplicationController {
     Rotate cameraRotateX = new Rotate(0, 0, Y, 0, Rotate.X_AXIS);
     Rotate cameraRotateY = new Rotate(0, X, 0, 0, Rotate.Y_AXIS);
 
+    String filePath;
+
     @FXML
     void initialize() {
         listViewTitledPane.expandedProperty().addListener(getTitledPaneExtendedPropertyChangeListener(propertiesTitledPane));
         propertiesTitledPane.expandedProperty().addListener(getTitledPaneExtendedPropertyChangeListener(listViewTitledPane));
 
-        propertiesController.setVisible(false);
-
-        listView.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> { // [TODO] Find better place to do this
+        listView.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
             int index = newValue.intValue();
             if (index != -1) {
                 VisualizedConnection visualizedConnection = visualization.getVisualizedConnections().get(index);
                 if (visualizedConnection != visualization.getSelectedElement()) {
                     visualization.selectElement(visualizedConnection, visualizedConnection.getMaterial());
                     propertiesController.setSelectedConnection(visualizedConnection.getConnection());
+                } else {
+                    listView.scrollTo(index);
                 }
             }
         });
@@ -147,11 +157,13 @@ public class ApplicationController {
         };
     }
 
-    public void newTwoDimensionalSetup(ActionEvent actionEvent) {
+    @FXML
+    private void newTwoDimensionalSetup() {
         newSetup(new TwoDimensionalSetupBuilder(), 3, 10, "two-dimensional setup", "Number of nodes:");
     }
-
-    public void newThreeDimensionalSetup(ActionEvent actionEvent) {
+    
+    @FXML
+    private void newThreeDimensionalSetup() {
         newSetup(new ThreeDimensionalSetupBuilder(), 2, 10, "three-dimensional setup", "Number of nodes in base:");
     }
 
@@ -182,19 +194,31 @@ public class ApplicationController {
         if (integerInputDialogResult.isPresent()) {
             setup = setupBuilder.build(Integer.parseInt(integerInputDialogResult.get()));
             visualizeSetup();
+            enableMenuItems();
         }
     }
 
-    public void loadSetup(ActionEvent actionEvent) {
-        File file = new FileChooser().showOpenDialog(null);
+    @FXML
+    private void loadSetup() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("XML files", "*.xml", "*.XML"), new FileChooser.ExtensionFilter("All files", "*"));
+        File file = fileChooser.showOpenDialog(null);
         if (file != null) {
             try {
                 setup = SetupLoader.loadFromXMLFile(file);
                 visualizeSetup();
+                filePath = file.getPath();
+                enableMenuItems();
             } catch (JAXBException | RuntimeException e) {
                 new Alert(Alert.AlertType.ERROR, "Error while opening file", ButtonType.OK).show();
             }
         }
+    }
+
+    private void enableMenuItems() {
+        saveMenuItem.setDisable(false);
+        saveAsMenuItem.setDisable(false);
+        exportMenuItem.setDisable(false);
     }
 
     private void visualizeSetup() {
@@ -204,18 +228,37 @@ public class ApplicationController {
         propertiesController.setVisualization(visualization);
     }
 
-    public void saveSetup(ActionEvent actionEvent) {
-        File file = new FileChooser().showSaveDialog(null);
+    @FXML
+    private void saveSetup() {
+       if (filePath != null) {
+           try {
+               SetupSaver.saveToXMLFile(setup, new File(filePath));
+           } catch (JAXBException e) {
+               new Alert(Alert.AlertType.ERROR, "Error while saving file", ButtonType.OK);
+           }
+       } else {
+           saveSetupAs();
+       }
+    }
+
+    @FXML
+    private void saveSetupAs() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setInitialFileName("Setup.xml");
+        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("XML files", "*.xml", "*.XML"), new FileChooser.ExtensionFilter("All files", "*"));
+        File file = fileChooser.showSaveDialog(null);
         if (file != null) {
             try {
                 SetupSaver.saveToXMLFile(setup, file);
+                filePath = file.getPath();
             } catch (JAXBException e) {
                 new Alert(Alert.AlertType.ERROR, "Error while saving file", ButtonType.OK);
             }
         }
     }
 
-    public void exportSetup(ActionEvent actionEvent) {
+    @FXML
+    private void exportSetup() {
         File file = new FileChooser().showSaveDialog(null);
         if (file != null) {
             try {
@@ -226,7 +269,8 @@ public class ApplicationController {
         }
     }
 
-    public void quit(ActionEvent actionEvent) {
+    @FXML
+    private void quit() {
         Platform.exit();
     }
 }

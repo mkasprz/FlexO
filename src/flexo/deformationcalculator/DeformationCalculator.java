@@ -173,10 +173,10 @@ public class DeformationCalculator {
             Vector result;
             if (connection.getTypicalNode1().equals(node)) {
                 result = getForceBetweenNodes(connection, connection.getTypicalNode1(), connection.getTypicalNode2(),
-                        connection.getYoungsModule(), connection.getBalanceLength());
+                        connection.getYoungsModulus(), connection.getBalanceLength());
             } else {
                 result = getForceBetweenNodes(connection, connection.getTypicalNode2(), connection.getTypicalNode1(),
-                        connection.getYoungsModule(), connection.getBalanceLength());
+                        connection.getYoungsModulus(), connection.getBalanceLength());
             }
             forces.add(result);
         }

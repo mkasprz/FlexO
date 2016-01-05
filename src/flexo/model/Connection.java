@@ -10,7 +10,7 @@ public class Connection {
     @XmlIDREF
     private TypicalNode typicalNode2;
 
-    private double youngsModule;
+    private double youngsModulus;
     private double balanceLength; // [TODO] I believe, that this should be rather considered as multiplier
     private double balanceX;
     private double balanceY;
@@ -19,10 +19,10 @@ public class Connection {
     public Connection() {
     }
 
-    public Connection(TypicalNode typicalNode1, TypicalNode typicalNode2, double youngsModule, double balanceLength, double balanceX, double balanceY, double balanceZ) {
+    public Connection(TypicalNode typicalNode1, TypicalNode typicalNode2, double youngsModulus, double balanceLength, double balanceX, double balanceY, double balanceZ) {
         this.typicalNode1 = typicalNode1;
         this.typicalNode2 = typicalNode2;
-        this.youngsModule = youngsModule;
+        this.youngsModulus = youngsModulus;
         this.balanceLength = balanceLength;
         this.balanceX = balanceX;
         this.balanceY = balanceY;
@@ -45,12 +45,12 @@ public class Connection {
         this.balanceLength = balanceLength;
     }
 
-    public double getYoungsModule() {
-        return youngsModule;
+    public double getYoungsModulus() {
+        return youngsModulus;
     }
 
-    public void setYoungsModule(double youngsModule) {
-        this.youngsModule = youngsModule;
+    public void setYoungsModulus(double youngsModulus) {
+        this.youngsModulus = youngsModulus;
     }
 
     public double getBalanceX() {

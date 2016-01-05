@@ -22,4 +22,8 @@ public class NumberField extends TextField { // [TODO] Check if regex works corr
         return Double.parseDouble(text);
     }
 
+    public void setNumber(Number number) {
+        setText(String.valueOf(number));
+    }
+
 }

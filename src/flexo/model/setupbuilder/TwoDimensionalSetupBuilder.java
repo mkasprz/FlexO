@@ -19,7 +19,7 @@ public class TwoDimensionalSetupBuilder implements SetupBuilder {
 
         List<TypicalNode> nodes = new LinkedList<>();
         TypicalNode typicalNode;
-        int id = 0;
+        int id = 1;
         double n = (numberOfNodes - 1)/2.0;
         for (double i = -n; i < n + 1; i++, id++) {
             if (i == -n || i == n) {
@@ -36,7 +36,7 @@ public class TwoDimensionalSetupBuilder implements SetupBuilder {
             connections.add(new Connection(nodes.get(i), nodes.get(i+1), 0 , SetupBuilder.getDistanceBetweenNodes(nodes.get(i), nodes.get(i+1)), SetupBuilder.getDistanceOnCoordinate(nodes.get(i), nodes.get(i+1), 0), SetupBuilder.getDistanceOnCoordinate(nodes.get(i), nodes.get(i+1), 1), SetupBuilder.getDistanceOnCoordinate(nodes.get(i), nodes.get(i+1), 2)));
         }
 
-        setup.setCentralNode(new TypicalNode(0, -1, 0, -1));
+        setup.setCentralNode(new TypicalNode(0, -1, 0, 0));
 
         return setup;
     }

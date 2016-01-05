@@ -1,35 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import flexo.gui.NumberField?>
+<?import flexo.gui.*?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<ScrollPane fx:controller="flexo.gui.PropertiesController" xmlns="http://javafx.com/javafx/8"
-            xmlns:fx="http://javafx.com/fxml/1">
-    <GridPane fx:id="sphereProperties">
-        <!--hgap="6.0" vgap="10.0"--> <!--[TODO] Decide if 'GridPane' should be changed to - for example - 'ListView' or at least if this solution is better -->
-        <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
-        </columnConstraints>
-        <rowConstraints>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-        </rowConstraints>
-        <children>
-            <Label text="ID"/>
-            <Label fx:id="id" GridPane.columnIndex="1"/>
 
-            <Label text="X" GridPane.rowIndex="1"/>
-            <NumberField fx:id="x" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-            <Label text="Y" GridPane.rowIndex="2"/>
-            <NumberField fx:id="y" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-            <Label text="Z" GridPane.rowIndex="3"/>
-            <NumberField fx:id="z" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+<Pane fx:id="pane" fx:controller="flexo.gui.PropertiesController" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <ScrollPane fx:id="spherePropertiesScrollPane" visible="false">
+        <GridPane fx:id="sphereProperties" hgap="6.0" vgap="6.0">
+            <padding>
+                <Insets top="6.0" left="6.0" right="6.0"/>
+            </padding>
+            <columnConstraints>
+                <ColumnConstraints hgrow="NEVER" minWidth="30.0" prefWidth="55.0"/>
+                <ColumnConstraints hgrow="ALWAYS" minWidth="40.0" prefWidth="40.0"/>
+            </columnConstraints>
+            <children>
+                <Label text="Node ID"/>
+                <Label fx:id="id" GridPane.columnIndex="1"/>
 
-            <Label text="Parameter" GridPane.rowIndex="4"/>
-            <NumberField fx:id="parameter" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
-        </children>
-    </GridPane>
-</ScrollPane>
+                <Label text="X" GridPane.rowIndex="1"/>
+                <NumberField fx:id="x" onAction="#moveNode" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+                <Label text="Y" GridPane.rowIndex="2"/>
+                <NumberField fx:id="y" onAction="#moveNode" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
+                <Label text="Z" GridPane.rowIndex="3"/>
+                <NumberField fx:id="z" onAction="#moveNode" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+
+                <Button text="Recalculate" onAction="#moveNode" GridPane.hgrow="ALWAYS" maxWidth="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+            </children>
+        </GridPane>
+    </ScrollPane>
+    <ScrollPane fx:id="connectionPropertiesScrollPane" visible="false">
+        <GridPane fx:id="connectionProperties" hgap="6.0" vgap="6.0">
+            <padding>
+                <Insets top="6.0" left="6.0" right="6.0"/>
+            </padding>
+            <columnConstraints>
+                <ColumnConstraints hgrow="NEVER" minWidth="40.0" prefWidth="115.0"/>
+                <ColumnConstraints hgrow="ALWAYS" minWidth="40.0" prefWidth="40.0"/>
+            </columnConstraints>
+            <children>
+                <Label text="First node ID"/>
+                <Label fx:id="firstNode" GridPane.columnIndex="1"/>
+
+                <Label text="Second node ID" GridPane.rowIndex="1"/>
+                <Label fx:id="secondNode" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+                <Label text="Current length" GridPane.rowIndex="2"/>
+                <TextField fx:id="currentLength" onAction="#applyConnectionChanges" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
+                <Label text="Preferred length" GridPane.rowIndex="3"/>
+                <NumberField fx:id="preferredLength" onAction="#applyConnectionChanges" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+
+                <Label text="Young's modulus" GridPane.rowIndex="4"/>
+                <NumberField fx:id="youngsModulus" onAction="#applyConnectionChanges" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+
+                <Button text="Recalculate" onAction="#applyConnectionChanges" GridPane.hgrow="ALWAYS" maxWidth="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+            </children>
+        </GridPane>
+    </ScrollPane>
+</Pane>

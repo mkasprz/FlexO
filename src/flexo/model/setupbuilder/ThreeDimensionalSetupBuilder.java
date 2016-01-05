@@ -20,7 +20,7 @@ public class ThreeDimensionalSetupBuilder implements SetupBuilder {
         double diameter = numberOfNodesInBase / 2;
 
         List<TypicalNode> nodes = new LinkedList<>();
-        int id = 0;
+        int id = 1;
         double stepSize = Math.PI / numberOfNodesInBase;
         for (double k = 0; k < Math.PI / 2; k += stepSize) {
             double y = diameter * Math.sin(k);
@@ -53,7 +53,7 @@ public class ThreeDimensionalSetupBuilder implements SetupBuilder {
             connections.add(new Connection(typicalNode1, typicalNode2, 0, SetupBuilder.getDistanceBetweenNodes(typicalNode1, typicalNode2), SetupBuilder.getDistanceOnCoordinate(typicalNode1, typicalNode2, 0), SetupBuilder.getDistanceOnCoordinate(typicalNode1, typicalNode2, 1), SetupBuilder.getDistanceOnCoordinate(typicalNode1, typicalNode2, 2)));
         }
 
-        setup.setCentralNode(new TypicalNode(0, 0, 0, -1));
+        setup.setCentralNode(new TypicalNode(0, 0, 0, 0));
 
         return setup;
     }

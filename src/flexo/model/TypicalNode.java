@@ -4,8 +4,6 @@ import javax.xml.bind.annotation.XmlID;
 
 public class TypicalNode extends SimpleNode {
 
-    private double parameter;
-
     private int id; // [TODO] Decide if this should be changed to String to avoid unnecessary 'xmlID' field
     private boolean imba = false;
 
@@ -17,14 +15,6 @@ public class TypicalNode extends SimpleNode {
         this.id = id;
     }
 
-    public double getParameter() {
-        return parameter;
-    }
-
-    public void setParameter(double parameter) {
-        this.parameter = parameter;
-    }
-
     public int getId() {
         return id;
     }
@@ -34,7 +24,7 @@ public class TypicalNode extends SimpleNode {
     }
 
     @XmlID
-    public String getXmlID() {
+    public String getIdAsString() {
         return Integer.toString(id);
     }
 
