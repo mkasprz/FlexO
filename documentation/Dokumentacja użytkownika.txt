@@ -78,59 +78,68 @@ java -jar FlexO.jar
 2. Podstawowe elementy głównego okna aplikacji
 
 Po uruchomieniu aplikacji powinno pojawić się poniższe okno.
-<obrazek>
+
+
+
 
 2.1. Pasek menu
 
-<obrazek?>
+Pasek menu znajduje się w górnej części okna aplikacji. Po kliknięciu na pozycję ‘Project’ pojawi się poniższe menu.
 
-Pasek menu znajduje się w górnej części okna aplikacji. Po kliknięciu na pozycję ‘Project’ powinno pojawić się poniższe menu.
-
-<obrazek>
+ 
 
 Podmenu ‘New’ pozwala na stworzenie nowego układu wybranego typu.
-<obrazek>
-Powinny dostępne być co najmniej dwa rodzaje układów: ‘Two-dimensional setup’ - układ dwuwymiarowy oraz ‘Three-dimensional setup’ - układ trójwymiarowy. Są one szczegółowo opisane w punkcie ‘Rodzaje układów’. Pozycje ‘Save’ oraz ‘Load’ służą do zapisywania i wczytania układu z pliku. ‘Quit’ zamyka aplikację.
+Dostępne są dwa rodzaje układów początkowych: ‘Two-dimensional setup’ - układ dwuwymiarowy oraz ‘Three-dimensional setup’ - układ trójwymiarowy. Są one szczegółowo opisane w punkcie ‘Rodzaje układów’. 
+
+
+
+Pozycje ‘Save’ oraz ‘Save as’ służą do zapisywania układu do pliku. Za pomocą ‘Open’ można wczytać układ. ‘Export’ pozwala na wyeksportowanie układu do pliku ‘.obj’. ‘Quit’ zamyka aplikację.
 
 2.2. Panel boczny
 
-<obrazek lub dwa>
+ 
+
 Panel boczny składa się z dwóch części: 
 - ‘Connections’ - listy połączeń;
-- ‘Preferences’ - panelu preferencji. 
-Lista połączeń zostanie zapełniona po wczytaniu. Wybranie z niej elementu zaznaczy go, a co za tym idzie zaktualizuje panel preferencji.
+- ‘Preferences’ - panelu preferencji.
+Lista połączeń zostanie zapełniona po wczytaniu układu. Wybranie z niej elementu zaznaczy go, a co za tym idzie zaktualizuje panel preferencji.
 W panelu preferencji znajdują się informacje o zaznaczonym elemencie - węźle lub połączeniu. Część z parametrów jest możliwa do zmiany, a ich edycja wpływa na układ. Dokładny opis tego jak wpływać na układ znajduje sie w punkcie ‘Modyfikacja układu’.
 Rozmiar każdej części może być dowolnie zmieniany. Ponadto mogą one zostać zminimalizowane.
 
-2.3. Wizualizacja
+2.3. Panel wizualizacji
 
-<obrazek>
 Po wczytaniu lub stworzeniu układu zostanie on zwizualizowany. Kliknięcie na dowolny element - węzeł lub połączenie - spowoduje jego zaznaczenie, a panel preferencji zostanie zaktualizowany wyświetlając właściwości zaznaczonego obiektu.
+
+
+
 Korzystając z lewego przycisku myszy, przeciągając, można przesuwać widok. Wykorzystując prawy przycisk myszy widok można obracać. Kółko muszy pozwala na powiększanie. Środkowy przycisk myszy resetuje widok.
 Obszar na jakim wyświetlana jest wizualizacja można dodatkowo zwiększać, zmniejszając jednocześnie panel boczny.3. Rodzaje układów
 
-Rodzaje układów definiują początkowy kształt bryły elastycznej. W podmenu ‘New’ znajdują się co najmniej dwa rodzaje układów początkowych.
+Rodzaje układów definiują początkowy kształt bryły elastycznej. W podmenu ‘New’ znajdują się dwa rodzaje układów początkowych.
 Każdy układ składa się z pewnej ilości węzłów nieruchomych. Będą to węzły brzegowe lub stanowiące podstawę figury.
 
 
 3.1. Two-dimensional setup - układ dwuwymiarowy
 
 Po wybraniu ‘Two-dimensional setup’ z podmenu ‘New’ pojawi się dodatkowe okno w którym użytkownik będzie miał możliwość zdefiniowania z jak dużej ilość węzłów składać ma się układ. 
-<obrazek>
+
+
+
 Poprawny układ wymaga co najmniej trzech węzłów. Wynika to z faktu, że każdy dwuwymiarowy układ musi zawierać dwa węzły brzegowe, które pozostają nieruchome. Pozostałe węzły ułożone zostają w linii. Dodatkowa sfera zostanie umiejscowiona poniżej pozostałych.
-<obrazek>
+
+
 
 
 3.2. Three-dimensional setup - układ trójwymiarowy
 
 Podobnie jak w wypadku ‘Two-dimensional setup’, po wybraniu ‘Three-dimensional setup’ z podmenu ‘New’ pojawi się dodatkowe okno. W tym jednak przypadku użytkownik będzie miał możliwość zdefiniowania jak dużo węzłów będzie miało znajdować się w podstawie półsfery. Sumaryczna ilość zwykłych węzłów będzie połową podniesionej do kwadratu podanej liczby, z dodatkiem jednego węzła. 
-<obrazek>
-Poprawny układ wymaga przynajmniej dwóch węzłów w podstawie. Pozostałe zostaną rozmieszczone w taki sposób, aby stworzyć półsferę. Dodatkowa sfera zostanie umieszczona w środku podstawy.
-<obrazek>
 
+
+Poprawny układ wymaga przynajmniej dwóch węzłów w podstawie. Pozostałe zostaną rozmieszczone w taki sposób, aby stworzyć półsferę. Dodatkowa sfera zostanie umieszczona w środku podstawy.
 
 4. Modyfikacja układu
 
+ 
 
 4.1. Zmienianie pozycji sfery centralnej
 
@@ -140,8 +149,10 @@ Poprawny układ wymaga przynajmniej dwóch węzłów w podstawie. Pozostałe zos
 
 5. Zapisywanie i wczytywanie układu z pliku
 
-W celu zapisania układu do pliku należy skorzystać z pozycji ‘Save’ w menu ‘Project’. Podobnie w celu wczytania układu należy wybrać opcję ‘Load’. W obu przypadkach pokaże się odpowiednie okno wyboru pliku. Jego dokładny wygląd zależał będzie od systemu operacyjnego.
-<obrazek?>
+W celu zapisania układu do pliku należy skorzystać z pozycji ‘Save’ w menu ‘Project’. Podobnie w celu wczytania układu należy wybrać opcję ‘Load’. W obu przypadkach pokaże się odpowiednie okno wyboru pliku. Jego dokładny wygląd zależał będzie od systemu operacyjnego. Poniższy przykład dotyczy systemu Ubuntu.
+
+
+
 Plik zapisany jest w formacie XML. Jest on zatem możliwy do otwarcia przez dowolny edytor tekstowy, co umożliwia edycję układów w stosunkowo prosty sposób. Pozwala to między innymi na tworzenie nowych układów początkowych.
 6. Przykład wykorzystania aplikacji
 
