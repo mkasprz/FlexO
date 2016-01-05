@@ -3,6 +3,7 @@ package flexo.gui;
 import flexo.model.Connection;
 import flexo.model.Setup;
 import flexo.model.TypicalNode;
+import flexo.model.persistence.SetupExporter;
 import flexo.model.persistence.SetupLoader;
 import flexo.model.persistence.SetupSaver;
 import flexo.model.setupbuilder.SetupBuilder;
@@ -74,8 +75,8 @@ public class ApplicationController implements SelectionObserver {
 
     @FXML
     void initialize() {
-        listViewTitledPane.expandedProperty().addListener(getTitledPaneExtendedPropertyChangeListener(propertiesTitledPane));
-        propertiesTitledPane.expandedProperty().addListener(getTitledPaneExtendedPropertyChangeListener(listViewTitledPane));
+        listViewTitledPane.expandedProperty().addListener(saveOrRestoreDividerPosition(propertiesTitledPane));
+        propertiesTitledPane.expandedProperty().addListener(saveOrRestoreDividerPosition(listViewTitledPane));
 
         listView.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
             int index = newValue.intValue();
@@ -160,7 +161,7 @@ public class ApplicationController implements SelectionObserver {
         });
     }
 
-    private ChangeListener<Boolean> getTitledPaneExtendedPropertyChangeListener(TitledPane anotherTitledPane) {
+    private ChangeListener<Boolean> saveOrRestoreDividerPosition(TitledPane anotherTitledPane) {
         return (observable, oldValue, newValue) -> {
             if (newValue) {
                 splitPane.setDividerPositions(lastDividerPosition);
@@ -275,7 +276,7 @@ public class ApplicationController implements SelectionObserver {
         File file = new FileChooser().showSaveDialog(null);
         if (file != null) {
             try {
-                SetupSaver.exportToOBJFile(setup, file);
+                SetupExporter.exportToOBJFile(setup, file);
             } catch (IOException e) {
                 new Alert(Alert.AlertType.ERROR, "Error while exporting file", ButtonType.OK);
             }

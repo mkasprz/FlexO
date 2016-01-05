@@ -76,7 +76,6 @@ private VisualizedNode createVisualizedNode(TypicalNode typicalNode, int radius,
 
     private VisualizedConnection createVisualizedConnection(Connection connection, int radius, Material material, SelectionObserver selectionObserver) {
         VisualizedConnection visualizedConnection = new VisualizedConnection(connection, radius, material, visualisationMultiplier);
-        int index = visualizedConnections.size();
         visualizedConnection.setOnMouseClicked(event -> {
             selectElement(visualizedConnection, material);
             selectionObserver.selectedConnection(connection);

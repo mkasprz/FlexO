@@ -27,7 +27,6 @@ public class SimpleNode {
         this.z = this.z + z;
     }
 
-
     public double getX() {
         return x;
     }
@@ -51,4 +50,5 @@ public class SimpleNode {
     public void setZ(double z) {
         this.z = z;
     }
+
 }
