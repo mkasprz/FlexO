@@ -133,6 +133,8 @@ Moduł ten pozwala na przedstawianie 	użytkownikowi aktualnego stanu układu w 
 Moduł ten oblicza zmianę 	układu w zależności od parametrów połączeń i sfery centralnej i znajduje położenie równowagi siatki.
 3.4. Struktura projektu
 
+Rys. 1: Diagram pakietów
+Rys. 2: Diagram klas
 4. Organizacja pracy
 4.1. Podział zadań
 Ponieważ projekt tworzony był przez dwie osoby, potrzebny był podział obowiązków, który umożliwiłby efektywne tworzenie aplikacji. Każdy z nas rozpoczynał ten projekt z jakąś wizją tego, czym chciałby się zajmować w procesie implementacji programu. W związku z tym, po wydzieleniu pewnych zadań, które odpowiadały stworzeniu pewnych obszarów aplikacji, obydwaj wybraliśmy te z nich, które najbardziej odpowiadały naszym zainteresowaniom. W ogólności można wyróżnić główne obszary naszej aktywności: Piotr Baran zajmował się w większości backendem, czyli modelem aplikacji oraz algorytmem obliczającym zmianę stanu układu, zaś Michał Kasprzyk pracował głównie nad frontendem - modułem wizualizacji, graficznym interfejsem użytkownika. Były to jednak ramy dość umowne, ponieważ obydwaj często wykonywaliśmy pomniejsze zadania w obszarach innych niż wyżej wymienione. Ponadto wszelkie większe zadania, niezależnie od tego, kto dokonywał właściwej implementacji, były wzajemnie konsultowane, aby poznać spojrzenie drugiej osoby na daną część aplikacji, na jej budowę wewnętrzną, zewnętrzny interfejs oraz wymagania, które ma spełniać. System ten utrzymywany był do końca procesu tworzenia oprogramowania. W trakcie prac wyróżniane były kolejne zadania do wykonania, następnie były one omawiane i implementowane.
@@ -174,6 +176,7 @@ Wykorzystywaliśmy również aplikacje oferujące graficzne interfejsy użytkown
 5. Wyniki projektu
 5.1. Efekty prac 
 
+Rys. 3: Główne okno aplikacji
 Wskutek wykonania projektu powstały następujące elementy:
 - działająca aplikacja,
 - dokumentacja techniczna,
@@ -194,3 +197,9 @@ Praca nad projektem poskutkowała nie tylko stworzeniem aplikacji oraz niniejsze
 [2]	Cindy Castillo, John Yoon. Getting Started with JavaFX 3D Graphics, 		Release 8.0 Developer Preview. 2013
 [3] 	Wolfgang Laun. A JAXB Tutorial.
 [4] 	JCSG. https://github.com/miho/JCSG .
+
+
+Spis rysunków
+1. Diagram pakietów	11
+2. Diagram klas	11
+3. Główne okno aplikacji	18
