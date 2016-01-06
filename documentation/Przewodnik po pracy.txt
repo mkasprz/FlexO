@@ -1,14 +1,13 @@
 
 
 
-
 WYDZIAŁ INFORMATYKI, ELEKTRONIKI I TELEKOMUNIKACJI
 KATEDRA INFORMATYKI
 
 
-PROJEKT INŻYNIERSKI
-Implementacja narzędzia modelowania brył elastycznych
+PRZEWODNIK PO PROJEKCIE
 
+Implementacja narzędzia modelowania brył elastycznych 
 Tool for modelling flexible objects
 
 
@@ -18,12 +17,16 @@ Tool for modelling flexible objects
 
 
 
-Autor:					Piotr Baran, Michał Kasprzyk
-Kierunek studiów:			informatyka 
-Opiekun pracy:			doktor inżynier Paweł Topa
+Autor:				Piotr Baran, Michał Kasprzyk
+Kierunek studiów:	informatyka 
+Opiekun pracy:		doktor inżynier Paweł Topa
+
+
+
 
 
 Kraków, 2015
+
 
 
 
@@ -33,153 +36,148 @@ Uprzedzony o odpowiedzialności karnej na podstawie art. 115 ust. 1 i 2 ustawy z
 w wersji oryginalnej albo w postaci opracowania, artystyczne wykonanie albo publicznie zniekształca taki utwór, artystyczne wykonanie, fonogram, wideogram lub nadanie.”, a także uprzedzony o odpowiedzialności dyscyplinarnej na podstawie art. 211 ust. 1 ustawy z dnia 
 27 lipca 2005 r. Prawo o szkolnictwie wyższym (t.j. Dz. U. z 2012 r. poz. 572, z późn. zm.) „Za naruszenie przepisów obowiązujących w uczelni oraz za czyny uchybiające godności studenta student ponosi odpowiedzialność dyscyplinarną przed komisją dyscyplinarną albo przed sądem koleżeńskim samorządu studenckiego, zwanym dalej „sądem koleżeńskim”, oświadczam, że niniejszą pracę dyplomową wykonałem(-am) osobiście, samodzielnie i że nie korzystałem(-am) ze źródeł innych niż wymienione w pracy.
 　							...................................
-
 Spis treści
-1.Cel pracy i wizja produktu
-2.Zakres funkcjonalności
-3.Analiza ryzyka
-4.Przyjęta metodyka pracy
-5.Narzędzia wykorzystywane do pracy nad aplikacją
-6.Opis budowy aplikacji
-7.Harmonogram prac
-8.Przykładowy scenariusz
-9.Wyniki projektu 
-10.Bibliografia
-
-
-
-1.Cel pracy i wizja produktu
-
-Jednym z najważniejszych celów przyświecających rozwojowi informatyki jako takiej oraz towarzyszącemu jej postępowi technologicznego była potrzeba symulowania zjawisk zachodzących w otaczającej nas rzeczywistości korzystając z matematycznego modelowania tychże zjawisk. Użyteczności komputerowych symulacji nie sposób przecenić w sytuacji, w której układ, którego zmiany chcemy prześledzić jest na tyle złożony, że wyznaczenie rozwiązania klasycznymi sposobami byłoby zbyt pracochłonne. Ich wykorzystanie jest obecnie bardzo szerokie, poczynając od ekonomii i biznesu, przez nauki przyrodnicze, po budownictwo i lotnictwo. Metody te pozwalają zaoszczędzić wiele czasu oraz środków podczas prowadzenia badań naukowych, projektowania karoserii do nowego modelu samochodu, czy podejmowania ryzykownych decyzji biznesowych. Poniższy projekt inżynierski jest próbą opracowania aplikacji, która mogłaby być wykorzystywana w pracy naukowej. Celem jest stworzenie aplikacji służącej do symulowania zjawisk występujących w pewnych układach fizycznych zwanych dalej bryłami elastycznymi. Stanowiące temat projektu bryły elastyczne są zbiorami punktów zawieszonymi w trójwymiarowej przestrzeni. Punkty te połączone są z sąsiadującymi punktami za pomocą połączeń, których sztywność wpływa na odkształcenia całej bryły. W układach tych występuje również centralny punkt, połączony ze wszystkimi innymi, którego przesunięcie z pierwotnego położenia powoduje zmianę kształtu bryły. Tworzona aplikacja ma za zadanie symulowanie działania takich układów w różnych stanach oraz wizualizowania wyników swoich obliczeń. Uzyskaną wizualizację można następnie wyeksportować do popularnego formatu definicji geometrii .obj. Głównym zastosowaniem, z myślą o którym powstał pomysł projektu są badania naukowe nad organizmami z gromady Foraminifera. Zjawiska przedstawiane w programie są pewnym uproszczeniem sposobu, w jaki te jednokomórkowce budują swoje skorupki.
+1. Cel pracy i wizja produktu
+　　1.1. Motywacja (w tym przegląd istniejących rozwiązań prowadząca do uzasadnienia celu prac)
+　　1.2. Studium wykonalności
+　　1.3. Ogólna wizja projektu
+　　1.3. Analiza ryzyka
 2. Zakres funkcjonalności
-Aby aplikacja wypełniała założone zadanie powinna spełniać wymagania przedstawione poniżej. Dotyczą one zarówno funkcji, które mają się w niej znaleźć, jak i sposobu, w jaki owe funkcje będą wykonywane.
+　　Kontekst użytkowania produktu (aktorzy, współpracujące systemy)
+　　2.1. Wymagania funkcjonalne
+　　2.2. Wymagania niefunkcjonalne
+3. Wybrane aspekty realizacji
+　　Przyjęte założenia, struktura i zasada działania systemu
+　　3.1. Wykorzystane technologie
+　　3.2. Wizja architektury projektu
+　　Diagram klas?
+　　3.4. Opis najważniejszych modułów aplikacji
 
+4. Organizacja pracy
+　　4.1. Podział zadań
+　　4.2. Etapy pracy ze wskazaniem udziału poszczególnych członków zespołu
+　　4.3. Narzędzia wykorzystywane do pracy nad aplikacją
+5. Wyniki projektu
+　　5.1 Efekty pracy
+　　ocena ich użyteczności (jak zostało to zweryfikowane — np. wnioski klienta/użytkownika, zrealizowane testy wydajnościowe, itd.)
+　　istniejące ograniczenia
+　　5.2. Możliwości dalszego rozwoju aplikacji 
+6. Materiały źródłowe
+
+
+1.Cel pracy i wizja produktu
+Jednym z najważniejszych celów przyświecających rozwojowi informatyki jako takiej oraz towarzyszącemu jej postępowi technologicznego była potrzeba symulowania zjawisk zachodzących w otaczającej nas rzeczywistości korzystając z matematycznego modelowania tychże zjawisk. Użyteczności komputerowych symulacji nie sposób przecenić w sytuacji, w której układ, którego zmiany chcemy prześledzić jest na tyle złożony, że wyznaczenie rozwiązania klasycznymi sposobami byłoby zbyt pracochłonne. Ich wykorzystanie jest obecnie bardzo szerokie, poczynając od ekonomii i biznesu, przez nauki przyrodnicze, po budownictwo i lotnictwo. Metody te pozwalają zaoszczędzić wiele czasu oraz środków podczas prowadzenia badań naukowych, projektowania karoserii do nowego modelu samochodu, czy podejmowania ryzykownych decyzji biznesowych. Poniższy projekt inżynierski jest próbą opracowania aplikacji, która mogłaby być wykorzystywana w pracy naukowej. Celem jest stworzenie aplikacji służącej do symulowania zjawisk występujących w pewnych układach fizycznych zwanych dalej bryłami elastycznymi. Stanowiące temat projektu bryły elastyczne są zbiorami punktów zawieszonymi w trójwymiarowej przestrzeni. Punkty te połączone są z sąsiadującymi punktami za pomocą połączeń, których sztywność wpływa na odkształcenia całej bryły. W układach tych występuje również centralny punkt, połączony ze wszystkimi innymi, którego przesunięcie z pierwotnego położenia powoduje zmianę kształtu bryły. Tworzona aplikacja ma za zadanie symulowanie działania takich układów w różnych stanach oraz wizualizowania wyników swoich obliczeń. Uzyskaną wizualizację można następnie wyeksportować do popularnego formatu definicji geometrii .obj. Głównym zastosowaniem, z myślą o którym powstał pomysł projektu są badania naukowe nad organizmami z gromady Foraminifera. Zjawiska przedstawiane w programie są pewnym uproszczeniem sposobu, w jaki te jednokomórkowce budują swoje skorupki.
+1.3. Analiza ryzyka
+Ryzyko występuje podczas prac nad każdym projektem. Istotne zatem jest przewidzenie jego źródeł oraz takie zaplanowanie działań, aby zminimalizować prawdopodobieństwo wystąpienia czynników utrudniających ich ukończenie. W przypadku naszego projektu ryzyko dotyczy kwestii opisanych poniżej.
+1.Wielkość zespołu
+Projekt wykonywany jest w zespole dwuosobowym, co z jednej strony pozwala na utrzymanie lepszej, niż w przypadku szerszych zespołów komunikacji między członkami, z drugiej jednak powoduje, że stosunkowo niewielki zasób ludzki może okazać się niewystarczający 	w przypadku wystąpienia czasochłonnych zadań, które będą 	powodować, że przez długi okres czasu przyrosty projektu będą 	stosunkowo niewielki.
+2. Trudność zweryfikowania poprawności obliczeń
+Badawczy charakter projektu staje się problematyczny podczas testowania wyników projektu. Trudno jest zweryfikować wyniki obliczeń. W prostszych przypadkach możliwe jest ręczne przeprowadzenie obliczeń (do tego raczej tylko w przypadku 	dwuwymiarowym), jednak szybko układy te stają się zbyt 	skomplikowane, aby możliwe było takie sprawdzenie poprawności.
+2. Zakres funkcjonalności
 2.1. Wymagania funkcjonalne
-1. Stworzenie nowego projektu - wygenerowania odpowiedniego układu dla przypadku dwu i trzy wymiarowego
+1.	Stworzenie nowego projektu - wygenerowania odpowiedniego 	układu dla przypadku dwu i trzy wymiarowego
 Użytkownik powinien mieć możliwość stworzenia nowego projektu, co wiąże się z wygenerowaniem odpowiedniego układu. Podstawowych układów powinny być dwa rodzaje: dwu i trzy wymiarowy. Ponadto powinna istnieć możliwość zdefiniowania z jak dużej liczby punktów ma składać się układ.
-
-2.Wczytanie układu z pliku
+2.	Wczytanie układu z pliku
 Układ, który został zapisany w jednej z poprzednich sesji korzystania z aplikacji, może zostać wczytany z pliku. Nie powinno wymagać to żadnych dodatkowych ustaleń ze strony użytkownika.
-
-3.Wizualizacja układu
-Układ, składający się z punktów i połączeń, powinien zostać odpowiednio zwizualizowany. Powinna istnieć możliwość zaznaczania odpowiednich, zwizualizowanych, elementów w celu podglądu szczegółów elementu lub edycji odpowiednich parametrów.
-
-4.Edycja parametrów elementów i zmiana układu
+3.	Wizualizacja układu
+Układ, składający się z punktów i połączeń, powinien zostać odpowiednio zwizualizowany. Powinna istnieć możliwość zaznaczania odpowiednich, zwizualizowanych elementów w celu podglądu ich szczegółów lub edycji odpowiednich parametrów.
+4.	Edycja parametrów elementów i zmiana układu
 Po zaznaczeniu odpowiedniego elementu powinna istnieć możliwość zmiany danych parametrów wpływających na kształt całego układu. Wiąże się to z opracowaniem odpowiedniego algorytmu, opartego o zasady fizyki, obliczającego nowy stan elementów układu. Zmiany powinny zostać zwizualizowane.
-
-5.Zapis układu
+5.	Zapis układu
 Użytkownik powinien mieć możliwość zapisu powstałego układu do pliku w celu późniejszej kontynuacji pracy.
-
-Wymagania dodatkowe:
-1.Eksport do pliku ‘.obj’
-Użytkownik powinien mieć możliwość weksportowania zwizualizowanego układu do pliku w popularnym formacie ‘.obj’.
-
-2.Większa liczba układów do wygenerowania podczas tworzenia nowego projektu
+Dodatkowe wymagania funkcjonalne
+1.	Eksport do pliku .obj
+Użytkownik powinien mieć możliwość wyeksportowania zwizualizowanego układu do pliku w popularnym formacie .obj.
+2.	Większa liczba układów do wygenerowania podczas tworzenia 	nowego projektu
 Domyślnie powinna istnieć możliwość wygenerowania dwóch układów - dwu i trzy wymiarowego. Przydatna jednak mogłaby okazać się możliwość wygenerowania różnych wariantów trójwymiarowego układu. Dla przykładu za podstawowy układ można by uznać półsferę, a za dodatkowy kwadratową płachtę.
+2.2. Wymagania niefunkcjonalne
+1.	Przejrzysta wizualizacja
+Zasadniczą część projektu stanowi wizualizacja obliczonych zmian siatki. Dlatego też bardzo ważne jest, aby owa wizualizacja była możliwie najbardziej czytelna i przejrzysta, możliwość przeglądania bryły była łatwa i intuicyjna, podobnie, jak sposób manipulacji układem.
+2.	Intuicyjny interfejs użytkownika
+Graficzny interfejs użytkownika ma na celu wspomaganie modyfikowania parametrów bryły, dlatego powinien pozwalać na wygodne wyszukiwanie pożądanych opcji.
+3. Wydajny algorytm
+Główną funkcjonalność aplikacji stanowi obliczanie sił występujących w bryle oraz jej odkształceń. Algorytm, który się tym zajmuje powinien zatem być w stanie znajdować poprawne wyniki w odpowiednio krótkim czasie.
 
-2.1. Wymagania niefunkcjonalne
-1.Zasadniczą część projektu stanowi wizualizacja obliczonych zmian siatki. Dlatego też bardzo ważne jest, aby owa wizualizacja była możliwie najbardziej czytelna i przejrzysta, możliwość przeglądania bryły była łatwa i intuicyjna, podobnie, jak sposób manipulacji układem.
-
-2.Graficzny interfejs użytkownika ma na celu wspomaganie modyfikowania parametrów bryły, dlatego powinien pozwalać na wygodne wyszukiwanie pożądanych opcji. 
-
-3.Główną funkcjonalność aplikacji stanowi obliczanie sił występujących w bryle oraz jej odkształceń. Algorytm, który się tym zajmuje powinien zatem być w stanie znajdować poprawne wyniki w odpowiednio krótkim czasie.
-3. Analiza ryzyka
-
-Zidentyfikowano dwa główne źródła ryzyka w projekcie. Mogą one negatywnie wpłynąć na terminy wykonania poszczególnych funkcjonalności oraz finalny kształt produktu.
-Projekt wykonywany jest w zespole dwuosobowym, co z jednej strony pozwala na utrzymanie lepszej niż w przypadku szerszych zespołów komunikacji między członkami, z drugiej jednak powoduje, że stosunkowo niewielki zasób ludzki może okazać się problematyczny w przypadku wystąpienia czasochłonnych zadań, które będą powodować, że przez długi okres czasu przyrosty projektu będą stosunkowo niewielkie
-Badawczy charakter projektu staje się problematyczny podczas testowania wyników projektu. Trudno jest zweryfikować wyniki obliczeń. W prostszych przypadkach możliwe jest ręczne przeprowadzenie obliczeń (do tego raczej tylko w przypadku dwuwymiarowym), jednak szybko układy te stają się zbyt skomplikowane, aby możliwe było takie sprawdzenie poprawności.
-
-4.Przyjęta metodyka pracy
-Podczas pracy nad projektem wykorzystywany był przyrostowy model tworzenia oprogramowania. Kolejne etapy tworzenia aplikacji zależały raczej od aktualnie opracowywanej funkcjonalności aniżeli od sztywno wytyczonych ram czasowych. Z tego powodu opisywane poniżej etapy prac biorą swoje tytuły od funkcjonalności, które były podczas nich implementowane. Taki sposób prac nad projektem pozwolił nam na skoncentrowaniu się na obszarach, które w danej chwili najbardziej potrzebowały uwagi, zamiast skupiać się na całym projekcie przechodząc od zadania do zadania. Z uwagi na niewielki skład zespołu taki sposób prowadzenia prac wydaje się być najbardziej efektywny, gdyż zapewnia on szybkie zakończenie implementacji poszczególnych funkcjonalności i gwarantuje, że podczas całego czasu trwania projektu, posiada on pewien zbiór działających funkcjonalności, który powiększa się w miarę postępu prac. Pomiędzy etapami, w których dodawane były nowe funkcjonalności odbywały się jedno, dwutygodniowe okresy, podczas których kod był sprzątany i refaktoryzowany. Usuwane były rozwiązania zastosowane tymczasowo, tylko po to, żeby sprawdzić, czy będą działać, a zastępowane były bardziej zgodnymi z dobrymi zasadami tworzenia oprogramowania. Pomiędzy niektórymi z etapów odbywały się również spotkania z klientem mające na celu prezentację postępów prac, jak również uściślenie wymagań dotyczących funkcjonalności, które mieliśmy zamiar implementować w następnej kolejności.
-
-5.Narzędzia wykorzystywane do pracy nad aplikacją
-Podczas implementowania aplikacji wykorzystywaliśmy kilka narzędzi ułatwiających zarządzanie kodem, jego budowanie, czy samo tworzenie.
-Używanym systemem kontroli wersji był Git. System ten został wybrany z uwagi na duże możliwości, łatwość obsługi, a także doświadczenie, jakie posiadaliśmy w pracy z nim wyniesione z realizowania wcześniejszych projektów.
-Repozytorium z kodem aplikacji znajdowało się w serwisie GitHub. Jest on chyba najbardziej popularnym serwisem tego typu, zapewnia wszystkie niezbędne funkcje, ponadto posiada duże możliwości ułatwiające pracę nad projektami.
-Tworzenie kodu, jak i jego budowanie odbywało się w zintegrowanym środowisku programistycznym IntelliJ IDEA.
-Wykorzystywaliśmy również aplikacje oferujące graficzne interfejsy użytkownika dla systemu Git, co znacznie ułatwia pracę. Wszystkie naniesione zmiany są widoczne, a działania są intuicyjne i nie wymagają pamiętania wszystkich poleceń Gita. Używanymi w tym celu aplikacjami były Atlassian SourceTree oraz wbudowany komponent IntelliJ IDEA zapewniający bardzo podobne funkcjonalności.
-6. Opis budowy aplikacji
-
-6.1. Wykorzystane technologie
+3. Wybrane aspekty realizacji
+3.1. Wykorzystane technologie
 W projekcie wykorzystano następujące technologie:
--Java;
--JavaFX - wykorzystany do stworzenia ‘user interface’ i połączenia go z logiką aplikacji;
--JavaFX 3D - wykorzystany do zwizualizowania układu;
--JAXB - wykorzystywany do zapisu oraz wczytywania układu z pliku ‘.xml’.
-
-6.2. Wizja architektury projektu
-Do stworzenia podstawowej architektury został wybrany wzorzec Model-Widok-Kontroler. Powodów takiej decyzji było kilka. Przede wszystkim, MVC jest pierwszym wyborem, ku któremu skłaniamy się, mając do stworzenia aplikację z graficznym interfejsem użytkownika, która ma na celu pewną interakcję z użytkownikiem. 
-Jest to klasyczny schemat umożliwiający logiczne rozdzielenie części aplikacji zgodnie z ich funkcjonalnością, zapewniając uporządkowany przepływ danych w aplikacji. Kolejnym istotnym powodem wykorzystania wzorca był fakt, że zdecydowaliśmy się wykorzystać technologię JavaFX do stworzenia GUI. Technologia ta, poza wprowadzeniem wygodnego formatu definiowania elementów interfejsu w postaci plików xml, w naturalny sposób wprowadza do aplikacji kontrolery umożliwiające komunikację między modelem a widokiem. 
-Model aplikacji stanowi reprezentację dziedziny problemu, odzwierciedla stan konkretnego przypadku, który będzie rozwiązywany przez program. Zawiera informacje na temat położenia każdego z węzłów, a także o ich połączeniach z innymi węzłami, a także parametry tych połączeń. 
-Widok stanowi trójwymiarowa wizualizacja siatki oparta na danych zawartych w modelu, a także elementy graficznego interfejsu użytkownika pozwalające na interakcję użytkownika aplikacji z warstwą odpowiadającą za wykonywanie obliczeń. 
+-	Java 8 - język w którym powstawała niemalże cała aplikacja;
+-	JavaFX - wykorzystany do stworzenia graficznego interfejsu
+	użytkownika i połączenia go z logiką aplikacji;
+-	JavaFX 3D - wykorzystany do zwizualizowania układu;
+-	JAXB - Java Architecture for XML Binding - wykorzystywany do zapisu 	oraz wczytywania układu z pliku .xml;
+-	JCSG - biblioteka pozwalająca na połączenie kilku brył w jedną i 		eksport do pliku .obj.
+Do kontroli wersji wykorzystany został system Git. Repozytorium zawierające kod aplikacji znajduje się w serwisie GitHub.
+Projekt powstawał w zintegrowanym środowisku programistycznym IntelliJ IDEA.
+3.2. Wizja architektury projektu
+Do stworzenia podstawowej architektury został wybrany wzorzec Model-Widok-Kontroler. Powodów takiej decyzji było kilka. Przede wszystkim, MVC jest pierwszym wyborem, ku któremu skłaniamy się, mając do stworzenia aplikację z graficznym interfejsem użytkownika, która ma na celu pewną interakcję z użytkownikiem. Jest to klasyczny schemat umożliwiający logiczne rozdzielenie części aplikacji zgodnie z ich funkcjonalnością, zapewniając uporządkowany przepływ danych w aplikacji. Kolejnym istotnym powodem wykorzystania wzorca był fakt, że zdecydowaliśmy się wykorzystać technologię JavaFX do stworzenia GUI. Technologia ta, poza wprowadzeniem wygodnego formatu definiowania elementów interfejsu w postaci plików .xml, w naturalny sposób wprowadza do aplikacji kontrolery umożliwiające komunikację między modelem a widokiem. 
+Model aplikacji stanowi reprezentację dziedziny problemu, odzwierciedla stan konkretnego przypadku, który będzie rozwiązywany przez program. Zawiera informacje na temat położenia każdego z węzłów, a także o ich połączeniach z innymi węzłami, jak również parametry tych połączeń. 
+Widok to trójwymiarowa wizualizacja siatki oparta na danych zawartych w Modelu, a także elementy graficznego interfejsu użytkownika pozwalające na interakcję użytkownika aplikacji z warstwą odpowiadającą za wykonywanie obliczeń. 
 Kontroler to część, której zadaniem jest przyjmowanie danych od użytkownika, odpowiednia modyfikacja modelu i odświeżenie widoku, w zależności od tej modyfikacji.
 
 6.3. Diagram klas
 <diagram klas>
 
-6.4 Opis najważniejszych modułów implementacji
-
+3.4. Opis najważniejszych modułów aplikacji
 Pod względem implementacji, aplikacja podzielona jest na moduły spełniające pojedyncze, odseparowane od siebie zadania. Poniżej zamieszczono spis wszystkich modułów aplikacji. Opatrzone zostały również krótkim opisem, opowiadającym o sposobie ich działania.
-
-Moduł głównego okna aplikacji - definiuje wygląd głównego okna aplikacji, zawiera rozmieszczenie oraz wygląd wszystkich widocznych elementów znajdujących się w oknie
-Model danych aplikacji - przechowuje informacje o stanie bryły za pomocą obiektów reprezentujących byty występujące w rzeczywistej dziedzinie rozwiązywanego problemu
-Moduł tworzenia nowego projektu - umożliwia stworzenie nowego projektu, czyli sesji aplikacji, daje użytkownikowi możliwość wyboru rodzaju układu, nad którym będzie pracował, jak i rozmiar tego układu
-Moduł wczytywania lub zapisywania układu do pliku - pozwala na zapis aktualnego stanu układu w pliku .XML, a także wczytanie uprzednio zapisanego pliku, z którego tworzony jest układ gotowy do kontynuowania pracy
-Moduł wizualizacji - moduł ten pozwala na przedstawianie użytkownikowi aktualnego stanu układu w postaci reprezentacji punktów i połączeń między nimi za pomocą sfer oraz walców
-Moduł obliczający odkształcenie bryły - moduł ten oblicza zmianę układu i znajduje położenie równowagi siatki
-7. Harmonogram prac
-Punkt “Przyjęta metodyka pracy” opowiadał o sposobie implementowania kolejnych funkcjonalności. W zgodzie z opisywanym tam sposobem organizacji prac, przeprowadzane były poszczególne etapy projektu. Każdy z etapów zakładał ukończenie części aplikacji, którą zajmowaliśmy się w tym etapie . Poniżej podano wszystkie iteracje wraz z szacunkowymi czasami trwania (jak już wspomniano, sztywne ramy czasowe kolejnych iteracji nie były utrzymywane), oraz krótkie opisy tego, czego one dotyczyły i jak przebiegały.
-
-7.1. Etapy wstępne - stworzenie wizji projektu, założenie repozytorium, wstępny podział zadań (3 tygodnie)
+1. Moduł głównego okna aplikacji
+W ramach tego modułu definiowany jest wygląd głównego okna aplikacji. Zawiera on informacje o rozmieszczeniu oraz wyglądzie wszystkich widocznych 	elementów znajdujących się w oknie. Pozwala użytkownikowi na wprowadzanie zmian w układzie poprzez edycję odpowiednich pól.
+2. Model danych aplikacji
+Odpowiada za przechowywanie informacji o stanie bryły za 	pomocą obiektów reprezentujących byty występujące w rzeczywistej 	dziedzinie rozwiązywanego problemu.
+3. Moduł tworzenia nowego układu
+Umożliwia stworzenie nowego 	układu węzłów i połączeń. Daje użytkownikowi możliwość wyboru 	rodzaju i rozmiar układu, nad którym będzie pracował.
+4. Moduł wczytywania lub zapisywania układu do pliku
+Pozwala na 	zapis aktualnego stanu układu do pliku .xml. Umożliwia również wczytanie 		uprzednio zapisanego pliku, z którego tworzony jest układ gotowy do 	kontynuowania pracy.
+5. Moduł wizualizacji
+Moduł ten pozwala na przedstawianie 	użytkownikowi aktualnego stanu układu w postaci sfer oraz walców odpowiadającym węzłom i połączeniom. 
+6. Moduł obliczający odkształcenie bryły
+Moduł ten oblicza zmianę 	układu w zależności od parametrów połączeń i sfery centralnej i znajduje położenie równowagi siatki.
+4. Organizacja pracy
+4.1. Podział zadań
+Ponieważ projekt tworzony był przez dwie osoby, potrzebny był podział obowiązków, który umożliwiłby efektywne tworzenie aplikacji. Każdy z nas rozpoczynał ten projekt z jakąś wizją tego, czym chciałby się zajmować w procesie implementacji programu. W związku z tym, po wydzieleniu pewnych zadań, które odpowiadały stworzeniu pewnych obszarów aplikacji, obydwaj wybraliśmy te z nich, które najbardziej odpowiadały naszym zainteresowaniom. W ogólności można wyróżnić główne obszary naszej aktywności: Piotr Baran zajmował się w większości backendem, czyli modelem aplikacji oraz algorytmem obliczającym zmianę stanu układu, zaś Michał Kasprzyk pracował głównie nad frontendem - modułem wizualizacji, graficznym interfejsem użytkownika. Były to jednak ramy dość umowne, ponieważ obydwaj często wykonywaliśmy pomniejsze zadania w obszarach innych niż wyżej wymienione. Ponadto wszelkie większe zadania, niezależnie od tego, kto dokonywał właściwej implementacji, były wzajemnie konsultowane, aby poznać spojrzenie drugiej osoby na daną część aplikacji, na jej budowę wewnętrzną, zewnętrzny interfejs oraz wymagania, które ma spełniać. System ten utrzymywany był do końca procesu tworzenia oprogramowania. W trakcie prac wyróżniane były kolejne zadania do wykonania, następnie były one omawiane i implementowane.
+Pierwotnie zastanawialiśmy się nad wykorzystaniem jakiegoś rozbudowanego system zarządzania zadaniami, ostatecznie jednak na żaden z nich się nie zdecydowaliśmy. Wynikło to prawdopodobnie z faktu, że w przypadku projektu prowadzonego przez dwie osoby łatwo jest konsultować stan prac. W naszym zespole nie mieliśmy też wyróżnionego lidera, który miałby zarządzać zadaniami i przypisywać je do poszczególnych osób. W przypadku regularnej pracy w kilkuosobowym zespole narzędzie takie byłoby niezbędne, tutaj jednak nie znalazłoby odpowiedniego zastosowania.
+4.2. Etapy pracy
+Podczas pracy nad projektem wykorzystywany był przyrostowy model tworzenia oprogramowania. Kolejne etapy tworzenia aplikacji zależały raczej od aktualnie opracowywanej funkcjonalności aniżeli od sztywno wytyczonych ram czasowych. Z tego powodu opisywane poniżej etapy prac biorą swoje tytuły od funkcjonalności, które były podczas nich implementowane. 
+W zgodzie ze sposobem organizacji prac, przeprowadzane były poszczególne etapy projektu. Każdy z etapów zakładał ukończenie części aplikacji, którą zajmowaliśmy się w tym etapie . Poniżej podano wszystkie iteracje wraz z szacunkowymi czasami trwania oraz krótkie opisy tego, czego one dotyczyły i jak przebiegały.
+1.	Etap wstępny - stworzenie wizji projektu, założenie 		repozytorium, wstępny podział zadań (3 tygodnie)
 Początek prac nad projektem zakładał typowe dla tego rodzaju przedsięwzięć działania, między innymi stworzenie wizji projektu, przeprowadzenie analizy ryzyka oraz przyrządzenie studium wykonywalności. Po zdefiniowaniu funkcjonalności aplikacji i zidentyfikowaniu zagrożeń mogących wystąpić podczas jej implementacji, nastąpił wstępny podział obszarów aplikacji pomiędzy członków zespołu i założenie repozytorium. Wtedy możliwe stało się przystąpienie do kolejnych etapów prac.
-
-7.2. Wybór odpowiedniej technologii do wizualizacji (1 miesiąc)
+2. Wybór odpowiedniej technologii do wizualizacji (1 miesiąc)
 Już na samym początku właściwej pracy pojawiły się nieoczekiwane problemy związane z wykorzystywaną technologią. Wybrany do wizualizacji WebGL okazał się być trudny do połączenia wewnątrz okna aplikacji z odpowiadającym za graficzny interfejs użytkownika JavaFX. Podczas tego etapu tworzone było kilka prototypów łączących różne technologie wizualizacji i bibliotek graficznych interfejsów. Najlepsze rezultaty dało użycie JavaFX z dostarczaną przez tę bibliotekę technologią JavaFX 3D, będącą stosunkowo młodym, lecz rozwijającym się projektem. Z tego względu niewielka jest liczba dostępnych w sieci materiałów na ten temat, dalece mniejsza niż do, dla przykładu, WebGL, czy OpenGL, jednak z powodu małego skomplikowania wizualizowanych układów, jest ona wystarczająca dla potrzeb projektu.
-7.3. Stworzenie podstawowej architektury aplikacji (1 tydzień)
+3.	Stworzenie podstawowej architektury aplikacji 
+	(1 	tydzień)
 Przygotowane poprzednio dokumenty, takie jak wizja, czy wymagania stawiane aplikacji nakreśliły pewien ogólny kształt, który miała przybrać aplikacja. W tym etapie jednak zaczęła ona wyraźnie krystalizować się. Głównym wzorcem użytym podczas implementacji projektu został Model-View-Controller, jako jeden z najlepiej poznanych i sprawdzonych wzorców używanych do projektowania aplikacji tego typu. Wprowadza on podział kodu na trzy części, różniące się swoimi odpowiedzialnościami, wspólnie tworzące kompletną aplikację umożliwiającą prezentowanie danych użytkownikowi, otrzymywanie z jego strony danych zwrotnych, na podstawie których możliwa jest modyfikacja istniejącego stanu programu. MVC jest również logicznym wyborem, z uwagi na fakt, że jest ono naturalnie wprowadzane przez technologię JavaFX, co znacząco ułatwia początkowe stadia implementacji aplikacji o ten wzorzec opartych.
-
-7.4. Implementacja modelu danych (3 dni)
+4. Implementacja modelu danych (3 dni)
 Model danych jest jedną z głównych części wzorca Model-Widok-Kontroler i odpowiedzialny jest za przechowywanie informacji dotyczących problemu, którym zajmuje się aplikacja. Stanowi pewną reprezentację dziedziny owego problemu, za pomocą zależnych od siebie obiektów stara się odwzorować relacje zachodzące pomiędzy pewnymi bytami będącymi częścią zagadnienia. Zawiera również dane informujące o pewnych właściwościach tych bytów. W poniższej aplikacji model składa się zasadniczo z dwóch rodzajów obiektów. Pierwszy z nich reprezentuje punkty mogące przemieszczać się w przestrzeni, drugi zaś - połączenia między owymi punktami, mogące rozszerzać się i kurczyć zgodnie z podanymi parametrami, co wpływa na możliwe ustawienia punktów.
 
-7.5. Wprowadzenie modułu wizualizacji (3 tygodnie)
+5. Wprowadzenie modułu wizualizacji (3 tygodnie)
 Pomimo posiadania prototypu modułu wizualizacji z początkowych faz projektu, ukończenie implementacji modułu było okupione dużym nakładem pracy. Obecny prototyp był tylko statyczną sceną z kilkoma obiektami, stworzoną, aby sprawdzić, czy używana technologia wizualizacji zadziała w aplikacji. Finalna wersja modułu wymagała wielu wprowadzenia wielu zmian, potrzebny był też czas na zaznajomienie się z dokumentacją biblioteki JavaFX 3D. Dodane do modułu funkcjonalności to między innymi:
-Możliwość swobodnego przesuwania, obracania, a także przybliżania i oddalania widoku
-Wizualizowanie obiektów występujących w modelu zależne między innymi od ich położenia
-Zaznaczanie obiektów, co umożliwia ustawienie ich parametrów w osobnym widoku
-
-7.6. Opracowanie i implementacja algorytmu (1 miesiąc)
+-	możliwość swobodnego przesuwania, obracania, a także przybliżania i 	oddalania widoku;
+-	wizualizowanie obiektów występujących w modelu zależne między 	innymi od ich położenia;
+　　-	zaznaczanie obiektów, co umożliwia ustawienie ich parametrów w 			osobnym widoku.
+6. Opracowanie i implementacja algorytmu (1 miesiąc)
 Moduł obliczający odkształcenia bryły jest jedną z bardziej istotnych części aplikacji. Jest on uruchamiany aby znaleźć najbliższe położenie, w którym układ jest w stanie równowagi. Działa w sposób zachłanny, wybierając najlepsze lokalnie położenie dla każdego z węzłów i powtarzając swoje operacje do momentu znalezienia akceptowalnego rozwiązania. Działanie algorytmu było przedmiotem kilku zespołowych spotkań, podczas których było ono szczegółowo omawiane. Po dość znaczącym czasie opracowywania algorytmu, jego implementacja również zajęła stosunkowo dużo czasu z uwagi na wiele szczegółów, na które trzeba było zwrócić uwagę, jak również pewne problemy, które wyniknęły w trakcie właściwej pracy, a które wymagały pewnego doprecyzowania sposobu działania.
-7.7 Implementacja modułu persystencji układu (1 tydzień)
-Moduł persystencji umożliwia zapisanie swojego postępu pracy w aplikacji do postaci pliku .xml, a następnie wczytanie takiego, uprzednio zapisanego pliku, aby kontynuować zachowując swój poprzedni postęp. Jest to możliwe dzięki użyciu biblioteki Java Architecture for XML Binding, która udostępnia wysokopoziomowe API do eksportu i importu obiektów do postaci .xml. Umożliwia ona łatwe wybieranie obiektów, które chcemy wyeksportować. Podczas importu, plik jest odczytywany i wszystkie obiekty, które zostały w nim zapisane są tworzone, wraz z odpowiednią zawartością pól oraz zależnościami do innych obiektów.
-
-
-7.8 Wprowadzenie modułu eksportu wizualizacji (1 tydzień)
+7. Implementacja modułu persystencji układu (1 tydzień)
+Moduł persystencji umożliwia zapisanie swojego postępu pracy w aplikacji do postaci pliku .xml, a następnie wczytanie takiego, uprzednio zapisanego pliku, w celu kontynuacji pracy. Jest to możliwe dzięki użyciu biblioteki Java Architecture for XML Binding, która udostępnia wysokopoziomowe API do eksportu i importu obiektów do postaci .xml. Umożliwia ona łatwe wybieranie obiektów, które chcemy wyeksportować. Podczas importu, plik jest odczytywany i wszystkie obiekty, które zostały w nim zapisane są tworzone, wraz z odpowiednią zawartością pól oraz zależnościami do innych obiektów.
+8. Wprowadzenie modułu eksportu wizualizacji (1 tydzień)
 Eksport wizualizacji również został zrealizowany przy użyciu zewnętrznej biblioteki JCSG, implementującej constructive solid geometry. W module wizualizowane obiekty tłumaczone są na obiekty klas wykorzystywanych przez bibliotekę. Następnie tak stworzony graf obiektów jest, za pomocą odpowiednich metod przetwarzany i zapisywany do pliku w formacie .obj. Jest to popularny format definicji geometrii, dzięki czemu pliki takie można następnie w łatwy sposób zaimportować do zewnętrznych aplikacji pozwalających na obróbkę 3D, jak na przykład wykorzystywany w celach testowych Blender.
-
-
-
-
-
-
-
-
-
-
-8. Przykładowy scenariusz
-9. Wyniki projektu
-9.1. Efekty prac 
+4.3.	Narzędzia wykorzystywane do pracy nad 					aplikacją
+Podczas implementowania aplikacji wykorzystywaliśmy kilka narzędzi ułatwiających zarządzanie kodem, jego budowanie, czy samo tworzenie.
+Używanym systemem kontroli wersji był Git. System ten został wybrany z uwagi na duże możliwości, łatwość obsługi, a także doświadczenie, jakie posiadaliśmy w pracy z nim wyniesione z realizowania wcześniejszych projektów.
+Repozytorium z kodem aplikacji znajdowało się w serwisie GitHub. Jest on chyba najbardziej popularnym serwisem tego typu, zapewnia wszystkie niezbędne funkcje. Ponadto posiada duże możliwości ułatwiające pracę nad projektami.
+Tworzenie kodu, jak i jego budowanie odbywało się w zintegrowanym środowisku programistycznym IntelliJ IDEA. Zdecydowaliśmy się na jego wybór ze względu na bardzo dobre wsparcie dla języka Java - łącznie z nowy funkcjonalnościami - jakie oferuje, a również systemu zarządzania wersjami jakim jest Git.
+Wykorzystywaliśmy również aplikacje oferujące graficzne interfejsy użytkownika dla systemu Git. Używanymi w tym celu aplikacjami były Atlassian SourceTree oraz wbudowany komponent IntelliJ IDEA zapewniający bardzo podobne funkcjonalności.
+5. Wyniki projektu
+5.1. Efekty prac 
 Wskutek wykonania projektu powstały następujące elementy:
-
-Działająca aplikacja
-Dokumentacja techniczna
-Dokumentacja procesowa
-Dokumentacja użytkownika
-
-Poza tymi materialnymi skutkami projektu, pozyskaliśmy również cenną wiedzę i doświadczenie w pracy nad długotrwałym projektem, które z pewnością okażą się przydatne w przyszłości.
-
-9.2. Możliwości dalszego rozwoju
+- działająca aplikacja,
+- dokumentacja techniczna,
+- dokumentacja procesowa,
+- dokumentacja użytkownika.
+Poza tymi materialnymi skutkami projektu, pozyskaliśmy również cenną wiedzę i doświadczenie w pracy nad długotrwałym projektem, które z pewnością okażą się przydatne w przyszłości. Mieliśmy również możliwość poznania 
+5.2. Możliwości dalszego rozwoju aplikacji
 Powstała aplikacja posiada szerokie pole do rozwoju. Udostępnia bowiem pewien niezbędny podzbiór funkcjonalności, które były sformułowane w wymaganiach. Po ich zrealizowaniu nasuwa się jednak wiele pomysłów, które można zrealizować, aby usprawnić korzystanie z aplikacji oraz poszerzyć jej możliwości. 
 Jedną z możliwych dróg rozwoju jest skupienie się na ulepszaniu user experience, zaimplementowanie dodatkowych sposobów interakcji z aplikacją, dodanie bardziej intuicyjnych sposobów modyfikacji pewnych elementów, jak choćby przesuwanie centralnego węzła za pomocą przeciągania go przy użyciu myszy jako alternatywa dla wpisywania położenia w odpowiednie pole, czy zaznaczanie wielu elementów w celu wspólnego zmodyfikowania ich cech.
+
 Dodatkowo fragmenty aplikacji mogą zostać wykorzystane w ramach innych projektów, na przykład dość często wspominany przez nas pomysł przekształcenia obecnej postaci aplikacji w grę logiczną.
 
 10. Bibliografia
