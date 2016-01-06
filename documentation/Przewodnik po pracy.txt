@@ -38,7 +38,7 @@ w wersji oryginalnej albo w postaci opracowania, artystyczne wykonanie albo publ
 　							...................................
 Spis treści
 1. Cel pracy i wizja produktu
-　　1.1. Motywacja (w tym przegląd istniejących rozwiązań prowadząca do uzasadnienia celu prac)
+　　1.1. Motywacja
 　　1.2. Ogólna wizja projektu
 　　1.3. Analiza ryzyka
 2. Zakres funkcjonalności

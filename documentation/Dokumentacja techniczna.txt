@@ -75,8 +75,6 @@ Rozkład elementów w głównym oknie aplikacji definiowany jest w pliku Aplicat
 Wykorzystanie plików .fxml, będących plikami typu .xml, które zawierają informacje o ułożeniu elementów graficznego interfejsu użytkownika, pozwala na wygodną i szybką edycję układu okna. Ponadto pozwala w łatwy sposób oddzielić logikę aplikacji z warstwą definicji wyglądu okna. Rozwiązanie to wynika z wyboru technologii JavaFX.
 Ponadto w celu zwizualizowania elementów tworzony jest nowy SubScene. Pozwala to między innymi na wykorzystanie dodatkowej kamery, która może być innego typu - odpowiednia do wyświetlania elementów trójwymiarowych. Ponadto można nią zupełnie oddzielnie zarządzać - przesuwać, czy obracać.
 
-<PUBLIC/ALL>
-
 
 
 4.2. Model danych aplikacji
