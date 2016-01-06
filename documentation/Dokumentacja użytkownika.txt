@@ -1,15 +1,13 @@
 
 
 
-
 WYDZIAŁ INFORMATYKI, ELEKTRONIKI I TELEKOMUNIKACJI
 KATEDRA INFORMATYKI
 
 
 DOKUMENTACJA UŻYTKOWNIKA
 
-Implementacja narzędzia modelowania brył elastycznych
- 
+Implementacja narzędzia modelowania brył elastycznych 
 Tool for modelling flexible objects
 
 
@@ -20,7 +18,7 @@ Tool for modelling flexible objects
 
 
 Autor:				Piotr Baran, Michał Kasprzyk
-Kierunek studiów:		informatyka 
+Kierunek studiów:	informatyka 
 Opiekun pracy:		doktor inżynier Paweł Topa
 
 
@@ -32,125 +30,94 @@ Kraków, 2015
 
 
 
+
 Uprzedzony o odpowiedzialności karnej na podstawie art. 115 ust. 1 i 2 ustawy z dnia 
 4 lutego 1994 r. o prawie autorskim i prawach pokrewnych (t.j. Dz.U. z 2006 r. Nr 90, poz. 631 z późn. zm.): „ Kto przywłaszcza sobie autorstwo albo wprowadza w błąd co do autorstwa całości lub części cudzego utworu albo artystycznego wykonania, podlega grzywnie, karze ograniczenia wolności albo pozbawienia wolności do lat 3. Tej samej karze podlega, kto rozpowszechnia bez podania nazwiska lub pseudonimu twórcy cudzy utwór 
 w wersji oryginalnej albo w postaci opracowania, artystyczne wykonanie albo publicznie zniekształca taki utwór, artystyczne wykonanie, fonogram, wideogram lub nadanie.”, a także uprzedzony o odpowiedzialności dyscyplinarnej na podstawie art. 211 ust. 1 ustawy z dnia 
 27 lipca 2005 r. Prawo o szkolnictwie wyższym (t.j. Dz. U. z 2012 r. poz. 572, z późn. zm.) „Za naruszenie przepisów obowiązujących w uczelni oraz za czyny uchybiające godności studenta student ponosi odpowiedzialność dyscyplinarną przed komisją dyscyplinarną albo przed sądem koleżeńskim samorządu studenckiego, zwanym dalej „sądem koleżeńskim”, oświadczam, że niniejszą pracę dyplomową wykonałem(-am) osobiście, samodzielnie i że nie korzystałem(-am) ze źródeł innych niż wymienione w pracy.
 　							...................................
-
 Spis treści
-
-1.Podstawowe informacje
-2.Funkcje aplikacji
-...
-3.Typowy scenariusz użycia
-a)Stworzenie nowego projektu
-b)Konfiguracja połączeń
-c)Zmiana położenia centralnej sfery
-d)Zapis projektu
-
-
-
-
 1. Podstawowe informacje
-
-1. Opis produktu
+　　1.1. Opis produktu
+　　2.2. Wymagania aplikacji
+　　3.3. Uruchomienie aplikacji
+2. Podstawowe elementy głównego 	okna aplikacji
+　　2.1. Pasek menu
+　　2.2. Panel boczny
+　　2.3. Panel wizualizacji
+3. Rodzaje układów
+　　3.1. Two-dimensional setup - układ dwuwymiarowy
+　　3.2. Three-dimensional setup - układ trójwymiarowy
+4. Modyfikacja układu
+　　4.1. Zmienianie pozycji sfery centralnej
+　　4.2. Zmiana parametrów połączeń
+5. Zapisywanie i wczytywanie układu z pliku
+6. Eksport układu do pliku .obj
+7. Przykład wykorzystania aplikacji1. Podstawowe informacje
+1.1. Opis produktu
 FlexO jest narzędziem pozwalającym na wizualizację brył elastycznych powstałych w zależności od podanych przez użytkownika parametrów. W praktyce projekt bryły sprowadza się do modelu punktów - zwizualizowanych jako sfery - i połączeń między nimi oraz dodatkowego elementu, z którym połączone są pozostałe. 
 Właściwości podlegające parametryzacji to głównie stopień w którym mogą rozciągnąć się poszczególne połączenia oraz położenie elementu centralnego, wpływającego na położenie pozostałych elementów.
 Aplikacja pozwala na pracę zarówno w trybie dwu, jak i trójwymiarowym.
 Aplikacja może być wykorzystana między innymi w celu wizualizacji skorupki tworzonej przez organizmy gromady Foraminifera.
-
-2. Funkcje aplikacji
-
-
-2. Wymagania aplikacji
-
+<2. Funkcje aplikacji?>
+2.2. Wymagania aplikacji
 Aplikacja wymaga zainstalowanego środowiska Java Runtime Environment w wersji co najmniej 1.8. Aplikacja działać będzie na każdym systemie operacyjnym na który dostępne jest wspomniane środowisko - między innymi Linux, Windows oraz Mac.
-
-
-3. Uruchomienie aplikacji
-
+3.3. Uruchomienie aplikacji
 Uruchomienie aplikacji sprowadza się do uruchomiania pliku FlexO.jar za pomocą Java Runtime Environment. W różnych systemach operacyjnych może to wyglądać nieco inaczej. Warto jednak dodać, że zwykle domyślnie po zainstalowaniu Java Runtime Environment pliki .jar są uruchamiane w tymże programie.
 Alternatywnie program można uruchomić z konsoli posługując się poniższym poleceniem.
 java -jar FlexO.jar
 
-2. Podstawowe elementy głównego okna aplikacji
-
-Po uruchomieniu aplikacji powinno pojawić się poniższe okno.
-
-
-
+2. Podstawowe elementy głównego 	okna aplikacji
+Po uruchomieniu aplikacji pojawi się poniższe okno.
 
 2.1. Pasek menu
-
 Pasek menu znajduje się w górnej części okna aplikacji. Po kliknięciu na pozycję Project pojawi się poniższe menu.
-
  
 
 Podmenu New pozwala na stworzenie nowego układu wybranego typu.
 Dostępne są dwa rodzaje układów początkowych: Two-dimensional setup - układ dwuwymiarowy oraz Three-dimensional setup - układ trójwymiarowy. Są one szczegółowo opisane w punkcie ‘Rodzaje układów’. 
 
-
-
-Pozycje Save oraz Save as służą do zapisywania układu do pliku. Za pomocą Open można wczytać układ. Export pozwala na wyeksportowanie układu do pliku .obj. Quit zamyka aplikację.
-
-2.2. Panel boczny
-
+Pozycje Save oraz Save as... służą do zapisywania układu do pliku. Za pomocą Open... można wczytać układ. Export... pozwala na wyeksportowanie układu do pliku .obj. Quit zamyka aplikację.2.2. Panel boczny
  
-
 Panel boczny składa się z dwóch części: 
 - Connections - listy połączeń;
 - Preferences - panelu preferencji.
 Lista połączeń zostanie zapełniona po wczytaniu układu. Wybranie z niej elementu zaznaczy go, a co za tym idzie zaktualizuje panel preferencji.
-W panelu preferencji znajdują się informacje o zaznaczonym elemencie - węźle lub połączeniu. Część z parametrów jest możliwa do zmiany, a ich edycja wpływa na układ. Dokładny opis tego jak wpływać na układ znajduje sie w punkcie ‘Modyfikacja układu’.
+W panelu preferencji znajdują się informacje o zaznaczonym elemencie - węźle lub połączeniu. Część z parametrów jest możliwa do zmiany, a ich edycja wpływa na układ. Dokładny opis tego jak wpływać na układ znajduje sie w punkcie Modyfikacja układu.
 Rozmiar każdej części może być dowolnie zmieniany. Ponadto mogą one zostać zminimalizowane.
-
 2.3. Panel wizualizacji
-
 Po wczytaniu lub stworzeniu układu zostanie on zwizualizowany. Kliknięcie na dowolny element - węzeł lub połączenie - spowoduje jego zaznaczenie, a panel preferencji zostanie zaktualizowany wyświetlając właściwości zaznaczonego obiektu.
-
-
 
 Korzystając z lewego przycisku myszy, przeciągając, można przesuwać widok. Wykorzystując prawy przycisk myszy widok można obracać. Kółko myszy pozwala na przybliżanie i oddalanie widoku. Środkowy przycisk myszy resetuje widok.
 Obszar na jakim wyświetlana jest wizualizacja można dodatkowo zwiększać, zmniejszając jednocześnie panel boczny.3. Rodzaje układów
-
 Rodzaje układów definiują początkowy kształt bryły elastycznej. W podmenu New znajdują się dwa rodzaje układów początkowych.
 Każdy układ składa się z pewnej ilości węzłów nieruchomych. Będą to węzły brzegowe lub stanowiące podstawę figury.
-
-
 3.1. Two-dimensional setup - układ dwuwymiarowy
-
-Po wybraniu Two-dimensional setup z podmenu New pojawi się dodatkowe okno, w którym użytkownik będzie miał możliwość zdefiniowania z jak dużej ilość węzłów składać ma się układ. 
-
-
+Po wybraniu two-dimensional setup z podmenu New pojawi się dodatkowe okno, w którym użytkownik będzie miał możliwość zdefiniowania z jak dużej ilość węzłów składać ma się układ. 
 
 Poprawny układ wymaga co najmniej trzech węzłów. Wynika to z faktu, że każdy dwuwymiarowy układ musi zawierać dwa węzły brzegowe, które pozostają nieruchome. Pozostałe węzły ułożone zostają w linii. Dodatkowa sfera zostanie umiejscowiona poniżej pozostałych.
 
 
-
-
 3.2. Three-dimensional setup - układ trójwymiarowy
-
-Podobnie jak w wypadku Two-dimensional setup, po wybraniu Three-dimensional setup z podmenu New pojawi się dodatkowe okno. W tym jednak przypadku użytkownik będzie miał możliwość zdefiniowania jak dużo węzłów będzie miało znajdować się w podstawie półsfery. Sumaryczna ilość zwykłych węzłów będzie połową podniesionej do kwadratu podanej liczby, z dodatkiem jednego węzła. 
-
+Podobnie jak w wypadku Two-dimensional setup, po wybraniu three-dimensional setup z podmenu New pojawi się dodatkowe okno. W tym jednak przypadku użytkownik będzie miał możliwość zdefiniowania jak dużo węzłów będzie miało znajdować się w podstawie półsfery. Sumaryczna ilość zwykłych węzłów będzie połową podniesionej do kwadratu podanej liczby, z dodatkiem jednego węzła. 
 
 Poprawny układ wymaga przynajmniej dwóch węzłów w podstawie. Pozostałe zostaną rozmieszczone w taki sposób, aby stworzyć półsferę. Dodatkowy węzeł zostanie umieszczony w środku podstawy.
+
 4. Modyfikacja układu
-
  
-
 4.1. Zmienianie pozycji sfery centralnej
 
 
 4.2. Zmiana parametrów połączeń
 
 
-5. Zapisywanie i wczytywanie układu z pliku
-
+5.	Zapisywanie i wczytywanie układu z 	pliku
 W celu zapisania układu do pliku należy skorzystać z pozycji Save w menu Project. Podobnie w celu wczytania układu należy wybrać opcję Load. W obu przypadkach pojawi się odpowiednie okno wyboru pliku. Jego dokładny wygląd zależał będzie od systemu operacyjnego. Poniższy przykład dotyczy systemu Ubuntu.
 
-
-
 Plik zapisany jest w formacie .xml. Jest on zatem możliwy do otwarcia przez dowolny edytor tekstowy, co umożliwia edycję układów w stosunkowo prosty sposób. Pozwala to między innymi na tworzenie nowych układów początkowych.
-6. Przykład wykorzystania aplikacji
+6. Eksport układu do pliku .obj
+W celu wyeksportowania układu do pliku .obj należy skorzystać z opcji Export... w menu Project. Następnie zostanie wyświetlone okno wyboru folderu i nazwy pliku. Po zatwierdzeniu rozpocznie się proces eksportowania układu. W niektórych sytuacjach może on niestety być czasochłonny.
+W wyniku zapisu powstaną dwa pliki: pierwszy o rozszerzeniu .obj, drugi natomiast .mtl. Plik .mtl jest plikiem materiałów pozwalającym sprecyzować wygląd każdej sfery oraz połączenia. Może on zostać bezpiecznie usunięty.
+7. Przykład wykorzystania aplikacji
+
 
