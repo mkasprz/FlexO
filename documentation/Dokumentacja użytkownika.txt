@@ -59,14 +59,28 @@ FlexO jest narzędziem pozwalającym na wizualizację brył elastycznych powsta�
 Właściwości podlegające parametryzacji to głównie stopień w którym mogą rozciągnąć się poszczególne połączenia oraz położenie elementu centralnego, wpływającego na położenie pozostałych elementów.
 Aplikacja pozwala na pracę zarówno w trybie dwu, jak i trójwymiarowym.
 Aplikacja może być wykorzystana między innymi w celu wizualizacji skorupki tworzonej przez organizmy gromady Foraminifera.
-<2. Funkcje aplikacji?>
-2.2. Wymagania aplikacji
+
+ZESPUŁEM FORMATOWANIE PRZEPRASZAM ALE NIE UMIEM INTO WORD
+1.2 Funkcje aplikacji
+Poniżej zaprezentowano spis najważniejszych funkcji udostępnianych przez aplikację.
+1.	Stworzenie nowego projektu - wygenerowania odpowiedniego 	układu dla przypadku dwu i trzy wymiarowego
+Pierwszym krokiem podczas pracy z aplikacją jest stworzenie nowego projektu. Powoduje to wygenerowanie bryły elastycznej w wybranym typie dwu lub trójwymiarowym
+2.Wczytanie układu z pliku
+　　Innym sposobem rozpoczęcia pracy jest wczytanie uprzednio zapisanego 	układu z pliku .xml
+3.Wizualizacja układu
+　　Aplikacja wizualizuje aktualny stan bryły w postaci trójwymiarowego 	modelu,który można przesuwać, obracać, itd.
+4.	Edycja parametrów elementów i zmiana układu
+Po zaznaczeniu odpowiedniego elementu istnieje możliwość zmiany parametrów zaznaczonego elementu wpływających na kształt całego układu. 
+5.Zapis układu
+　　Po uzyskaniu zadowalającego rezultatu lub w wypadku konieczności 	przerwania pracy z aplikacją, możliwe jest zapisanie aktualnego stanu 	układu do pliku w formacie .xml, co umożliwia późniejsze wczytanie go i 	dalsze symulacje.
+6.	Eksport do pliku .obj
+Uzyskaną wizualizację można wyeksportować do formatu .obj, co pozwala na zaimportowanie go do zewnętrznych programów związanych z obróbką 3D.
+1.3. Wymagania aplikacji
 Aplikacja wymaga zainstalowanego środowiska Java Runtime Environment w wersji co najmniej 1.8. Aplikacja działać będzie na każdym systemie operacyjnym na który dostępne jest wspomniane środowisko - między innymi Linux, Windows oraz Mac.
-3.3. Uruchomienie aplikacji
+1.4. Uruchomienie aplikacji
 Uruchomienie aplikacji sprowadza się do uruchomiania pliku FlexO.jar za pomocą Java Runtime Environment. W różnych systemach operacyjnych może to wyglądać nieco inaczej. Warto jednak dodać, że zwykle domyślnie po zainstalowaniu Java Runtime Environment pliki .jar są uruchamiane w tymże programie.
 Alternatywnie program można uruchomić z konsoli posługując się poniższym poleceniem.
 java -jar FlexO.jar
-
 2. Podstawowe elementy głównego 	okna aplikacji
 Po uruchomieniu aplikacji pojawi się poniższe okno.
 

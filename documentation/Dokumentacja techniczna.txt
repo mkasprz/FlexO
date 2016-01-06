@@ -39,7 +39,7 @@ w wersji oryginalnej albo w postaci opracowania, artystyczne wykonanie albo publ
 Spis treści
 1. Wykorzystane technologie
 2. Wizja architektury projektu
-3. Diagram klas
+3. Struktura projektu
 4. Opis modułów
 　　4.1. Moduł głównego okna aplikacji
 　　4.2. Model danych aplikacji
@@ -65,11 +65,7 @@ Model aplikacji stanowi reprezentację dziedziny problemu, odzwierciedla stan ko
 Widok to trójwymiarowa wizualizacja siatki oparta na danych zawartych w Modelu, a także elementy graficznego interfejsu użytkownika pozwalające na interakcję użytkownika aplikacji z warstwą odpowiadającą za wykonywanie obliczeń. 
 Kontroler to część, której zadaniem jest przyjmowanie danych od użytkownika, odpowiednia modyfikacja modelu i odświeżenie widoku, w zależności od tej modyfikacji.
 
-3.Diagram klas 
-<Wywalić coś, albo przynajmniej zmienić kolejność>
-
-
-
+3. Struktura projektu 
 
 
 
