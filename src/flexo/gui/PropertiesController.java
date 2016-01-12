@@ -130,9 +130,9 @@ public class PropertiesController {
         x.setFont(defaultFont);
         y.setFont(defaultFont);
         z.setFont(defaultFont);
-        visualization.recalculateDeformation(1, x.getNumber() - selectedNode.getX());
-        visualization.recalculateDeformation(2, y.getNumber() - selectedNode.getY());
-        visualization.recalculateDeformation(3, z.getNumber() - selectedNode.getZ());
+        visualization.recalculateDeformation();
+        visualization.recalculateDeformation();
+        visualization.recalculateDeformation();
     }
 
     @FXML
@@ -141,9 +141,9 @@ public class PropertiesController {
         selectedConnection.setYoungsModulus(youngsModulus.getNumber());
         preferredLength.setFont(defaultFont);
         youngsModulus.setFont(defaultFont);
-        visualization.recalculateDeformation(1, 0); // [TODO] Not sure about it
-        visualization.recalculateDeformation(2, 0);
-        visualization.recalculateDeformation(3, 0);
+        visualization.recalculateDeformation(); // [TODO] Not sure about it
+        visualization.recalculateDeformation();
+        visualization.recalculateDeformation();
     }
 
     public void setVisualization(Visualization visualization) {

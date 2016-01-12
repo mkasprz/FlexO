@@ -23,6 +23,12 @@ public class Setup {
 
     TypicalNode centralNode;
 
+    private double previousCentralX;
+
+    private double previousCentralY;
+
+    private double previousCentralZ;
+
     public void addConnection(Connection connection) {
         connections.add(connection);
     }
@@ -65,4 +71,27 @@ public class Setup {
         return connections.size();
     }
 
+    public double getPreviousCentralX() {
+        return previousCentralX;
+    }
+
+    public void setPreviousCentralX(double previousCentralX) {
+        this.previousCentralX = previousCentralX;
+    }
+
+    public double getPreviousCentralY() {
+        return previousCentralY;
+    }
+
+    public void setPreviousCentralY(double previousCentralY) {
+        this.previousCentralY = previousCentralY;
+    }
+
+    public double getPreviousCentralZ() {
+        return previousCentralZ;
+    }
+
+    public void setPreviousCentralZ(double previousCentralZ) {
+        this.previousCentralZ = previousCentralZ;
+    }
 }

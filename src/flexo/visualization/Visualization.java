@@ -93,10 +93,8 @@ private VisualizedNode createVisualizedNode(TypicalNode typicalNode, int radius,
         selectedElementMaterial = elementMaterial;
     }
 
-    public void recalculateDeformation(int coord, double value) {
-        //this is very stupid, but just for presentation
-        //TODO : implement a better way of starting calculations
-        deformationCalculator.recalculateDeformation(coord, value);
+    public void recalculateDeformation() {
+        deformationCalculator.recalculateDeformation();
         refreshVisualization();
     }
 

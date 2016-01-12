@@ -33,11 +33,25 @@ public class DeformationCalculator {
         }
     }
 
-    public void recalculateDeformation(int pos, double val) {
-//        setAllNodesImba();
+    public void recalculateDeformation() {
+        double centralXChange = scene.getCentralNode().getX() - scene.getPreviousCentralX();
+        double centralYChange = scene.getCentralNode().getY() - scene.getPreviousCentralY();
+        double centralZChange = scene.getCentralNode().getZ() - scene.getPreviousCentralZ();
+        scene.setPreviousCentralX(scene.getCentralNode().getX());
+        scene.setPreviousCentralY(scene.getCentralNode().getY());
+        scene.setPreviousCentralZ(scene.getCentralNode().getZ());
+
+        moveAllNodesAccordingly(centralXChange, centralYChange, centralZChange);
+        setAllNodesImba();
 //        moveNodesTowardsCentral();
-        moveOneNodeForTest(pos, val);
+        //moveOneNodeForTest(pos, val);
         performCalculations();
+    }
+
+    private void moveAllNodesAccordingly(double x, double y, double z) {
+        for (TypicalNode node : nodesList){
+            node.translateNode(x, y, z);
+        }
     }
 
     private void setAllNodesImba() {
@@ -149,17 +163,52 @@ public class DeformationCalculator {
             }
         }
 
+        for (TypicalNode node : nodesList){
+            checkBalance(node);
+        }
+
 
         //check if all nodes are in balance
-//        boolean balanced = true;
-//        for (TypicalNode node : nodesList){
-//            if (node.isImba()) {
-//                balanced = false;
-//            }
-//        }
-//        if (!balanced) {
-//            performCalculations(); //if nodes are not in balance call for another iteration
-//        }
+        boolean balanced = true;
+        for (TypicalNode node : nodesList){
+            if (node.isImba()) {
+                balanced = false;
+            }
+        }
+        if (!balanced) {
+            performCalculations(); //if nodes are not in balance call for another iteration
+        }
+    }
+
+    private void checkBalance(TypicalNode node) {
+        List<Connection> connectionsFromNode = scene.getConnectionsFromNode(node);
+        List<Vector> forces = new LinkedList<>();
+        Vector resultVector = new Vector(3);
+        resultVector.add(0, new Double(0));
+        resultVector.add(1, new Double(0));
+        resultVector.add(2, new Double(0));
+        for (Connection connection : connectionsFromNode) {
+            Vector result;
+            if (connection.getTypicalNode1().equals(node)) {
+                result = getForceBetweenNodes(connection, connection.getTypicalNode1(), connection.getTypicalNode2(),
+                        connection.getYoungsModulus(), connection.getBalanceLength());
+            } else {
+                result = getForceBetweenNodes(connection, connection.getTypicalNode2(), connection.getTypicalNode1(),
+                        connection.getYoungsModulus(), connection.getBalanceLength());
+            }
+            forces.add(result);
+        }
+
+        double value;
+        for (List vector : forces) {
+            for (int i = 0; i < 3; i++) {
+                value = ((Double) vector.get(i)).doubleValue() + ((Double) resultVector.get(i)).doubleValue();
+                resultVector.set(i, new Double(value));
+            }
+        }
+        if(((Double)resultVector.get(0)).doubleValue() + ((Double)resultVector.get(1)).doubleValue() + ((Double)resultVector.get(2)).doubleValue() <= 0.01){
+            node.setImba(false);
+        }
     }
 
     private void performIteration(TypicalNode node) {
