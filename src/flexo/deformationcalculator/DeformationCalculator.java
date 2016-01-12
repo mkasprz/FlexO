@@ -20,6 +20,7 @@ public class DeformationCalculator {
     private double centralYChange;
     private double centralZChange;
     int iter = 0;
+    boolean difficulty = false;
 
     public DeformationCalculator(Setup scene) {
         this.scene = scene;
@@ -47,6 +48,7 @@ public class DeformationCalculator {
         scene.setPreviousCentralZ(scene.getCentralNode().getZ());
 
         setAllNodesImba();
+        first = true;
         performCalculations();
     }
 

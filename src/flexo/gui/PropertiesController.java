@@ -137,7 +137,7 @@ public class PropertiesController {
 
     @FXML
     private void applyConnectionChanges() {
-        // selectedConnection.setPreferredLength(preferredLength.getNumber()); // [TODO]
+        selectedConnection.setBalanceLength(preferredLength.getNumber());
         selectedConnection.setYoungsModulus(youngsModulus.getNumber());
         preferredLength.setFont(defaultFont);
         youngsModulus.setFont(defaultFont);
