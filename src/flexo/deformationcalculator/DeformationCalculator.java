@@ -15,10 +15,15 @@ public class DeformationCalculator {
 
     private List<TypicalNode> nodesList = new LinkedList<>();
 
+    private boolean first = true;
+    private double centralXChange;
+    private double centralYChange;
+    private double centralZChange;
+    int iter = 0;
+
     public DeformationCalculator(Setup scene) {
         this.scene = scene;
         createListofNodes();
-
     }
 
     private void createListofNodes() {
@@ -34,24 +39,19 @@ public class DeformationCalculator {
     }
 
     public void recalculateDeformation() {
-        double centralXChange = scene.getCentralNode().getX() - scene.getPreviousCentralX();
-        double centralYChange = scene.getCentralNode().getY() - scene.getPreviousCentralY();
-        double centralZChange = scene.getCentralNode().getZ() - scene.getPreviousCentralZ();
+        centralXChange = scene.getCentralNode().getX() - scene.getPreviousCentralX();
+        centralYChange = scene.getCentralNode().getY() - scene.getPreviousCentralY();
+        centralZChange = scene.getCentralNode().getZ() - scene.getPreviousCentralZ();
         scene.setPreviousCentralX(scene.getCentralNode().getX());
         scene.setPreviousCentralY(scene.getCentralNode().getY());
         scene.setPreviousCentralZ(scene.getCentralNode().getZ());
 
-        moveAllNodesAccordingly(centralXChange, centralYChange, centralZChange);
         setAllNodesImba();
-//        moveNodesTowardsCentral();
-        //moveOneNodeForTest(pos, val);
         performCalculations();
     }
 
-    private void moveAllNodesAccordingly(double x, double y, double z) {
-        for (TypicalNode node : nodesList){
-            node.translateNode(x, y, z);
-        }
+    private void moveNodeAccordingly(TypicalNode node, double x, double y, double z) {
+        node.translateNode(x, y, z);
     }
 
     private void setAllNodesImba() {
@@ -61,107 +61,21 @@ public class DeformationCalculator {
         }
     }
 
-    /**
-     * this is just a stub method to see if i can get some basic
-     * repositioning to work, it should be removed in the future
-     */
-    private void moveNodesTowardsCentral() {
-        SimpleNode centralNode = scene.getCentralNode();
-        double centralNodeX = centralNode.getX();
-        double centralNodeY = centralNode.getY();
-        double centralNodeZ = centralNode.getZ();
-        double maxdist = 0;
-
-        for (Connection connection : scene.getConnections()) {
-            TypicalNode typicalNode1 = connection.getTypicalNode1();
-            double nodeX = typicalNode1.getX();
-            double nodeY = typicalNode1.getY();
-            double nodeZ = typicalNode1.getZ();
-            //double distance = Math.abs(nodeX - centralNodeX) + Math.abs(nodeY - centralNodeY) + Math.abs(nodeZ - centralNodeZ);
-            double distance = Math.sqrt(Math.pow(nodeX - centralNodeX, 2) + Math.pow(nodeY - centralNodeY, 2) + Math.pow(nodeZ - centralNodeZ, 2));
-            if (distance > maxdist) {
-                maxdist = distance;
-            }
-
-            TypicalNode typicalNode2 = connection.getTypicalNode2();
-            nodeX = typicalNode2.getX();
-            nodeY = typicalNode2.getY();
-            nodeZ = typicalNode2.getZ();
-            distance = Math.sqrt(Math.pow(nodeX - centralNodeX, 2) + Math.pow(nodeY - centralNodeY, 2) + Math.pow(nodeZ - centralNodeZ, 2));
-            if (distance > maxdist) {
-                maxdist = distance;
-            }
-        }
-
-        for (Connection connection : scene.getConnections()) {
-            TypicalNode typicalNode1 = connection.getTypicalNode1();
-            double nodeX = typicalNode1.getX();
-            double nodeY = typicalNode1.getY();
-            double nodeZ = typicalNode1.getZ();
-            double distance = Math.sqrt(Math.pow(nodeX - centralNodeX, 2) + Math.pow(nodeY - centralNodeY, 2) + Math.pow(nodeZ - centralNodeZ, 2));
-            if (distance > maxdist) {
-                maxdist = distance;
-            }
-            double ratio = distance / maxdist;
-            ratio = Math.abs(1 - ratio);
-//            distance = Math.abs(distance);
-//            double ratio = (scene.getNumberOfNodes() * 10) / distance;  //TODO : remove magical number
-            if (typicalNode1.isImba()) {
-                typicalNode1.translateNode(0, -Math.abs(ratio * centralNodeY), 0);
-                typicalNode1.setImba(false);
-            }
-
-            TypicalNode typicalNode2 = connection.getTypicalNode2();
-            nodeX = typicalNode2.getX();
-            nodeY = typicalNode2.getY();
-            nodeZ = typicalNode2.getZ();
-            distance = Math.sqrt(Math.pow(nodeX - centralNodeX, 2) + Math.pow(nodeY - centralNodeY, 2) + Math.pow(nodeZ - centralNodeZ, 2));
-            if (distance > maxdist) {
-                maxdist = distance;
-            }
-            ratio = distance / maxdist;
-            ratio = Math.abs(1 - ratio);
-//            distance = Math.abs(distance);
-//            double ratio = (scene.getNumberOfNodes() * 10) / distance;  //TODO : remove magical number
-            if (typicalNode2.isImba()) {
-                typicalNode2.translateNode(0, -Math.abs(ratio * centralNodeY), 0);
-                typicalNode2.setImba(false);
-            }
-        }
-    }
-
-    //TODO: this is horrible
-    private void moveOneNodeForTest(int pos, double val) {
-        if (nodesList.size() > 20) {
-            if (pos == 1) {
-                nodesList.get(nodesList.size() - 1).translateNode(val, 0, 0);
-            } else if (pos == 2) {
-                nodesList.get(nodesList.size() - 1).translateNode(0, val, 0);
-            } else if (pos == 3) {
-                nodesList.get(nodesList.size() - 1).translateNode(0, 0, val);
-            }
-
-        } else {
-            if (pos == 1) {
-                nodesList.get((int) Math.floor(nodesList.size() / 2)).translateNode(val, 0, 0);
-            } else if (pos == 2) {
-                nodesList.get((int) Math.floor(nodesList.size() / 2)).translateNode(0, val, 0);
-            } else if (pos == 3) {
-                nodesList.get((int) Math.floor(nodesList.size() / 2)).translateNode(0, 0, val);
-            }
-
-        }
-    }
-
-    // TODO : there is still nothing going between central and normal nodes
     private void performCalculations() {
         for (TypicalNode node1 : nodesList) {
-            //requires some consideration
-            for (TypicalNode node2 : nodesList) {
-                //do maths in a single iteration
-                performIteration(node2);
+            if (first){
+                moveNodeAccordingly(node1, centralXChange, centralYChange, centralZChange);
+                for (TypicalNode node2 : nodesList) {
+                    performIteration(node2);
+                }
+            } else {
+                performIteration(node1);
             }
+
         }
+        first = false;
+        iter++;
+        System.out.println(iter);
 
         for (TypicalNode node : nodesList){
             checkBalance(node);
@@ -206,7 +120,7 @@ public class DeformationCalculator {
                 resultVector.set(i, new Double(value));
             }
         }
-        if(((Double)resultVector.get(0)).doubleValue() + ((Double)resultVector.get(1)).doubleValue() + ((Double)resultVector.get(2)).doubleValue() <= 0.01){
+        if(((Double)resultVector.get(0)).doubleValue() + ((Double)resultVector.get(1)).doubleValue() + ((Double)resultVector.get(2)).doubleValue() <= 0.001){
             node.setImba(false);
         }
     }
@@ -242,10 +156,9 @@ public class DeformationCalculator {
 
     private Vector getForceBetweenNodes(Connection connection, SimpleNode node1, SimpleNode node2, double youngsModule, double length) {
         Vector force = new Vector(3);
-        //TODO : redo using all the fancy hook laws and stuff
-        force.add(0, new Double(connection.getBalanceX() - (Math.abs(node2.getX() - node1.getX()))) * 0.002);
-        force.add(1, new Double(connection.getBalanceY() - (Math.abs(node2.getY() - node1.getY()))) * 0.002);
-        force.add(2, new Double(connection.getBalanceZ() - (Math.abs(node2.getZ() - node1.getZ()))) * 0.002);
+        force.add(0, new Double(connection.getBalanceX() - (Math.abs(node2.getX() - node1.getX()))) * youngsModule);
+        force.add(1, new Double(connection.getBalanceY() - (Math.abs(node2.getY() - node1.getY()))) * youngsModule);
+        force.add(2, new Double(connection.getBalanceZ() - (Math.abs(node2.getZ() - node1.getZ()))) * youngsModule);
 
         return force;
     }
