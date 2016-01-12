@@ -156,9 +156,9 @@ public class DeformationCalculator {
 
     private Vector getForceBetweenNodes(Connection connection, SimpleNode node1, SimpleNode node2, double youngsModule, double length) {
         Vector force = new Vector(3);
-        force.add(0, new Double(connection.getBalanceX() - (Math.abs(node2.getX() - node1.getX()))) * youngsModule);
-        force.add(1, new Double(connection.getBalanceY() - (Math.abs(node2.getY() - node1.getY()))) * youngsModule);
-        force.add(2, new Double(connection.getBalanceZ() - (Math.abs(node2.getZ() - node1.getZ()))) * youngsModule);
+        force.add(0, new Double(node2.getX()-node1.getX())*connection.getYoungsModulus()*(connection.getLength()-connection.getBalanceLength())/connection.getLength());
+        force.add(1, new Double(node2.getY()-node1.getY())*connection.getYoungsModulus()*(connection.getLength()-connection.getBalanceLength())/connection.getLength());
+        force.add(2, new Double(node2.getZ()-node1.getZ())*connection.getYoungsModulus()*(connection.getLength()-connection.getBalanceLength())/connection.getLength());
 
         return force;
     }

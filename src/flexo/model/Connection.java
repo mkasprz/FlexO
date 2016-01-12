@@ -29,6 +29,10 @@ public class Connection {
         this.balanceZ = balanceZ;
     }
 
+    public double getLength(){
+        return(Math.sqrt(Math.pow(typicalNode2.getX()-typicalNode1.getX(), 2)+Math.pow(typicalNode2.getY()-typicalNode1.getY(), 2)+Math.pow(typicalNode2.getZ()-typicalNode1.getZ(), 2)));
+    }
+
     public TypicalNode getTypicalNode1() {
         return typicalNode1;
     }
