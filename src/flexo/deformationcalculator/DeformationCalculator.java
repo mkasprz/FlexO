@@ -11,7 +11,7 @@ import java.util.Vector;
 
 public class DeformationCalculator {
 
-    private Setup scene;
+    private Setup setup;
 
     private List<TypicalNode> nodesList = new LinkedList<>();
 
@@ -19,17 +19,17 @@ public class DeformationCalculator {
     private double centralXChange;
     private double centralYChange;
     private double centralZChange;
-    int iter = 0;
-    boolean difficulty = false;
+    private int iterations = 0;
+    private boolean difficulty = false;
 
-    public DeformationCalculator(Setup scene) {
-        this.scene = scene;
+    public DeformationCalculator(Setup setup) {
+        this.setup = setup;
         createListofNodes();
     }
 
     private void createListofNodes() {
         nodesList.clear();
-        for (Connection connection : scene.getConnections()) {
+        for (Connection connection : setup.getConnections()) {
             if (!nodesList.contains(connection.getTypicalNode1())) {
                 nodesList.add(connection.getTypicalNode1());
             }
@@ -40,12 +40,12 @@ public class DeformationCalculator {
     }
 
     public void recalculateDeformation() {
-        centralXChange = scene.getCentralNode().getX() - scene.getPreviousCentralX();
-        centralYChange = scene.getCentralNode().getY() - scene.getPreviousCentralY();
-        centralZChange = scene.getCentralNode().getZ() - scene.getPreviousCentralZ();
-        scene.setPreviousCentralX(scene.getCentralNode().getX());
-        scene.setPreviousCentralY(scene.getCentralNode().getY());
-        scene.setPreviousCentralZ(scene.getCentralNode().getZ());
+        centralXChange = setup.getCentralNode().getX();
+        centralYChange = setup.getCentralNode().getY();
+        centralZChange = setup.getCentralNode().getZ();
+        setup.setPreviousCentralX(setup.getCentralNode().getX());
+        setup.setPreviousCentralY(setup.getCentralNode().getY());
+        setup.setPreviousCentralZ(setup.getCentralNode().getZ());
 
         setAllNodesImba();
         first = true;
@@ -53,11 +53,12 @@ public class DeformationCalculator {
     }
 
     private void moveNodeAccordingly(TypicalNode node, double x, double y, double z) {
-        node.translateNode(x, y, z);
+        node.translateNodeFromInitialPosition(x, y, z);
+//        node.translateNode(x, y, z);  // [TODO] Let user choose calculation mode
     }
 
     private void setAllNodesImba() {
-        for (Connection connection : scene.getConnections()) {
+        for (Connection connection : setup.getConnections()) {
             connection.getTypicalNode1().setImba(true);
             connection.getTypicalNode2().setImba(true);
         }
@@ -76,15 +77,14 @@ public class DeformationCalculator {
 
         }
         first = false;
-        iter++;
-        System.out.println(iter);
+        iterations++;
+//        System.out.println(iterations);
 
         for (TypicalNode node : nodesList){
             checkBalance(node);
         }
 
-
-        //check if all nodes are in balance
+        // Check if all nodes are in balance
         boolean balanced = true;
         for (TypicalNode node : nodesList){
             if (node.isImba()) {
@@ -97,7 +97,7 @@ public class DeformationCalculator {
     }
 
     private void checkBalance(TypicalNode node) {
-        List<Connection> connectionsFromNode = scene.getConnectionsFromNode(node);
+        List<Connection> connectionsFromNode = setup.getConnectionsFromNode(node);
         List<Vector> forces = new LinkedList<>();
         Vector resultVector = new Vector(3);
         resultVector.add(0, new Double(0));
@@ -128,7 +128,7 @@ public class DeformationCalculator {
     }
 
     private void performIteration(TypicalNode node) {
-        List<Connection> connectionsFromNode = scene.getConnectionsFromNode(node);
+        List<Connection> connectionsFromNode = setup.getConnectionsFromNode(node);
         List<Vector> forces = new LinkedList<>();
         Vector resultVector = new Vector(3);
         resultVector.add(0, new Double(0));

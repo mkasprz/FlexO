@@ -35,22 +35,22 @@ public class ThreeDimensionalSetupBuilder implements SetupBuilder {
                     nodes.add(typicalNode2);
                 } else {
                     typicalNode2 = new TypicalNode(r * Math.cos(angle), y, r * Math.sin(angle), id);
-                    connections.add(new Connection(nodes.get(i), typicalNode2, 0.07, SetupBuilder.getDistanceBetweenNodes(nodes.get(i), typicalNode2), SetupBuilder.getDistanceOnCoordinate(nodes.get(i), typicalNode2, 0), SetupBuilder.getDistanceOnCoordinate(nodes.get(i), typicalNode2, 1), SetupBuilder.getDistanceOnCoordinate(nodes.get(i), typicalNode2, 2)));
+                    connections.add(new Connection(nodes.get(i), typicalNode2, 0.07));
                     typicalNodes.add(typicalNode2);
                     nodes.set(i, typicalNode2);
                 }
                 if (i != 0) {
-                    connections.add(new Connection(typicalNode1, typicalNode2, 0.07, SetupBuilder.getDistanceBetweenNodes(typicalNode1, typicalNode2), SetupBuilder.getDistanceOnCoordinate(typicalNode1, typicalNode2, 0), SetupBuilder.getDistanceOnCoordinate(typicalNode1, typicalNode2, 1), SetupBuilder.getDistanceOnCoordinate(typicalNode1, typicalNode2, 2)));
+                    connections.add(new Connection(typicalNode1, typicalNode2, 0.07));
                 }
                 typicalNode1 = typicalNode2;
             }
-            connections.add(new Connection(typicalNode1, nodes.get(0), 0.07, SetupBuilder.getDistanceBetweenNodes(typicalNode1, nodes.get(0)), SetupBuilder.getDistanceOnCoordinate(typicalNode1, nodes.get(0), 0), SetupBuilder.getDistanceOnCoordinate(typicalNode1, nodes.get(0), 1), SetupBuilder.getDistanceOnCoordinate(typicalNode1, nodes.get(0), 2)));
+            connections.add(new Connection(typicalNode1, nodes.get(0), 0.07));
         }
 
         TypicalNode typicalNode2 = new TypicalNode(0, diameter, 0, id);
         typicalNodes.add(typicalNode2);
         for (TypicalNode typicalNode1 : nodes) {
-            connections.add(new Connection(typicalNode1, typicalNode2, 0.07, SetupBuilder.getDistanceBetweenNodes(typicalNode1, typicalNode2), SetupBuilder.getDistanceOnCoordinate(typicalNode1, typicalNode2, 0), SetupBuilder.getDistanceOnCoordinate(typicalNode1, typicalNode2, 1), SetupBuilder.getDistanceOnCoordinate(typicalNode1, typicalNode2, 2)));
+            connections.add(new Connection(typicalNode1, typicalNode2, 0.07));
         }
 
         setup.setCentralNode(new TypicalNode());

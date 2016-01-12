@@ -11,12 +11,15 @@ public class ImmovableNode extends TypicalNode {
 
     @Override
     public void moveNode(double x, double y, double z) {
-        // do something interesting
     }
 
     @Override
     public void translateNode(double x, double y, double z) {
-        //
     }
+
+    @Override
+    public void translateNodeFromInitialPosition(double x, double y, double z) {
+    }
+
 
 }

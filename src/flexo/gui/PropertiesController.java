@@ -3,7 +3,6 @@ package flexo.gui;
 import flexo.model.Connection;
 import flexo.model.TypicalNode;
 import flexo.visualization.Visualization;
-import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -65,11 +64,6 @@ public class PropertiesController {
     private final Font defaultFont = Font.getDefault();
     private final Font boldFont = Font.font(defaultFont.getFamily(), FontWeight.BOLD, defaultFont.getSize());
 
-
-
-    private enum XYZ {
-        X, Y, Z;
-    }
     @FXML
     void initialize() {
         spherePropertiesScrollPane.setStyle("-fx-background-color:transparent;");
@@ -104,34 +98,12 @@ public class PropertiesController {
         }
     }
 
-    private ChangeListener<String> changeFontWeight(XYZ xyz, NumberField numberField) { // [TODO] Decide which option is better
-        return (observable, oldValue, newValue) -> {
-            double number;
-
-            if (xyz == XYZ.X) {
-                number = selectedNode.getX();
-            } else if (xyz == XYZ.Y) {
-                number = selectedNode.getY();
-            } else {
-                number = selectedNode.getZ();
-            }
-
-            if (number != numberField.getNumber()) {
-                numberField.setFont(boldFont);
-            } else {
-                numberField.setFont(defaultFont);
-            }
-        };
-    }
-
     @FXML
     private void moveNode() {
         selectedNode.moveNode(x.getNumber(), y.getNumber(), z.getNumber());
         x.setFont(defaultFont);
         y.setFont(defaultFont);
         z.setFont(defaultFont);
-        visualization.recalculateDeformation();
-        visualization.recalculateDeformation();
         visualization.recalculateDeformation();
     }
 
@@ -142,8 +114,7 @@ public class PropertiesController {
         preferredLength.setFont(defaultFont);
         youngsModulus.setFont(defaultFont);
         visualization.recalculateDeformation(); // [TODO] Not sure about it
-        visualization.recalculateDeformation();
-        visualization.recalculateDeformation();
+        currentLength.setText(String.valueOf(selectedConnection.getLength()));
     }
 
     public void setVisualization(Visualization visualization) {
@@ -187,8 +158,8 @@ public class PropertiesController {
 
         firstNode.setText(connection.getTypicalNode1().getIdAsString());
         secondNode.setText(connection.getTypicalNode2().getIdAsString());
-        currentLength.setText(String.valueOf(connection.getBalanceLength()));
-        preferredLength.setNumber(connection.getBalanceLength()); // [TODO] Not sure about it
+        currentLength.setText(String.valueOf(connection.getLength()));
+        preferredLength.setNumber(connection.getBalanceLength());
         youngsModulus.setNumber(connection.getYoungsModulus());
 
         connectionPropertiesScrollPane.setVisible(true);
