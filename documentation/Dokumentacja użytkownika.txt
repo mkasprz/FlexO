@@ -37,22 +37,23 @@ w wersji oryginalnej albo w postaci opracowania, artystyczne wykonanie albo publ
 27 lipca 2005 r. Prawo o szkolnictwie wyższym (t.j. Dz. U. z 2012 r. poz. 572, z późn. zm.) „Za naruszenie przepisów obowiązujących w uczelni oraz za czyny uchybiające godności studenta student ponosi odpowiedzialność dyscyplinarną przed komisją dyscyplinarną albo przed sądem koleżeńskim samorządu studenckiego, zwanym dalej „sądem koleżeńskim”, oświadczam, że niniejszą pracę dyplomową wykonałem(-am) osobiście, samodzielnie i że nie korzystałem(-am) ze źródeł innych niż wymienione w pracy.
 　							...................................
 Spis treści
-1. Podstawowe informacje
-　　1.1. Opis produktu
-　　2.2. Wymagania aplikacji
-　　3.3. Uruchomienie aplikacji
-2. Podstawowe elementy głównego 	okna aplikacji
-　　2.1. Pasek menu
-　　2.2. Panel boczny
-　　2.3. Panel wizualizacji
-3. Rodzaje układów
-　　3.1. Two-dimensional setup - układ dwuwymiarowy
-　　3.2. Three-dimensional setup - układ trójwymiarowy
-4. Modyfikacja układu
-　　4.1. Zmienianie pozycji sfery centralnej
-　　4.2. Zmiana parametrów połączeń
-5. Zapisywanie i wczytywanie układu z pliku
-6. Eksport układu do pliku .obj
+1. Podstawowe informacje	4
+　　1.1. Opis produktu	4
+　　1.2. Funkcje aplikacji	4
+　　1.2. Wymagania aplikacji	5
+　　1.3. Uruchomienie aplikacji	5
+2. Podstawowe elementy głównego okna aplikacji	6
+　　2.1. Pasek menu	6
+　　2.2. Panel boczny	8
+　　2.3. Panel wizualizacji	9
+3. Rodzaje układów	11
+　　3.1. Two-dimensional setup - układ dwuwymiarowy	11
+　　3.2. Three-dimensional setup - układ trójwymiarowy	12
+4. Modyfikacja układu	14
+　　4.1. Zmienianie pozycji sfery centralnej	14
+　　4.2. Zmiana parametrów połączeń	15
+5. Zapisywanie i wczytywanie układu z pliku	16
+6. Eksport układu do pliku .obj	17
 1. Podstawowe informacje
 1.1. Opis produktu
 FlexO jest narzędziem pozwalającym na wizualizację brył elastycznych powstałych w zależności od podanych przez użytkownika parametrów. W praktyce projekt bryły sprowadza się do modelu punktów - zwizualizowanych jako sfery - i połączeń między nimi oraz dodatkowego elementu, z którym połączone są pozostałe. 
@@ -81,7 +82,6 @@ Alternatywnie program można uruchomić z konsoli posługując się poniższym
 java -jar FlexO.jar
 2. Podstawowe elementy głównego 	okna aplikacji
 Po uruchomieniu aplikacji pojawi się poniższe okno.
-
 Rys. 1: Okno aplikacji
 2.1. Pasek menu
 Pasek menu znajduje się w górnej części okna aplikacji. Po kliknięciu na pozycję Project pojawi się poniższe menu.
@@ -91,7 +91,8 @@ Podmenu New pozwala na stworzenie nowego układu wybranego typu.
 Dostępne są dwa rodzaje układów początkowych: Two-dimensional setup - układ dwuwymiarowy oraz Three-dimensional setup - układ trójwymiarowy. Są one szczegółowo opisane w punkcie ‘Rodzaje układów’. 
 
 Rys. 3: Zawartość podmenu New
-Pozycje Save oraz Save as... służą do zapisywania układu do pliku. Za pomocą Open... można wczytać układ. Export... pozwala na wyeksportowanie układu do pliku .obj. Quit zamyka aplikację.2.2. Panel boczny
+Pozycje Save oraz Save as... służą do zapisywania układu do pliku. Za pomocą Open... można wczytać układ. Export... pozwala na wyeksportowanie układu do pliku .obj. Quit zamyka aplikację.
+2.2. Panel boczny
  
 Rys. 4: Panel boczny aplikacji
 Panel boczny składa się z dwóch części: 
@@ -105,7 +106,8 @@ Po wczytaniu lub stworzeniu układu zostanie on zwizualizowany. Kliknięcie na d
 
 Rys. 5: Panel wizualizacji
 Korzystając z lewego przycisku myszy, przeciągając, można przesuwać widok. Wykorzystując prawy przycisk myszy widok można obracać. Kółko myszy pozwala na przybliżanie i oddalanie widoku. Środkowy przycisk myszy resetuje widok.
-Obszar na jakim wyświetlana jest wizualizacja można dodatkowo zwiększać, zmniejszając jednocześnie panel boczny.3. Rodzaje układów
+Obszar na jakim wyświetlana jest wizualizacja można dodatkowo zwiększać, zmniejszając jednocześnie panel boczny.
+3. Rodzaje układów
 Rodzaje układów definiują początkowy kształt bryły elastycznej. W podmenu New znajdują się dwa rodzaje układów początkowych.
 Każdy układ składa się z pewnej ilości węzłów nieruchomych. Będą to węzły brzegowe lub stanowiące podstawę figury.
 3.1. Two-dimensional setup - układ dwuwymiarowy
@@ -113,7 +115,6 @@ Po wybraniu two-dimensional setup z podmenu New pojawi się dodatkowe okno, w k
 
 Rys. 6: Okno wyboru liczby węzłów
 Poprawny układ wymaga co najmniej trzech węzłów. Wynika to z faktu, że każdy dwuwymiarowy układ musi zawierać dwa węzły brzegowe, które pozostają nieruchome. Pozostałe węzły ułożone zostają w półokrąg. Dodatkowa sfera zostanie umiejscowiona w środku półokręgu.
-
 
 Rys. 7: Stworzony układ dwuwymiarowy
 3.2. Three-dimensional setup - układ trójwymiarowy
@@ -124,33 +125,33 @@ Poprawny układ wymaga przynajmniej dwóch węzłów w podstawie. Pozostałe zos
 
 Rys. 9: Stworzony układ trójwymiarowy
 4. Modyfikacja układu
- 
+  
 Rys.10: Panel zmiany właściwości elementu
+Zmiana parametrów elementów układu odbywa się z wykorzystaniem panelu preferencji. Po zaznaczeniu elementu panel ten zostanie uaktualniony. Po zmianie zawartości dowolnego pola czcionka zostanie pogrubiona wskazując, że zmiana nie została jeszcze zatwierdzona, a układ nie został przeliczony - sytuację taką przedstawia trzeci z powyższych obrazków. Zmiany można zatwierdzić przyciskiem Enter lub klikając przycisk Recalculate znajdujący się poniżej. Można je również cofnąć korzystając z menu kontekstowego lub skrótu klawiszowego Ctrl+Z.
 4.1. Zmienianie pozycji sfery centralnej
-Jednym z modyfikowalnych parametrów układu jest położenie sfery centralnej. Służy do tego panel Properties widoczny po jej zaznaczeniu. Możemy w nim wpisać pożądaną pozycję sfery w każdym z trzech wymiarów.
+Jednym z modyfikowalnych parametrów układu jest położenie sfery centralnej. Pola X, Y oraz Z wskazują jej aktualną pozycję w przestrzeni. Jej pozycja wpływa na położenie węzłów w układzie.
+Pola te są również wyświetlane w wypadku zaznaczenia węzłów. W tym jednak wypadku nie można zmienić ich wartości.
 4.2. Zmiana parametrów połączeń
-Aby wpływać na układ możemy również zmieniać parametry połączeń w nim występujących. Pierwszym z nich jest preferowana długość czy też długość równowagi. Jest to długość, do której odzyskania połączenie będzie dążyć kiedy zostanie rozciągnięte albo ściśnięte. Drugim z parametrów jest moduł Younga mający bezpośrednie przełożenie na sztywność danego połączenia.
+Aby wpływać na układ możemy również zmieniać parametry połączeń w nim występujących. Pierwszym z nich jest preferowana długość czy też długość równowagi. Jest to długość, do której połączenie będzie dążyć, kiedy zostanie rozciągnięte albo ściśnięte. Drugim z parametrów jest moduł Younga mający bezpośrednie przełożenie na sztywność danego połączenia.
 
 5.	Zapisywanie i wczytywanie układu z 	pliku
 W celu zapisania układu do pliku należy skorzystać z pozycji Save w menu Project. Podobnie w celu wczytania układu należy wybrać opcję Load. W obu przypadkach pojawi się odpowiednie okno wyboru pliku. Jego dokładny wygląd zależał będzie od systemu operacyjnego. Poniższy przykład dotyczy systemu Ubuntu.
 
-Rys. 11: Zapis pliku
+Rys. 11: Okno wczytywania pliku
 Plik zapisany jest w formacie .xml. Jest on zatem możliwy do otwarcia przez dowolny edytor tekstowy, co umożliwia edycję układów w stosunkowo prosty sposób. Pozwala to między innymi na tworzenie nowych układów początkowych.
 6. Eksport układu do pliku .obj
-W celu wyeksportowania układu do pliku .obj należy skorzystać z opcji Export... w menu Project. Następnie zostanie wyświetlone okno wyboru folderu i nazwy pliku. Po zatwierdzeniu rozpocznie się proces eksportowania układu. W niektórych sytuacjach może on niestety być czasochłonny.
-W wyniku zapisu powstaną dwa pliki: pierwszy o rozszerzeniu .obj, drugi natomiast .mtl. Plik .mtl jest plikiem materiałów pozwalającym sprecyzować wygląd każdej sfery oraz połączenia. Może on zostać bezpiecznie usunięty.
-
-
+W celu wyeksportowania układu do pliku .obj należy skorzystać z opcji Export... w menu Project. Następnie zostanie wyświetlone okno wyboru folderu i nazwy pliku. Po zatwierdzeniu rozpocznie się proces eksportowania układu. W niektórych sytuacjach może on niestety być czasochłonny.
+W wyniku zapisu powstaną dwa pliki: pierwszy o rozszerzeniu .obj, drugi natomiast .mtl. Plik .mtl jest plikiem zawierającym informacje o materiałach, pozwalającym sprecyzować wygląd każdej sfery oraz połączenia. Może on zostać bezpiecznie usunięty.
 Spis rysunków
-1. Okno aplikacji...............................................................................................6
-2. Menu projektu...............................................................................................7
-3. Zawartość podmenu New.............................................................................7
-4. Panel boczny aplikacji...................................................................................8
-5. Panel wizualizacji..........................................................................................9
-6. Okno wybory liczby węzłów.........................................................................11
-7. Stworzony układ dwuwymiarowy.................................................................12
-8. Okno wybory liczby węzłów.........................................................................13
-9. Stworzony układ trójwymiarowy..................................................................13
-10. Panel zmiany właściwości elementu.........................................................14
-11. Zapis pliku.................................................................................................15
+1. Okno aplikacji	6
+2. Menu projektu	7
+3. Zawartość podmenu New	7
+4. Panel boczny aplikacji	8
+5. Panel wizualizacji	9
+6. Okno wybory liczby węzłów	11
+7. Stworzony układ dwuwymiarowy	12
+8. Okno wybory liczby węzłów	13
+9. Stworzony układ trójwymiarowy	13
+10. Panel zmiany właściwości elementu	14
+11. Okno wczytywania pliku	16
 

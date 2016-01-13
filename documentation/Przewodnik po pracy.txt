@@ -5,7 +5,7 @@ WYDZIAŁ INFORMATYKI, ELEKTRONIKI I TELEKOMUNIKACJI
 KATEDRA INFORMATYKI
 
 
-PRZEWODNIK PO PROJEKCIE
+PRZEWODNIK PO PRACY
 
 Implementacja narzędzia modelowania brył elastycznych 
 Tool for modelling flexible objects
@@ -37,29 +37,29 @@ w wersji oryginalnej albo w postaci opracowania, artystyczne wykonanie albo publ
 27 lipca 2005 r. Prawo o szkolnictwie wyższym (t.j. Dz. U. z 2012 r. poz. 572, z późn. zm.) „Za naruszenie przepisów obowiązujących w uczelni oraz za czyny uchybiające godności studenta student ponosi odpowiedzialność dyscyplinarną przed komisją dyscyplinarną albo przed sądem koleżeńskim samorządu studenckiego, zwanym dalej „sądem koleżeńskim”, oświadczam, że niniejszą pracę dyplomową wykonałem(-am) osobiście, samodzielnie i że nie korzystałem(-am) ze źródeł innych niż wymienione w pracy.
 　							...................................
 Spis treści
-1. Cel pracy i wizja produktu
-　　1.1. Cel pracy
-　　1.2. Motywacja
-　　1.3. Ogólna wizja projektu
-　　1.4. Analiza ryzyka
-2. Zakres funkcjonalności
-　　2.1 Kontekst użytkowania produktu
-　　2.2. Wymagania funkcjonalne
-　　2.3. Wymagania niefunkcjonalne
-3. Wybrane aspekty realizacji
-　　3.1. Wykorzystane technologie
-　　3.2. Wizja architektury projektu
-　　3.3. Opis najważniejszych modułów aplikacji
-　　3.4. Struktura projektu
-4. Organizacja pracy
-　　4.1. Podział zadań
-　　4.2. Etapy pracy
-　　4.3. Narzędzia wykorzystywane do pracy nad aplikacją
-5. Wyniki projektu
-　　5.1 Efekty pracy
-　　5.2. Możliwości dalszego rozwoju aplikacji
-　　5.3. Podsumowanie
-6. Materiały źródłowe
+1. Cel pracy i wizja produktu	4
+　　1.1. Cel pracy	4
+　　1.2. Motywacja	4
+　　1.3. Ogólna wizja projektu	4
+　　1.4. Analiza ryzyka	5
+2. Zakres funkcjonalności	6
+　　2.1 Kontekst użytkowania produktu	6
+　　2.2. Wymagania funkcjonalne	6
+　　2.3. Wymagania niefunkcjonalne	7
+3. Wybrane aspekty realizacji	8
+　　3.1. Wykorzystane technologie	8
+　　3.2. Architektura projektu	8
+　　3.3. Opis najważniejszych modułów aplikacji	9
+　　3.4. Struktura projektu	11
+4. Organizacja pracy	12
+　　4.1. Podział zadań	12
+　　4.2. Etapy pracy	13
+　　4.3. Narzędzia wykorzystywane do pracy nad aplikacją	16
+5. Wyniki projektu	18
+　　5.1 Efekty pracy	18
+　　5.2. Możliwości dalszego rozwoju aplikacji	19
+　　5.3. Podsumowanie	19
+6. Materiały źródłowe	20
 1. Cel pracy i wizja produktu
 1.1. Cel pracy
 Celem pracy jest stworzenie aplikacji służącej do symulowania zjawisk zmiany kształtu występujących w pewnych układach fizycznych zwanych bryłami elastycznymi. Są to bryły, które pod wpływem działania nań pewną zewnętrzną siłą ulegają stałym lub chwilowym odkształceniom.
@@ -121,7 +121,7 @@ Pod względem implementacji, aplikacja podzielona jest na moduły spełniające 
 1. Moduł głównego okna aplikacji
 W ramach tego modułu definiowany jest wygląd głównego okna aplikacji. Zawiera on informacje o rozmieszczeniu oraz wyglądzie wszystkich widocznych 	elementów znajdujących się w oknie. Pozwala użytkownikowi na wprowadzanie zmian w układzie poprzez edycję odpowiednich pól.
 2. Model danych aplikacji
-Odpowiada za przechowywanie informacji o stanie bryły za 	pomocą obiektów reprezentujących byty występujące w rzeczywistej 	dziedzinie rozwiązywanego problemu.
+Odpowiada za przechowywanie informacji o stanie bryły za 	pomocą obiektów reprezentujących byty występujące w rzeczywistej dziedzinie rozwiązywanego problemu.
 
 3. Moduł tworzenia nowego układu
 Umożliwia stworzenie nowego 	układu węzłów i połączeń. Daje użytkownikowi możliwość wyboru 	rodzaju i rozmiar układu, nad którym będzie pracował.
@@ -153,7 +153,7 @@ Już na samym początku właściwej pracy pojawiły się nieoczekiwane problemy 
 Przygotowane poprzednio dokumenty, takie jak wizja, czy wymagania stawiane aplikacji nakreśliły pewien ogólny kształt, który miała przybrać aplikacja. W tym etapie jednak zaczęła ona wyraźnie krystalizować się. Głównym wzorcem użytym podczas implementacji projektu został Model-View-Controller, jako jeden z najlepiej poznanych i sprawdzonych wzorców używanych do projektowania aplikacji tego typu. Wprowadza on podział kodu na trzy części, różniące się swoimi odpowiedzialnościami, wspólnie tworzące kompletną aplikację umożliwiającą prezentowanie danych użytkownikowi, otrzymywanie z jego strony danych zwrotnych, na podstawie których możliwa jest modyfikacja istniejącego stanu programu. MVC jest również logicznym wyborem, z uwagi na fakt, że jest ono naturalnie wprowadzane przez technologię JavaFX, co znacząco ułatwia początkowe stadia implementacji aplikacji o ten wzorzec opartych.
 4.	Implementacja modelu danych (wrzesień 2015)
 Model danych jest jedną z głównych części wzorca Model-Widok-Kontroler i odpowiedzialny jest za przechowywanie informacji dotyczących problemu, którym zajmuje się aplikacja. Stanowi pewną reprezentację dziedziny owego problemu, za pomocą zależnych od siebie obiektów stara się odwzorować relacje zachodzące pomiędzy pewnymi bytami będącymi częścią zagadnienia. Zawiera również dane informujące o pewnych właściwościach tych bytów. W poniższej aplikacji model składa się zasadniczo z dwóch rodzajów obiektów. Pierwszy z nich reprezentuje punkty mogące przemieszczać się w przestrzeni, drugi zaś - połączenia między owymi punktami, mogące rozszerzać się i kurczyć zgodnie z podanymi parametrami, co wpływa na możliwe ustawienia punktów.
-5. 	Wprowadzenie modułu wizualizacji 
+5.	Wprowadzenie modułu wizualizacji 
 	(wrzesień, listopad 2015)
 Pomimo posiadania prototypu modułu wizualizacji z początkowych faz projektu, ukończenie implementacji modułu było okupione dużym nakładem pracy. Obecny prototyp był tylko statyczną sceną z kilkoma obiektami, stworzoną, aby sprawdzić, czy używana technologia wizualizacji zadziała w aplikacji. Finalna wersja modułu wymagała wielu wprowadzenia wielu zmian, potrzebny był też czas na zaznajomienie się z dokumentacją biblioteki JavaFX 3D. Dodane do modułu funkcjonalności to między innymi:
 -	możliwość swobodnego przesuwania, obracania, a także przybliżania i 	oddalania widoku;
@@ -161,13 +161,14 @@ Pomimo posiadania prototypu modułu wizualizacji z początkowych faz projektu, u
 　　-	zaznaczanie obiektów, co umożliwia ustawienie ich parametrów w 			osobnym widoku.
 6.	Opracowanie i implementacja algorytmu (grudzień 2015)
 Moduł obliczający odkształcenia bryły jest jedną z bardziej istotnych części aplikacji. Jest on uruchamiany aby znaleźć najbliższe położenie, w którym układ jest w stanie równowagi. Działa w sposób zachłanny, wybierając najlepsze lokalnie położenie dla każdego z węzłów i powtarzając swoje operacje do momentu znalezienia akceptowalnego rozwiązania. Działanie algorytmu było przedmiotem kilku zespołowych spotkań, podczas których było ono szczegółowo omawiane. Po dość znaczącym czasie opracowywania algorytmu, jego implementacja również zajęła stosunkowo dużo czasu z uwagi na wiele szczegółów, na które trzeba było zwrócić uwagę, jak również pewne problemy, które wynikły w trakcie właściwej pracy, a które wymagały pewnego doprecyzowania sposobu działania.
-7. 	Implementacja modułu persystencji układu
+7.	Implementacja modułu persystencji układu
 	(grudzień 2015)
-Moduł persystencji umożliwia zapisanie swojego postępu pracy w aplikacji do postaci pliku .xml, a następnie wczytanie takiego, uprzednio zapisanego pliku, w celu kontynuacji pracy. Jest to możliwe dzięki użyciu biblioteki Java Architecture for XML Binding, która udostępnia wysokopoziomowe API do eksportu i importu obiektów do postaci .xml. Umożliwia ona łatwe wybieranie obiektów, które chcemy wyeksportować. Podczas importu, plik jest odczytywany i wszystkie obiekty, które zostały w nim zapisane są tworzone, wraz z odpowiednią zawartością pól oraz zależnościami do innych obiektów.
-8. 	Wprowadzenie modułu eksportu wizualizacji 
+Moduł persystencji umożliwia zapisanie swojego postępu pracy w aplikacji do postaci pliku .xml, a następnie wczytanie takiego, uprzednio zapisanego pliku, w celu kontynuacji pracy. Jest to możliwe dzięki użyciu biblioteki Java Architecture for XML Binding, która udostępnia wysokopoziomowe API do eksportu i importu obiektów do postaci .xml. Umożliwia ona łatwe wybieranie obiektów, które chcemy wyeksportować za pomocą odpowiednich adnotacji. Podczas wczytywania, plik jest odczytywany i wszystkie obiekty, które zostały w nim zapisane są tworzone, wraz z odpowiednią zawartością pól oraz zależnościami do innych obiektów.
+Moduł został przetestowany za pomocą testu jednostkowego. Porównano wartości pól każdego elementu układu przed zapisem oraz po jego wczytaniu.
+8.	Wprowadzenie modułu eksportu wizualizacji 
 	(styczeń 2015)
 Eksport wizualizacji również został zrealizowany przy użyciu zewnętrznej biblioteki JCSG, implementującej constructive solid geometry. W module wizualizowane obiekty tłumaczone są na obiekty klas wykorzystywanych przez bibliotekę. Następnie tak stworzony graf obiektów jest, za pomocą odpowiednich metod przetwarzany i zapisywany do pliku w formacie .obj. Jest to popularny format definicji geometrii, dzięki czemu pliki takie można następnie w łatwy sposób zaimportować do zewnętrznych aplikacji pozwalających na obróbkę 3D, jak na przykład wykorzystywany w celach testowych Blender.
-4.3.	Narzędzia wykorzystywane do pracy nad 					aplikacją
+4.3.	Narzędzia wykorzystywane do pracy nad 				aplikacją
 Podczas implementowania aplikacji wykorzystywaliśmy kilka narzędzi ułatwiających zarządzanie kodem, jego budowanie, czy samo tworzenie.
 Używanym systemem kontroli wersji był Git. System ten został wybrany z uwagi na duże możliwości, łatwość obsługi, a także doświadczenie, jakie posiadaliśmy w pracy z nim wyniesione z realizowania wcześniejszych projektów.
 Repozytorium z kodem aplikacji znajdowało się w serwisie GitHub. Jest on chyba najbardziej popularnym serwisem tego typu, zapewnia wszystkie niezbędne funkcje. Ponadto posiada duże możliwości ułatwiające pracę nad projektami.
@@ -193,8 +194,8 @@ Praca nad projektem poskutkowała nie tylko stworzeniem aplikacji oraz niniejsze
 
 6. Materiały źródłowe
 [1] 	Alla Redko. JavaFX/Using JavaFX UI Controls, Release 2.2. 
-		2011, 2013
-[2]	Cindy Castillo, John Yoon. Getting Started with JavaFX 3D Graphics, 		Release 8.0 Developer Preview. 2013
+		2011, 2013.
+[2]	Cindy Castillo, John Yoon. Getting Started with JavaFX 3D Graphics, 		Release 8.0 Developer Preview. 2013.
 [3] 	Wolfgang Laun. A JAXB Tutorial.
 [4] 	JCSG. https://github.com/miho/JCSG .
 
