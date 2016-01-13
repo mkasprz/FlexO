@@ -19,7 +19,7 @@ public class DeformationCalculator {
     private double centralXChange;
     private double centralYChange;
     private double centralZChange;
-    private int iterations = 0;
+    private long iterations = 0;
     private boolean difficulty = false;
 
     public DeformationCalculator(Setup setup) {
@@ -52,7 +52,7 @@ public class DeformationCalculator {
         setAllNodesImba();
         first = true; // [TODO] Seems useless right now
         performCalculations();
-        if (nodes.stream().anyMatch(TypicalNode::isImba)) {
+        while (nodes.stream().anyMatch(TypicalNode::isImba) && iterations < Long.MAX_VALUE) {
             performCalculations(); //if nodes are not in balance call for another iteration
         }
     }
