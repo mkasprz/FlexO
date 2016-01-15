@@ -117,7 +117,7 @@ public class DeformationCalculator {
                 resultVector.set(i, new Double(value));
             }
         }
-        if (((Double) resultVector.get(0)).doubleValue() + ((Double) resultVector.get(1)).doubleValue() + ((Double) resultVector.get(2)).doubleValue() <= 0.001) {
+        if (((Double) resultVector.get(0)).doubleValue() + ((Double) resultVector.get(1)).doubleValue() + ((Double) resultVector.get(2)).doubleValue() <= 0.05) {
             node.setImba(false);
         }
     }

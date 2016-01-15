@@ -3,6 +3,7 @@ package flexo.gui;
 import flexo.model.Connection;
 import flexo.model.TypicalNode;
 import flexo.visualization.Visualization;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -104,7 +105,10 @@ public class PropertiesController {
         x.setFont(defaultFont);
         y.setFont(defaultFont);
         z.setFont(defaultFont);
-        visualization.recalculateDeformation();
+        ApplicationController.runAsTask(() -> {
+            visualization.recalculateDeformation();
+        }, "Recalculating setup", "recalculating setup"); // [TODO] Not sure about it
+        // task.setOnCancelled(); // [TODO]
     }
 
     @FXML
@@ -113,8 +117,11 @@ public class PropertiesController {
         selectedConnection.setYoungsModulus(youngsModulus.getNumber());
         preferredLength.setFont(defaultFont);
         youngsModulus.setFont(defaultFont);
-        visualization.recalculateDeformation(); // [TODO] Not sure about it
-        currentLength.setText(String.valueOf(selectedConnection.getLength()));
+        Task task = ApplicationController.runAsTask(() -> {
+            visualization.recalculateDeformation();
+            currentLength.setText(String.valueOf(selectedConnection.getLength()));
+        }, "Recalculating setup", "recalculating setup"); // [TODO] Not sure about it
+        // task.setOnCancelled(); // [TODO]
     }
 
     public void setVisualization(Visualization visualization) {

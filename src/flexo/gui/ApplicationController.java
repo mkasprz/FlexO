@@ -9,11 +9,13 @@ import flexo.model.persistence.SetupSaver;
 import flexo.model.setupbuilder.SetupBuilder;
 import flexo.model.setupbuilder.ThreeDimensionalSetupBuilder;
 import flexo.model.setupbuilder.TwoDimensionalSetupBuilder;
-import flexo.visualization.Visualization;
 import flexo.visualization.SelectionObserver;
+import flexo.visualization.Visualization;
 import flexo.visualization.VisualizedConnection;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
+import javafx.concurrent.Task;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.*;
 import javafx.scene.control.*;
@@ -24,7 +26,6 @@ import javafx.stage.FileChooser;
 
 import javax.xml.bind.JAXBException;
 import java.io.File;
-import java.io.IOException;
 import java.util.Optional;
 
 public class ApplicationController implements SelectionObserver {
@@ -206,9 +207,18 @@ public class ApplicationController implements SelectionObserver {
 
         Optional<String> integerInputDialogResult = textInputDialog.showAndWait();
         if (integerInputDialogResult.isPresent()) {
-            setup = setupBuilder.build(Integer.parseInt(integerInputDialogResult.get()));
-            visualizeSetup();
-            enableMenuItems();
+//            setup = setupBuilder.build(Integer.parseInt(integerInputDialogResult.get()));
+//            visualizeSetup();
+//            enableMenuItems();
+            Task task = runAsTask(() -> setup = setupBuilder.build(Integer.parseInt(integerInputDialogResult.get())),
+                    "Creating new setup", "creating new setup"
+            );
+            EventHandler onSucceeded = task.getOnSucceeded();
+            task.setOnSucceeded(event -> {
+                onSucceeded.handle(event);
+                visualizeSetup();
+                enableMenuItems();
+            });
         }
     }
 
@@ -245,11 +255,7 @@ public class ApplicationController implements SelectionObserver {
     @FXML
     private void saveSetup() {
         if (filePath != null) {
-            try {
-                SetupSaver.saveToXMLFile(setup, new File(filePath));
-            } catch (JAXBException e) {
-                new Alert(Alert.AlertType.ERROR, "Error while saving file", ButtonType.OK);
-            }
+            runAsTask(() -> SetupSaver.saveToXMLFile(setup, new File(filePath)), "Saving setup", "saving setup");
         } else {
             saveSetupAs();
         }
@@ -262,30 +268,60 @@ public class ApplicationController implements SelectionObserver {
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("XML files", "*.xml", "*.XML"), new FileChooser.ExtensionFilter("All files", "*"));
         File file = fileChooser.showSaveDialog(null);
         if (file != null) {
-            try {
+            runAsTask(() -> {
                 SetupSaver.saveToXMLFile(setup, file);
                 filePath = file.getPath();
-            } catch (JAXBException e) {
-                new Alert(Alert.AlertType.ERROR, "Error while saving file", ButtonType.OK);
-            }
+            }, "Saving setup", "saving setup");
         }
     }
 
     @FXML
     private void exportSetup() {
-        File file = new FileChooser().showSaveDialog(null);
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setInitialFileName("Setup.obj");
+        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("OBJ files", "*.obj", "*.OBJ"), new FileChooser.ExtensionFilter("All files", "*"));
+        File file = fileChooser.showSaveDialog(null);
         if (file != null) {
-            try {
-                SetupExporter.exportToOBJFile(setup, file);
-            } catch (IOException e) {
-                new Alert(Alert.AlertType.ERROR, "Error while exporting file", ButtonType.OK);
-            }
+            runAsTask(() -> SetupExporter.exportToOBJFile(setup, file), "Exporting setup", "exporting setup");
         }
     }
 
     @FXML
     private void quit() {
         Platform.exit();
+    }
+
+    static Task runAsTask(RunnableWithException runnableWithException, String title, String contentText) {
+        Alert alert = new Alert(Alert.AlertType.NONE, title, ButtonType.CANCEL);
+        alert.setTitle(title);
+
+        Task task = new Task<Void>() {
+            @Override
+            protected Void call() throws Exception {
+                runnableWithException.run();
+                return null;
+            }
+        };
+
+        task.setOnSucceeded(event -> {
+            alert.close();
+        });
+
+        task.setOnFailed(event -> {
+            alert.close();
+            Alert errorAlert = new Alert(Alert.AlertType.NONE, "Error occurred while " + contentText, ButtonType.OK);
+            errorAlert.setTitle("Error occurred");
+            errorAlert.show();
+        });
+
+        ((Button) alert.getDialogPane().lookupButton(ButtonType.CANCEL)).setOnAction(event -> {
+            task.cancel();
+        });
+
+        new Thread(task).start();
+        alert.show();
+
+        return task;
     }
 
     @Override
@@ -299,4 +335,9 @@ public class ApplicationController implements SelectionObserver {
         propertiesController.setSelectedConnection(connection);
         listView.getSelectionModel().select(connection);
     }
+
+    interface RunnableWithException {
+        void run() throws Exception;
+    }
+
 }

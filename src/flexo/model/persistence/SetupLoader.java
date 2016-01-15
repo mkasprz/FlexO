@@ -15,4 +15,10 @@ public class SetupLoader { // [TODO] Consider changing the name to 'SetupReader'
         return (Setup) unmarshaller.unmarshal(file);
     }
 
+    private static void checkIfInterrupted() throws InterruptedException {
+        if (Thread.interrupted()) {
+            throw new InterruptedException();
+        }
+    }
+
 }
