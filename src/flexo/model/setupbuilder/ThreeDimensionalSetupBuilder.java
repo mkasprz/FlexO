@@ -8,10 +8,12 @@ import flexo.model.TypicalNode;
 import java.util.LinkedList;
 import java.util.List;
 
+import static flexo.utilities.ThreadInterruptionUtility.checkIfInterrupted;
+
 public class ThreeDimensionalSetupBuilder implements SetupBuilder {
 
     @Override
-    public Setup build(int numberOfNodesInBase) {
+    public Setup build(int numberOfNodesInBase) throws InterruptedException {
         Setup setup = new Setup();
         List connections = setup.getConnections();
         List immovableNodes = setup.getImmovableNodes();
@@ -29,28 +31,31 @@ public class ThreeDimensionalSetupBuilder implements SetupBuilder {
             double angle = 0;
             for (int i = 0; i < numberOfNodesInBase; i++, angle += 2 * stepSize, id++) {
                 TypicalNode typicalNode2;
+                checkIfInterrupted();
                 if (k == 0) {
                     typicalNode2 = new ImmovableNode(r * Math.cos(angle), 0, r * Math.sin(angle), id);
                     immovableNodes.add(typicalNode2);
                     nodes.add(typicalNode2);
                 } else {
                     typicalNode2 = new TypicalNode(r * Math.cos(angle), y, r * Math.sin(angle), id);
-                    connections.add(new Connection(nodes.get(i), typicalNode2, 0.07));
+                    connections.add(new Connection(nodes.get(i), typicalNode2));
                     typicalNodes.add(typicalNode2);
                     nodes.set(i, typicalNode2);
                 }
                 if (i != 0) {
-                    connections.add(new Connection(typicalNode1, typicalNode2, 0.07));
+                    connections.add(new Connection(typicalNode1, typicalNode2));
                 }
                 typicalNode1 = typicalNode2;
             }
-            connections.add(new Connection(typicalNode1, nodes.get(0), 0.07));
+            connections.add(new Connection(typicalNode1, nodes.get(0)));
         }
 
+        checkIfInterrupted();
         TypicalNode typicalNode2 = new TypicalNode(0, diameter, 0, id);
         typicalNodes.add(typicalNode2);
         for (TypicalNode typicalNode1 : nodes) {
-            connections.add(new Connection(typicalNode1, typicalNode2, 0.07));
+            checkIfInterrupted();
+            connections.add(new Connection(typicalNode1, typicalNode2));
         }
 
         setup.setCentralNode(new TypicalNode());

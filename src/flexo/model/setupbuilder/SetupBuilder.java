@@ -4,6 +4,6 @@ import flexo.model.Setup;
 
 public interface SetupBuilder {
 
-    Setup build(int number);
+    Setup build(int number) throws InterruptedException;
 
 }

@@ -10,6 +10,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+import static flexo.utilities.ThreadInterruptionUtility.checkIfInterrupted;
+
 public class SetupExporter {
 
     public static void exportToOBJFile(Setup setup, File file) throws IOException, InterruptedException {
@@ -44,11 +46,5 @@ public class SetupExporter {
 
     private static Vector3d getVector3d(SimpleNode node) {
         return new Vector3d(node.getX(), node.getY(), node.getZ());
-    }
-
-    private static void checkIfInterrupted() throws InterruptedException {
-        if (Thread.interrupted()) {
-            throw new InterruptedException();
-        }
     }
 }

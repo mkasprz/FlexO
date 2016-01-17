@@ -10,16 +10,15 @@ public class Connection {
     @XmlIDREF
     private TypicalNode typicalNode2;
 
-    private double youngsModulus;
+    private double youngsModulus = 0.2;
     private double balanceLength;
 
     public Connection() {
     }
 
-    public Connection(TypicalNode typicalNode1, TypicalNode typicalNode2, double youngsModulus) {
+    public Connection(TypicalNode typicalNode1, TypicalNode typicalNode2) {
         this.typicalNode1 = typicalNode1;
         this.typicalNode2 = typicalNode2;
-        this.youngsModulus = youngsModulus;
         this.balanceLength = getLength();
     }
 

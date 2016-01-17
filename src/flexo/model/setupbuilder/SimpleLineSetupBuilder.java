@@ -33,7 +33,7 @@ public class SimpleLineSetupBuilder implements SetupBuilder { // [TODO] Decide i
         }
 
         for (int i = 0; i < nodes.size() - 1; i++) {
-            connections.add(new Connection(nodes.get(i), nodes.get(i+1), 0.07));
+            connections.add(new Connection(nodes.get(i), nodes.get(i+1)));
         }
 
         setup.setCentralNode(new TypicalNode(0, -1, 0, 0));

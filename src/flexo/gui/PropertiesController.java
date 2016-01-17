@@ -137,12 +137,8 @@ public class PropertiesController {
         connectionPropertiesScrollPane.setVisible(false);
 
         this.selectedNode = typicalNode;
-
-        if (selectedNode.getId() == 0) {
-            setNumberFieldsEditable(true);
-        } else {
-//            setNumberFieldsEditable(false);
-        }
+        
+        setNumberFieldsEditable(selectedNode.getId() == 0);
 
         id.setText(typicalNode.getIdAsString());
         x.setNumber(typicalNode.getX());

@@ -24,7 +24,6 @@ import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
 import javafx.stage.FileChooser;
 
-import javax.xml.bind.JAXBException;
 import java.io.File;
 import java.util.Optional;
 
@@ -60,7 +59,7 @@ public class ApplicationController implements SelectionObserver {
     double lastDividerPosition;
 
     private Setup setup;
-    private Group root;
+    private volatile Group root;
     private Visualization visualization;
 
     private final int X = 0;
@@ -207,16 +206,16 @@ public class ApplicationController implements SelectionObserver {
 
         Optional<String> integerInputDialogResult = textInputDialog.showAndWait();
         if (integerInputDialogResult.isPresent()) {
-//            setup = setupBuilder.build(Integer.parseInt(integerInputDialogResult.get()));
-//            visualizeSetup();
-//            enableMenuItems();
-            Task task = runAsTask(() -> setup = setupBuilder.build(Integer.parseInt(integerInputDialogResult.get())),
-                    "Creating new setup", "creating new setup"
-            );
+            Task task = runAsTask(() -> {
+                setup = setupBuilder.build(Integer.parseInt(integerInputDialogResult.get()));
+                visualization = new Visualization(setup, this);
+            }, "Creating new setup", "creating new setup");
+
             EventHandler onSucceeded = task.getOnSucceeded();
             task.setOnSucceeded(event -> {
                 onSucceeded.handle(event);
-                visualizeSetup();
+                showVisualizedSetup();
+                filePath = null;
                 enableMenuItems();
             });
         }
@@ -228,14 +227,18 @@ public class ApplicationController implements SelectionObserver {
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("XML files", "*.xml", "*.XML"), new FileChooser.ExtensionFilter("All files", "*"));
         File file = fileChooser.showOpenDialog(null);
         if (file != null) {
-            try {
+            Task task = runAsTask(() -> {
                 setup = SetupLoader.loadFromXMLFile(file);
-                visualizeSetup();
+                visualization = new Visualization(setup, this);
+            }, "Loading setup", "loading setup");
+
+            EventHandler onSucceeded = task.getOnSucceeded();
+            task.setOnSucceeded(event -> {
+                onSucceeded.handle(event);
+                showVisualizedSetup();
                 filePath = file.getPath();
                 enableMenuItems();
-            } catch (JAXBException | RuntimeException e) {
-                new Alert(Alert.AlertType.ERROR, "Error while opening file", ButtonType.OK).show();
-            }
+            });
         }
     }
 
@@ -245,10 +248,10 @@ public class ApplicationController implements SelectionObserver {
         exportMenuItem.setDisable(false);
     }
 
-    private void visualizeSetup() {
+    private void showVisualizedSetup() {
         root.getChildren().clear();
         listView.getItems().setAll(setup.getConnections());
-        visualization = new Visualization(setup, root, this);
+        root.getChildren().addAll(visualization.getVisualisedElements());
         propertiesController.setVisualization(visualization);
     }
 
