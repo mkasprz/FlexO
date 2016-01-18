@@ -206,6 +206,7 @@ public class ApplicationController implements SelectionObserver {
 
         Optional<String> integerInputDialogResult = textInputDialog.showAndWait();
         if (integerInputDialogResult.isPresent()) {
+            Setup previousSetup = setup;
             Task task = runAsTask(() -> {
                 setup = setupBuilder.build(Integer.parseInt(integerInputDialogResult.get()));
                 visualization = new Visualization(setup, this);
@@ -218,6 +219,11 @@ public class ApplicationController implements SelectionObserver {
                 filePath = null;
                 enableMenuItems();
             });
+
+            task.setOnCancelled(event -> {
+                setup = previousSetup;
+                System.gc(); // [TODO] Seems like it does not help anyway
+            });
         }
     }
 
@@ -227,6 +233,7 @@ public class ApplicationController implements SelectionObserver {
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("XML files", "*.xml", "*.XML"), new FileChooser.ExtensionFilter("All files", "*"));
         File file = fileChooser.showOpenDialog(null);
         if (file != null) {
+            Setup previousSetup = setup;
             Task task = runAsTask(() -> {
                 setup = SetupLoader.loadFromXMLFile(file);
                 visualization = new Visualization(setup, this);
@@ -238,6 +245,11 @@ public class ApplicationController implements SelectionObserver {
                 showVisualizedSetup();
                 filePath = file.getPath();
                 enableMenuItems();
+            });
+
+            task.setOnCancelled(event -> {
+                setup = previousSetup;
+                System.gc(); // [TODO] Seems like it does not help anyway
             });
         }
     }
