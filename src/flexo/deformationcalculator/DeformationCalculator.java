@@ -1,6 +1,7 @@
 package flexo.deformationcalculator;
 
 import flexo.model.*;
+import javafx.geometry.Point3D;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -56,7 +57,7 @@ public class DeformationCalculator {
             iterations++;
         }
         while (nodes.stream().anyMatch(TypicalNode::isImba) || maximumLengthSum - lengthSum > 0.1 && iterations < Integer.MAX_VALUE); // [TODO] Let user choose accuracy
-        // System.out.println(iterations);
+         System.out.println(iterations);
     }
 
     private void moveNodeAccordingly(TypicalNode node, double x, double y, double z) {
@@ -65,25 +66,22 @@ public class DeformationCalculator {
     }
 
     private void calculateForcesAndMoveNodeAccordingly(TypicalNode node) {
-        Vector resultVector = calculateForces(node);
-        double x = (double) resultVector.get(0);
-        double y = (double) resultVector.get(1);
-        double z = (double) resultVector.get(2);
+        Point3D resultVector = calculateForces(node);
+        double x = resultVector.getX();
+        double y = resultVector.getY();
+        double z = resultVector.getZ();
         node.translateNode(x, y, z);
         if (x + y + z <= 0.01) {
             node.setImba(false);
         }
     }
 
-    private Vector calculateForces(TypicalNode node) {
+    private Point3D calculateForces(TypicalNode node) {
         List<Connection> connectionsFromNode = setup.getConnectionsFromNode(node);
-        List<Vector> forces = new LinkedList<>(); // [TODO] Don't use 'Vector' - it's better to use normal 'double[]'
-        Vector resultVector = new Vector(3);
-        resultVector.add(0, 0.0);
-        resultVector.add(1, 0.0);
-        resultVector.add(2, 0.0);
+        List<Point3D> forces = new LinkedList<>();
+        Point3D resultVector = new Point3D(0,0,0);
         for (Connection connection : connectionsFromNode) {
-            Vector result;
+            Point3D result;
             if (connection.getTypicalNode1().equals(node)) {
                 result = getForceBetweenNodes(connection, connection.getTypicalNode1(), connection.getTypicalNode2());
             } else {
@@ -92,20 +90,16 @@ public class DeformationCalculator {
             forces.add(result);
         }
 
-        for (List vector : forces) {
-            for (int i = 0; i < 3; i++) {
-                double value = (double) vector.get(i) + (double) resultVector.get(i);
-                resultVector.set(i, value);
-            }
+        for (Point3D vector : forces) {
+            resultVector = resultVector.add(vector);
         }
         return resultVector;
     }
 
-    private Vector getForceBetweenNodes(Connection connection, SimpleNode node1, SimpleNode node2) {
-        Vector force = new Vector(3);
-        force.add(0, (node2.getX() - node1.getX()) * connection.getYoungsModulus() * (connection.getLength() - connection.getBalanceLength()) / connection.getLength());
-        force.add(1, (node2.getY() - node1.getY()) * connection.getYoungsModulus() * (connection.getLength() - connection.getBalanceLength()) / connection.getLength());
-        force.add(2, (node2.getZ() - node1.getZ()) * connection.getYoungsModulus() * (connection.getLength() - connection.getBalanceLength()) / connection.getLength());
+    private Point3D getForceBetweenNodes(Connection connection, SimpleNode node1, SimpleNode node2) {
+        Point3D force = new Point3D(node2.getX() - node1.getX(), node2.getY() - node1.getY(), node2.getZ() - node1.getZ());
+        force.normalize();
+        force = force.multiply(connection.getYoungsModulus() * (connection.getLength() - connection.getBalanceLength()) / connection.getLength());
         return force;
     }
 }
